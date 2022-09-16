@@ -1,6 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { registerUser } from "../api";
+import { useHistory } from "react-router-dom";
+import { registerUser } from "../frontend-api";
 
 const Register = ({
     username,
@@ -11,7 +11,7 @@ const Register = ({
     email,
     setEmail,
 }) => {
-    const navigate = useNavigate();
+    const navigate = useHistory();
 
     const handleSubmit = async (event) => {
         event.preventDefault();

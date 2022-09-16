@@ -1,6 +1,6 @@
 import React from 'react';
-import {useNavigate } from "react-router-dom";
-import { loginUser } from "../api";
+import { useHistory } from "react-router-dom";
+import { loginUser } from "../frontend-api";
 
 const Login = ({
     username,
@@ -10,7 +10,7 @@ const Login = ({
     setToken,
     setIsLoggedIn,
 }) => {
-    const navigate = useNavigate();
+    const navigate = useHistory();
 
     const handleSubmit = async (event) => {
         event.preventDefault()
