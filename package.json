@@ -11,6 +11,7 @@
     "db:build": "node ./db/seedData",
     "start:dev": "concurrently \"npm run client:build\" \"npm run client:dev\" \"npm run server:dev\"",
     "start": "node index.js",
+    "seed:dev": "nodemon ./db/seed.js",
     "test": "jest --runInBand"
   },
   "keywords": [],
