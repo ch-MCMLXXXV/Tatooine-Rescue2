@@ -1,4 +1,4 @@
-import { Route, Routes, Link } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { Navbar, Home, Login, Register, Cart } from "../components";
 import { getAPIHealth } from "../frontend-api";
@@ -53,7 +53,7 @@ const App = () => {
     <>
       <Navbar token={token} />
 
-      <Routes>
+      <Switch>
         <Route exact path="/" element={<Home />}></Route>
         {/* <Route path="Home" element={<Dog token={token} />}></Route> */}
         <Route path="Register" element={<Register />}></Route>
@@ -74,7 +74,7 @@ const App = () => {
           path="logout"
           element={<Logout token={token} setToken={setToken} />}
         ></Route>
-      </Routes>
+      </Switch>
     </>
   );
 };
