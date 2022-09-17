@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from 'react';
-// getAPIHealth is defined in our axios-services directory index.js
-// you can think of that directory as a collection of api adapters
-// where each adapter fetches specific info from our express server's /api route
-import { getAPIHealth } from '../frontend-api';
-import '../style/App.css';
+import { Route, Routes, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Navbar, Home, Login, Register, Cart } from "../components";
+import { getAPIHealth } from "../frontend-api";
+import "../style/App.css";
 
 const App = () => {
-  const [APIHealth, setAPIHealth] = useState('');
+  const [APIHealth, setAPIHealth] = useState("");
+  const [token, setToken] = useState();
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
+  const [cart, setCart] = useState();
+  const [order, setOrder] = useState();
+  const [dogs, setDogs] = useState();
 
   useEffect(() => {
     // follow this pattern inside your useEffect calls:
@@ -14,7 +19,7 @@ const App = () => {
     // invoke the adapter, await the response, and set the data
     const getAPIStatus = async () => {
       const { healthy } = await getAPIHealth();
-      setAPIHealth(healthy ? 'api is up! :D' : 'api is down :/');
+      setAPIHealth(healthy ? "api is up! :D" : "api is down :/");
     };
 
     // second, after you've defined your getter above
@@ -22,11 +27,55 @@ const App = () => {
     getAPIStatus();
   }, []);
 
+  useEffect(() => {
+    const getUserInfo = async () => {
+      const userInfo = await getMe(token);
+
+      return setUser(userInfo);
+    };
+    getUserInfo();
+  }, [token]);
+
+  useEffect(() => {
+    const getActiveCart = async () => {
+      const cart = await getCartByUser(token);
+      console.log("useEffect", cart);
+      return setCart(cart);
+    };
+    getActiveCart();
+  }, [token]);
+
+  if (cart) {
+    console.log("cart is", cart);
+  }
+
   return (
-    <div className="app-container">
-      <h1>Hello, World!</h1>
-      <p>API Status: {APIHealth}</p>
-    </div>
+    <>
+      <Navbar token={token} />
+
+      <Routes>
+        <Route exact path="/" element={<Home />}></Route>
+        {/* <Route path="Home" element={<Dog token={token} />}></Route> */}
+        <Route path="Register" element={<Register />}></Route>
+        <Route path="Dog" element={<Dog token={token} />}></Route>
+        <Route path="users" element={<Users token={token} />}></Route>
+        <Route path="orders" element={<Cart />}></Route>
+        <Route
+          path="create"
+          element={<Create token={token} dogs={dogs} setDogs={setDogs} />}
+        ></Route>
+        <Route path="inbox" element={<Inbox token={token} />}></Route>
+        <Route
+          path="Login"
+          element={<Login token={token} setToken={setToken} />}
+        ></Route>
+        <Route path="register" element={<Register />}></Route>
+        <Route
+          path="logout"
+          element={<Logout token={token} setToken={setToken} />}
+        ></Route>
+      </Routes>
+    </>
   );
 };
 
