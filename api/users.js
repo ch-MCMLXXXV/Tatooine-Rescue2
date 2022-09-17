@@ -20,7 +20,7 @@ usersRouter.get('/', async (req, res) => {
    });
 });
 
-usersRouter.post('/Login', async (req, res, next) => {
+usersRouter.post('/login', async (req, res, next) => {
    const { username, password } = req.body;
 
    if (!username || !password) {
@@ -47,7 +47,7 @@ usersRouter.post('/Login', async (req, res, next) => {
    }
 });
 
-usersRouter.post('Register', async (req, res, next) => {
+usersRouter.post('/register', async (req, res, next) => {
    const { username, password, email } = req.body;
 
    try {
