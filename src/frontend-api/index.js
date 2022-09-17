@@ -1,4 +1,6 @@
 import axios from 'axios';
+import React from 'react';
+export const BASE_URL = "/frontend-api";
 
 // this file holds your frontend network request adapters
 // think about each function as a service that provides data
@@ -6,17 +8,32 @@ import axios from 'axios';
 
 // for example, if we need to display a list of users
 // we'd probably want to define a getUsers service like this:
+ 
+// export async function getUsers() {
+// 	try {
+// 		const { data: users } = await axios.get('/api/users')
+// 			return users;
+// 		} catch(err) {
+// 		console.error(err)
+// 		}
+// 	}
 
-/* 
-  export async function getUsers() {
-    try {
-      const { data: users } = await axios.get('/api/users')
-      return users;
-    } catch(err) {
-      console.error(err)
-    }
-  }
-*/
+export async function getUsers({ token }) {
+	try {
+		return await fetch(`${BASE_URL}/users`, {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+		})
+		.then((response) => response.json())
+		.then((result) => {
+			return result;
+		});
+	} catch (error) {
+		console.error(error)
+	}
+}
 
 export async function getAPIHealth() {
   try {
@@ -27,8 +44,6 @@ export async function getAPIHealth() {
     return { healthy: false };
   }
 }
-
-export const BASE_URL = "http://fitnesstrac-kr.herokuapp.com/api";
 
 export async function registerUser({ username, password }) {
 	try {
