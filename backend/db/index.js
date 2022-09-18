@@ -1,7 +1,6 @@
-
-    module.exports = {
-      // ...require('./client'),
-      ...require('./dogs'),
-      ...require('./users'),
-      ...require('./orders'),
-  }
+module.exports = {
+	// ...require('./client'),
+	...require('./products'),
+	...require('./users'),
+	...require('./orders'),
+};

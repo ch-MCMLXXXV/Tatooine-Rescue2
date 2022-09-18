@@ -1,4 +1,4 @@
-const { createUser, createDogs, createOrders } = require('./index');
+const { createUser, createproducts, createOrders } = require('./index');
 const client = require('./client');
 
 async function dropTables() {
@@ -8,8 +8,9 @@ async function dropTables() {
 		console.log('Starting to drop tables...');
 
 		await client.query(`
+		DROP TABLE IF EXISTS order_products;
         DROP TABLE IF EXISTS orders;
-        DROP TABLE IF EXISTS dogs;
+        DROP TABLE IF EXISTS products;
         DROP TABLE IF EXISTS users;
       `);
 		console.log('Finished dropping tables!');
@@ -35,7 +36,7 @@ async function createTables() {
             UNIQUE (username, email)
             );
             
-        CREATE TABLE dogs(
+        CREATE TABLE products(
             id SERIAL PRIMARY KEY, 
             name VARCHAR(255)  NOT NULL,
             description VARCHAR(255) NOT NULL,
@@ -51,9 +52,18 @@ async function createTables() {
             "userId" INTEGER REFERENCES users(id),
             "purchaseComplete" BOOLEAN DEFAULT false,
             "adoption_fee" INTEGER,
-            "dogId" INTEGER REFERENCES dogs(id),
+            "productId" INTEGER REFERENCES products(id),
             quantity INTEGER NOT NULL
             );
+		
+		CREATE TABLE order_products(
+			id SERIAL PRIMARY KEY,
+			"productsId" INTEGER REFERENCES products(id),
+			"ordersId" INTEGER REFERENCES orders(id),
+			"quantity" INTEGER NOT NULL DEFAULT 0,
+			"adoption_fee" FLOAT NOT NULL,
+			UNIQUE ("ordersId" , "dogId")
+			);
                     
     `);
 		console.log('Finished Building tables!');
@@ -110,10 +120,10 @@ async function createInitialUsers() {
 	}
 }
 
-async function createInitialDogsTable() {
-	console.log('Starting to create dogs...');
+async function createInitialproductsTable() {
+	console.log('Starting to create products...');
 	try {
-		const dogsToCreate = [
+		const productsToCreate = [
 			{
 				name: 'Yoda',
 				description:
@@ -185,13 +195,15 @@ async function createInitialDogsTable() {
 				isActive: true,
 			},
 		];
-		const dogs = await Promise.all(dogsToCreate.map(createDogs));
+		const products = await Promise.all(
+			productsToCreate.map(createproducts)
+		);
 
-		console.log('Dogs created:');
-		console.log(dogs);
-		console.log('Finished creating dogs!');
+		console.log('products created:');
+		console.log(products);
+		console.log('Finished creating products!');
 	} catch (error) {
-		console.error('Error creating dogs!');
+		console.error('Error creating products!');
 		throw error;
 	}
 }
@@ -287,7 +299,7 @@ async function rebuildDB() {
 		await dropTables();
 		await createTables();
 		await createInitialUsers();
-		await createInitialDogsTable();
+		await createInitialproductsTable();
 		await createInitialOrdersTable();
 	} catch (error) {
 		console.log('Error during rebuildDB');

@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react';
 export const BASE_URL = '/frontend-api';
 
-export async function getUsers({ token }) {
+export async function getUser({ token }) {
 	try {
 		return await fetch(`${BASE_URL}/users`, {
 			headers: {
@@ -71,6 +71,15 @@ export async function loginUser({ username, password }) {
 		console.error(error);
 	}
 }
+
+export const getUsersCart = async (userId, token) => {
+	const data = await {
+		url: `orders/cart/${userId}`,
+		token,
+	};
+	return data;
+};
+
 export async function createDog({
 	token,
 	name,
@@ -80,7 +89,7 @@ export async function createDog({
 	adoption_fee,
 }) {
 	try {
-		return fetch(`${BASE_URL}/dogs`, {
+		return fetch(`${BASE_URL}/products`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -103,9 +112,9 @@ export async function createDog({
 	}
 }
 
-export async function fetchAllDogs() {
+export async function fetchAllproducts() {
 	try {
-		return fetch(`${BASE_URL}/dogs`, {
+		return fetch(`${BASE_URL}/products`, {
 			headers: {
 				'Content-Type': 'application/json',
 			},
@@ -121,7 +130,7 @@ export async function fetchAllDogs() {
 
 export async function editDog({
 	token,
-	dogsId,
+	productsId,
 	name,
 	description,
 	breed,
@@ -129,7 +138,7 @@ export async function editDog({
 	adoption_fee,
 }) {
 	try {
-		return fetch(`${BASE_URL}/dogs/${dogsId}`, {
+		return fetch(`${BASE_URL}/products/${productsId}`, {
 			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json',
@@ -152,9 +161,9 @@ export async function editDog({
 	}
 }
 
-export async function deleteDog({ token, dogsId }) {
+export async function deleteDog({ token, productsId }) {
 	try {
-		return fetch(`${BASE_URL}/dogs/${dogsId}`, {
+		return fetch(`${BASE_URL}/products/${productsId}`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',

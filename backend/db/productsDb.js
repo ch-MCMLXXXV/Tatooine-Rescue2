@@ -1,6 +1,6 @@
 const client = require('./client');
 
-async function createDogs({
+async function createproducts({
 	name,
 	description,
 	adoption_fee,
@@ -11,70 +11,77 @@ async function createDogs({
 }) {
 	try {
 		const {
-			rows: [dogs],
+			rows: [products],
 		} = await client.query(
 			`
-        INSERT INTO dogs (name, description, adoption_fee, quantity, breed, image, "isActive")
+        INSERT INTO products (name, description, adoption_fee, quantity, breed, image, "isActive")
         VALUES($1, $2, $3, $4, $5, $6, $7)
         RETURNING *;
         `,
 			[name, description, adoption_fee, quantity, breed, image, isActive]
 		);
-		console.log(dogs);
-		return dogs;
+		console.log(products);
+		return products;
 	} catch (error) {
 		throw error;
 	}
 }
 
-async function getAllDogs() {
+async function getAllproducts() {
 	try {
-		const { rows: dogs } = await client.query(`
+		const { rows: products } = await client.query(`
         SELECT *
-        FROM dogs
+        FROM products
         `);
-		return dogs;
+		return products;
 	} catch (error) {
 		throw error;
 	}
 }
 
-async function getDogsById(id) {
+async function getproductsById(id) {
 	try {
 		const {
-			rows: [dogs],
+			rows: [products],
 		} = await client.query(
 			`
-        SELECT * FROM dogs
+        SELECT * FROM products
         WHERE id = $1
         `,
 			[id]
 		);
-		return dogs;
+		return products;
 	} catch (error) {
 		throw error;
 	}
 }
 
-async function getDogsByBreed(breed) {
+async function getproductsByBreed(breed) {
 	try {
-		const { rows: dogs } = await client.query(
+		const { rows: products } = await client.query(
 			`
         SELECT *
-        FROM dogs
+        FROM products
         WHERE breed = $1
         `,
 			[breed]
 		);
-		return dogs;
+		return products;
 	} catch {}
 }
 
-async function updateDogs({ name, adoption_fee, quantity, breed, image, id }) {
+async function updateproducts({
+	name,
+	adoption_fee,
+	quantity,
+	breed,
+	image,
+	id,
+}) {
 	try {
-		const { rows: dogs } = await client.query(
+		const { rows: products } = await client.query(
 			`
-            UPDATE dogs
+            UPDATE products
             SET name = $1,  
             adoption_fee= $2, 
             quantity = $3, 
@@ -83,14 +90,14 @@ async function updateDogs({ name, adoption_fee, quantity, breed, image, id }) {
         `,
 			[name, adoption_fee, quantity, breed, image, id]
 		);
-		return dogs;
+		return products;
 	} catch {}
 }
 
 module.exports = {
-	createDogs,
-	getAllDogs,
-	getDogsById,
-	getDogsByBreed,
-	updateDogs,
+	createproducts,
+	getAllproducts,
+	getproductsById,
+	getproductsByBreed,
+	updateproducts,
 };

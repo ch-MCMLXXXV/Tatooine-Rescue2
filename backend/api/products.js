@@ -1,40 +1,31 @@
 const express = require('express');
 const { requireUser } = require('./utils');
-const dogsRouter = express.Router();
+const productsRouter = express.Router();
 const {
-	createDogs,
-	getAllDogs,
-	getDogsById,
-	getDogsByBreed,
-	updateDogs,
+	createproducts,
+	getAllproducts,
+	getproductsById,
+	getproductsByBreed,
+	updateproducts,
 } = require('../db');
 
-dogsRouter.use((req, res, next) => {
-	console.log('A request is being made to /dogs');
+productsRouter.use((req, res, next) => {
+	console.log('A request is being made to /products');
 
 	next();
 });
 
-dogsRouter.get('/', (req, res, next) => {
+productsRouter.get('/', async (req, res, next) => {
 	try {
-		const allDogs = getAllDogs();
+		const response = await getAllproducts();
 
-		const dogs = allDogs.filter((dog) => {
-			if (dog.isActive) {
-				return true;
-			}
-
-			return false;
-		});
-		res.send({
-			dogs,
-		});
-	} catch ({ name, message }) {
-		next({ name, message });
+		res.send(response);
+	} catch (error) {
+		next(error);
 	}
 });
 
-dogsRouter.post('/', requireUser, async (req, res, next) => {
+productsRouter.post('/', requireUser, async (req, res, next) => {
 	const { name, adoption_fee, quantity, breed, image, description } =
 		req.body;
 	const dogData = {
@@ -48,14 +39,14 @@ dogsRouter.post('/', requireUser, async (req, res, next) => {
 	};
 
 	try {
-		const dog = await createDogs(dogData);
+		const dog = await createproducts(dogData);
 		res.send({ dog });
 	} catch ({ name, message }) {
 		next({ name, message });
 	}
 });
 
-dogsRouter.patch('/:dogId', requireUser, async (req, res, next) => {
+productsRouter.patch('/:dogId', requireUser, async (req, res, next) => {
 	const { dogId } = req.params;
 	const { name, adoption_fee, quantity, breed, image } = req.body;
 
@@ -78,10 +69,10 @@ dogsRouter.patch('/:dogId', requireUser, async (req, res, next) => {
 	}
 
 	try {
-		const originalDog = getDogsById(dogId);
+		const originalDog = getproductsById(dogId);
 
 		if (originalDog.user.id === req.user.id) {
-			const updatedDog = await updateDogs(dogId, updateFields);
+			const updatedDog = await updateproducts(dogId, updateFields);
 			res.send({ dog: updatedDog });
 		} else {
 			next({

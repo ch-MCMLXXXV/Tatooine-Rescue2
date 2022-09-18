@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
-import { Navbar, Home, Login, Register, Dog } from './index';
-import { getAPIHealth } from '../frontend-api';
-import '../style/App.css';
+import { Navbar, Home, Login, Register, Dog } from './components';
+import { getUser, fetchAllproducts, getUsersCart } from './frontend-api';
+import { getAPIHealth } from './frontend-api';
 
 const App = () => {
 	const [APIHealth, setAPIHealth] = useState('');
@@ -12,9 +12,11 @@ const App = () => {
 	const [username, setUsername] = useState(
 		localStorage.getItem('username') ? localStorage.getItem('username') : ''
 	);
+	const [userData, setUserData] = useState({});
 	const [password, setPassword] = useState();
 	const [order, setOrder] = useState();
-	const [dogs, setDogs] = useState();
+	const [products, setproducts] = useState();
+	const [cart, setCart] = useState([]);
 
 	useEffect(() => {
 		const getAPIStatus = async () => {
@@ -25,27 +27,40 @@ const App = () => {
 		getAPIStatus();
 	}, []);
 
-	// useEffect(() => {
-	// 	const getUserInfo = async () => {
-	// 		const userInfo = await getMe(token);
+	useEffect(async () => {
+		if (!token) {
+			setToken(localStorage.getItem('capstone-token'));
+			return;
+		}
+		const data = await getUser(token);
+		setUserData(data);
+	}, [token]);
 
-	// 		return setUser(userInfo);
-	// 	};
-	// 	getUserInfo();
-	// }, [token]);
+	// products
+	useEffect(async () => {
+		const response = await fetchAllproducts();
+		setproducts(response);
+	}, []);
 
-	// useEffect(() => {
-	// 	const getActiveCart = async () => {
-	// 		const cart = await getCartByUser(token);
-	// 		console.log('useEffect', cart);
-	// 		return setCart(cart);
-	// 	};
-	// 	getActiveCart();
-	// }, [token]);
-
-	// if (cart) {
-	// 	console.log('cart is', cart);
-	// }
+	useEffect(async () => {
+		setOrder([]);
+		if (userData.id !== undefined) {
+			const usersCart = await getUsersCart(userData.id, token);
+			if (typeof usersCart === 'object') {
+				setCart(usersCart);
+			}
+		} else {
+			let localCart = JSON.parse(localStorage.getItem('capstone-cart'));
+			if (!localCart) {
+				localCart = [];
+				localStorage.setItem(
+					'capstone-cart',
+					JSON.stringify(localCart)
+				);
+			}
+			setCart(localCart);
+		}
+	}, [userData]);
 
 	return (
 		<div className="container">
@@ -63,7 +78,7 @@ const App = () => {
 						Register
 					</Link>
 					<Link className="tab" to="/dog">
-						Dogs
+						products
 					</Link>
 					{/* {token ? (
 						// <Link className="tab" to="/cart">
