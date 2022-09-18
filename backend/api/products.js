@@ -1,86 +1,62 @@
 const express = require('express');
-const { requireUser } = require('./utils');
 const productsRouter = express.Router();
 const {
-	createproducts,
-	getAllproducts,
-	getproductsById,
-	getproductsByBreed,
-	updateproducts,
+	getAllProducts,
+	createProducts,
+	getProductsById,
+	getProductsByCategory,
+	updateProducts,
 } = require('../db');
+const { requireUser } = require('./utils');
 
-productsRouter.use((req, res, next) => {
-	console.log('A request is being made to /products');
-
-	next();
-});
-
-productsRouter.get('/', async (req, res, next) => {
+// POST product
+productsRouter.post('/', requireUser, async (req, res, next) => {
 	try {
-		const response = await getAllproducts();
-
-		res.send(response);
+		const product = await createProducts(req.body);
+		res.send(product);
 	} catch (error) {
 		next(error);
 	}
 });
 
-productsRouter.post('/', requireUser, async (req, res, next) => {
-	const { name, adoption_fee, quantity, breed, image, description } =
-		req.body;
-	const dogData = {
-		id: req.user.id,
-		name,
-		description,
-		breed,
-		image,
-		adoption_fee,
-		quantity,
-	};
-
+// GET product
+productsRouter.get('/:productId', async (req, res, next) => {
 	try {
-		const dog = await createproducts(dogData);
-		res.send({ dog });
-	} catch ({ name, message }) {
-		next({ name, message });
+		const product = await getProductsById(req.params.productId);
+		res.send(product);
+	} catch (error) {
+		next(error);
 	}
 });
 
-productsRouter.patch('/:dogId', requireUser, async (req, res, next) => {
-	const { dogId } = req.params;
-	const { name, adoption_fee, quantity, breed, image } = req.body;
-
-	const updateFields = {};
-
-	if (name) {
-		updateFields.name = name;
-	}
-	if (breed) {
-		updateFields.breed = breed;
-	}
-	if (image) {
-		updateFields.image = image;
-	}
-	if (quantity) {
-		updateFields.quantity = quantity;
-	}
-	if (adoption_fee) {
-		updateFields.adoption_fee = adoption_fee;
-	}
-
+// GET all products
+productsRouter.get('/', async (req, res, next) => {
 	try {
-		const originalDog = getproductsById(dogId);
-
-		if (originalDog.user.id === req.user.id) {
-			const updatedDog = await updateproducts(dogId, updateFields);
-			res.send({ dog: updatedDog });
-		} else {
-			next({
-				name: 'UnauthorizedUserError',
-				message: 'You can not update a dog that is not yours',
-			});
-		}
-	} catch ({ name, message }) {
-		next({ name, message });
+		const products = await getAllProducts();
+		res.send(products);
+	} catch (error) {
+		next(error);
 	}
 });
+
+//GET products by catagory
+productsRouter.get('/category/:breed', async (req, res, next) => {
+	try {
+		const products = await getProductsByCategory(req.params.breed);
+		res.send(products);
+	} catch (error) {
+		next(error);
+	}
+});
+
+// /:productId
+productsRouter.patch('/adminedit', requireUser, async (req, res, next) => {
+	try {
+		const products = await updateProducts(req.body);
+		res.send(products);
+	} catch (error) {
+		next(error);
+	}
+});
+
+module.exports = productsRouter;

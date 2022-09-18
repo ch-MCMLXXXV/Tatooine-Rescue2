@@ -1,6 +1,6 @@
 const client = require('./client');
 
-async function createproducts({
+async function createProducts({
 	name,
 	description,
 	adoption_fee,
@@ -27,7 +27,7 @@ async function createproducts({
 	}
 }
 
-async function getAllproducts() {
+async function getAllProducts() {
 	try {
 		const { rows: products } = await client.query(`
         SELECT *
@@ -39,7 +39,7 @@ async function getAllproducts() {
 	}
 }
 
-async function getproductsById(id) {
+async function getProductsById(id) {
 	try {
 		const {
 			rows: [products],
@@ -56,7 +56,7 @@ async function getproductsById(id) {
 	}
 }
 
-async function getproductsByBreed(breed) {
+async function getProductsByCategory(breed) {
 	try {
 		const { rows: products } = await client.query(
 			`
@@ -70,7 +70,7 @@ async function getproductsByBreed(breed) {
 	} catch {}
 }
 
-async function updateproducts({
+async function updateProducts({
 	name,
 	adoption_fee,
 	quantity,
@@ -95,9 +95,9 @@ async function updateproducts({
 }
 
 module.exports = {
-	createproducts,
-	getAllproducts,
-	getproductsById,
-	getproductsByBreed,
-	updateproducts,
+	createProducts,
+	getAllProducts,
+	getProductsById,
+	getProductsByCategory,
+	updateProducts,
 };
