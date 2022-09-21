@@ -1,5 +1,4 @@
 const express = require('express');
-const { requireUser } = require('./utils');
 const ordersRouter = express.Router();
 const {
    createOrders,
@@ -12,7 +11,7 @@ const {
    deleteUsersCart,
    getAllCompletedOrdersByUserId,
 } = require('../db');
-const { request } = require('express');
+const { requireUser } = require('./utils');
 
 ordersRouter.use((req, res, next) => {
    console.log('A request is being made to /orders');
@@ -20,8 +19,13 @@ ordersRouter.use((req, res, next) => {
 });
 
 ordersRouter.post('/', requireUser, async (req, res, next) => {
-   const { userId, purchaseComplete, adoption_fee, dogId, quantity } =
-      req.body;
+   const {
+      userId,
+      purchaseComplete,
+      adoption_fee,
+      productsId,
+      quantity,
+   } = req.body;
    const orderData = {
       id: req.user.id,
       userId,
@@ -64,3 +68,5 @@ ordersRouter.get('/', requireUser, async (req, res, next) => {
       next(error);
    }
 });
+
+module.exports = ordersRouter;
