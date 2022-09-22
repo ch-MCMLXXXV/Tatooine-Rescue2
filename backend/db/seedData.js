@@ -159,7 +159,7 @@ async function createInitialproductsTable() {
 				description:
 					'Get your own big furry best friend to travel the galaxy with.',
 				adoption_fee: 100,
-				quantity: 6,
+				quantity: 2,
 				breed: 'Tibetan Terrier',
 				image: 'https://images.rawpixel.com/image_1000/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvZnJ0ZXJyaWVyX2JpdGNoX3RpYmV0YW5fdGVycmllci1pbWFnZS1reWNmNXRxdy5qcGc.jpg',
 				isActive: true,
