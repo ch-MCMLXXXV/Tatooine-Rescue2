@@ -121,28 +121,22 @@ const App = () => {
                      products={products}
                   />
                </Route>
-               <Route
-                  path='/login'
-                  element={
-                     <Login
-                        token={token}
-                        setToken={setToken}
-                        username={username}
-                        setUsername={setUsername}
-                     />
-                  }
-               />
-               <Route
-                  path='/register'
-                  element={
-                     <Register
-                        token={token}
-                        setToken={setToken}
-                        username={username}
-                        setUsername={setUsername}
-                     />
-                  }
-               />
+               <Route path='/login'>
+                  <Login
+                     token={token}
+                     setToken={setToken}
+                     username={username}
+                     setUsername={setUsername}
+                  />
+               </Route>
+               <Route path='/register'>
+                  <Register
+                     token={token}
+                     setToken={setToken}
+                     username={username}
+                     setUsername={setUsername}
+                  />
+               </Route>
                <Route path='/products' element={<Products />} />
                {/* <Route path="/cart/:user" element={<Cart />} />
 					<Route path="/cart/:userId" element={<Cart />} /> */}
