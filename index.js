@@ -15,7 +15,7 @@ server.use(bodyParser.json());
 const path = require('path');
 server.use(express.static(path.join(__dirname, 'public')));
 
-server.use('./backend/api', require('./backend/api'));
+server.use('/api', require('./backend/api'));
 
 const { client } = require('./backend/db');
 

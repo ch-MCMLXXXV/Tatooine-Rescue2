@@ -29,7 +29,7 @@ ordersRouter.post('/', requireUser, async (req, res, next) => {
    const orderData = {
       id: req.user.id,
       userId,
-      dogId,
+      productsId,
       purchaseComplete,
       adoption_fee,
       quantity,

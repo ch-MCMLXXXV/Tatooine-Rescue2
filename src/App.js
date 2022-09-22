@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
-import { Navbar, Home, Login, Register, Dog } from './components';
+import {
+   Navbar,
+   Home,
+   Login,
+   Register,
+   Products,
+} from './components';
 import {
    getUser,
    fetchAllproducts,
    getUsersCart,
 } from './frontend-api';
-import { getAPIHealth } from './frontend-api';
+// import { getAPIHealth } from './frontend-api/index';
 
 const App = () => {
    const [APIHealth, setAPIHealth] = useState('');
@@ -23,17 +29,17 @@ const App = () => {
    const [userData, setUserData] = useState({});
    const [password, setPassword] = useState();
    const [order, setOrder] = useState();
-   const [products, setproducts] = useState();
+   const [products, setproducts] = useState([]);
    const [cart, setCart] = useState([]);
 
-   useEffect(() => {
-      const getAPIStatus = async () => {
-         const { healthy } = await getAPIHealth();
-         setAPIHealth(healthy ? 'api is up! :D' : 'api is down :/');
-      };
+   //    useEffect(() => {
+   //       const getAPIStatus = async () => {
+   //          const { healthy } = await getAPIHealth();
+   //          setAPIHealth(healthy ? 'api is up! :D' : 'api is down :/');
+   //       };
 
-      getAPIStatus();
-   }, []);
+   //       getAPIStatus();
+   //    }, []);
 
    useEffect(async () => {
       if (!token) {
@@ -45,10 +51,15 @@ const App = () => {
    }, [token]);
 
    // products
-   useEffect(async () => {
-      const response = await fetchAllproducts();
-      setproducts(response);
-   }, []);
+   useEffect(() => {
+      const getAllproducts = async () => {
+         const result = await fetchAllproducts();
+         console.log(result);
+         setproducts(result);
+         // setproductsToDisplay(result.data.products);
+      };
+      getAllproducts().catch(console.error);
+   }, [setproducts]);
 
    // useEffect(async () => {
    // 	setOrder([]);
@@ -75,7 +86,7 @@ const App = () => {
          <main>
             <div className='title'>Tatooine Rescue</div>
             <Navbar token={token} />
-            <nav>
+            {/* <nav>
                <Link className='tab' to='/home'>
                   Home
                </Link>
@@ -88,16 +99,28 @@ const App = () => {
                <Link className='tab' to='/dog'>
                   products
                </Link>
-               {/* {token ? (
-						// <Link className="tab" to="/cart">
-						// 	Cart
-						// </Link>
-					) : null} */}
-            </nav>
+
+            </nav> */}
 
             <Switch>
-               <Route path='/' element={<Home token={token} />} />
-               <Route path='/home' element={<Home token={token} />} />
+               {/* <Route
+                  exact
+                  path='/'
+                  element={
+                     <Home
+                        token={token}
+                        setproducts={setproducts}
+                        products={products}
+                     />
+                  }
+               /> */}
+               <Route path='/home'>
+                  <Home
+                     token={token}
+                     setproducts={setproducts}
+                     products={products}
+                  />
+               </Route>
                <Route
                   path='/login'
                   element={
@@ -120,7 +143,7 @@ const App = () => {
                      />
                   }
                />
-               <Route path='/dog' element={<Dog />} />
+               <Route path='/products' element={<Products />} />
                {/* <Route path="/cart/:user" element={<Cart />} />
 					<Route path="/cart/:userId" element={<Cart />} /> */}
             </Switch>

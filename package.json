@@ -8,10 +8,10 @@
     "client:dev": "react-scripts start",
     "client:build": "react-scripts build",
     "server:dev": "nodemon index.js",
-    "db:build": "node ./db/seedData",
+    "db:build": "node ./backend/db/seed.js",
     "start:dev": "concurrently \"npm run client:build\" \"npm run client:dev\" \"npm run server:dev\"",
     "start": "node index.js",
-    "seed:dev": "nodemon ./db/seed.js",
+    "seed:dev": "nodemon ./backend/db/seed.js",
     "test": "jest --runInBand"
   },
   "keywords": [],

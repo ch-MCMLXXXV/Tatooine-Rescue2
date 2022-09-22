@@ -6,27 +6,14 @@ import Grid from '@mui/material/Grid';
 import CardMedia from '@mui/material/CardMedia';
 import {
    CardActions,
-   IconButton,
+   // IconButton,
    CardActionArea,
 } from '@mui/material';
 
-const Home = ({ products, setproducts, setproductsToDisplay }) => {
-   useEffect(() => {
-      const fetchAllproducts = async () => {
-         const response = await fetch(URL, {
-            headers: {
-               'Content-Type': 'application/json',
-            },
-         });
-         const result = await response.json();
-         setproducts(result.data.products);
-         setproductsToDisplay(result.data.products);
-      };
-      fetchAllproducts();
-   });
-
+const Home = ({ products, setproducts }) => {
    return (
       <>
+         <h1>Test</h1>
          <Grid
             container
             spacing={{ xs: 2, md: 3 }}
@@ -44,7 +31,7 @@ const Home = ({ products, setproducts, setproductsToDisplay }) => {
                         <CardMedia
                            component='img'
                            height='140'
-                           image={product.image}
+                           src={product.image}
                            alt='Dog image'
                         />
                         <CardContent
