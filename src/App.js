@@ -117,6 +117,13 @@ const App = () => {
                      />
                   }
                /> */}
+               <Route exact path='/'>
+                  <Home
+                     token={token}
+                     setproducts={setproducts}
+                     products={products}
+                  />
+               </Route>
                <Route path='/home'>
                   <Home
                      token={token}
