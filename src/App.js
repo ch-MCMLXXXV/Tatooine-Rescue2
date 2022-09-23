@@ -85,11 +85,9 @@ const App = () => {
    // }, [userData]);
 
    return (
-      <div className='container'>
-         <main>
-            <div className='title'>Tatooine Rescue</div>
-            <Navbar token={token} />
-            {/* <nav>
+      <>
+         <Navbar token={token} />
+         {/* <nav>
                <Link className='tab' to='/home'>
                   Home
                </Link>
@@ -105,8 +103,8 @@ const App = () => {
 
             </nav> */}
 
-            <Switch>
-               {/* <Route
+         <Switch>
+            {/* <Route
                   exact
                   path='/'
                   element={
@@ -117,50 +115,49 @@ const App = () => {
                      />
                   }
                /> */}
-               <Route exact path='/'>
-                  <Home
-                     token={token}
-                     setproducts={setproducts}
-                     products={products}
-                  />
-               </Route>
-               <Route path='/home'>
-                  <Home
-                     token={token}
-                     setproducts={setproducts}
-                     products={products}
-                  />
-               </Route>
-               <Route path='/login'>
-                  <Login
-                     token={token}
-                     setToken={setToken}
-                     username={username}
-                     setUsername={setUsername}
-                  />
-               </Route>
-               <Route path='/register'>
-                  <Register
-                     token={token}
-                     setToken={setToken}
-                     username={username}
-                     setUsername={setUsername}
-                     password={password}
-                     setPassword={setPassword}
-                     email={email}
-                     setEmail={setEmail}
-                     firstName={firstName}
-                     setFirstName={setFirstName}
-                     lastName={lastName}
-                     setLastName={setLastName}
-                  />
-               </Route>
-               <Route path='/products' element={<Products />} />
-               {/* <Route path="/cart/:user" element={<Cart />} />
+            <Route exact path='/'>
+               <Home
+                  token={token}
+                  setproducts={setproducts}
+                  products={products}
+               />
+            </Route>
+            <Route path='/home'>
+               <Home
+                  token={token}
+                  setproducts={setproducts}
+                  products={products}
+               />
+            </Route>
+            <Route path='/login'>
+               <Login
+                  token={token}
+                  setToken={setToken}
+                  username={username}
+                  setUsername={setUsername}
+               />
+            </Route>
+            <Route path='/register'>
+               <Register
+                  token={token}
+                  setToken={setToken}
+                  username={username}
+                  setUsername={setUsername}
+                  password={password}
+                  setPassword={setPassword}
+                  email={email}
+                  setEmail={setEmail}
+                  firstName={firstName}
+                  setFirstName={setFirstName}
+                  lastName={lastName}
+                  setLastName={setLastName}
+               />
+            </Route>
+            <Route path='/products' element={<Products />} />
+            {/* <Route path="/cart/:user" element={<Cart />} />
 					<Route path="/cart/:userId" element={<Cart />} /> */}
-            </Switch>
-         </main>
-      </div>
+         </Switch>
+      </>
    );
 };
 
