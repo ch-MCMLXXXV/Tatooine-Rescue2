@@ -27,10 +27,13 @@ const App = () => {
          : ''
    );
    const [userData, setUserData] = useState({});
-   const [password, setPassword] = useState();
+   const [password, setPassword] = useState('');
    const [order, setOrder] = useState();
    const [products, setproducts] = useState([]);
    const [cart, setCart] = useState([]);
+   const [email, setEmail] = useState('');
+   const [firstName, setFirstName] = useState('');
+   const [lastName, setLastName] = useState('');
 
    //    useEffect(() => {
    //       const getAPIStatus = async () => {
@@ -135,6 +138,14 @@ const App = () => {
                      setToken={setToken}
                      username={username}
                      setUsername={setUsername}
+                     password={password}
+                     setPassword={setPassword}
+                     email={email}
+                     setEmail={setEmail}
+                     firstName={firstName}
+                     setFirstName={setFirstName}
+                     lastName={lastName}
+                     setLastName={setLastName}
                   />
                </Route>
                <Route path='/products' element={<Products />} />

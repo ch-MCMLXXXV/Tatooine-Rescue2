@@ -45,7 +45,8 @@ usersRouter.post('/login', async (req, res, next) => {
 });
 
 usersRouter.post('/register', async (req, res, next) => {
-   const { username, password, email } = req.body;
+   const { username, password, email, firstName, lastName } = req.body;
+   console.log(firstName, lastName)
 
    try {
       if (password.length < 8) {
@@ -65,7 +66,10 @@ usersRouter.post('/register', async (req, res, next) => {
          });
       }
 
-      const user = await createUser({ username, password, email });
+      console.log(username, password, email)
+
+      const user = await createUser({ username, password, email, firstName, lastName });
+      console.log(user)
 
       const token = jwt.sign(
          {
