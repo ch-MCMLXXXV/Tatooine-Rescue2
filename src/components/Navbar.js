@@ -55,13 +55,7 @@ const NavBar = ({ token }) => {
                      </>
                   ) : (
                      <>
-                        <IconButton
-                           size='large'
-                           edge='start'
-                           color='inherit'
-                           onClick={handleOpenNavMenu}
-                           aria-label='menu'
-                           sx={{ mr: 2 }}>
+                        <IconButton>
                            <MenuIcon />
                         </IconButton>
                         <Menu
