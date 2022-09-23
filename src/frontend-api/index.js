@@ -28,7 +28,7 @@ export async function getUser({ token }) {
 //    }
 // }
 
-export async function registerUser({ username, password }) {
+export async function registerUser({ username, password, email, firstName, lastName }) {
    try {
       return fetch(`${BASE_URL}/users/register`, {
          method: 'POST',
@@ -38,6 +38,9 @@ export async function registerUser({ username, password }) {
          body: JSON.stringify({
             username: username,
             password: password,
+            email: email,
+            firstName: firstName,
+            lastName: lastName
          }),
       })
          .then((response) => response.json())

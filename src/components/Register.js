@@ -10,16 +10,23 @@ const Register = ({
     setToken,
     email,
     setEmail,
+    firstName,
+    setFirstName,
+    lastName,
+    setLastName,
 }) => {
     const navigate = useHistory();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (confirmPassword()) {
+            console.log(email)
             const data = await registerUser({
                 username,
                 password,
                 email,
+                firstName,
+                lastName
             });
 
             const token = data.token;
@@ -32,7 +39,7 @@ const Register = ({
                 ? alert(`${data.message}`)
                 : alert(`${data.error}`);
             if (token) {
-                navigate("/home");
+                navigate.push("/home");
             }
         }
     };
@@ -51,6 +58,30 @@ const Register = ({
     return (
         <form className="form" onSubmit={handleSubmit}>
             <h2>Register New Account</h2>
+                <label>
+                    <p>Email:</p>
+                    <input
+                        type="text"
+                        onChange={(event) => setEmail(event.target.value)}
+                        required
+                    />
+                </label>
+                <label>
+                    <p>First Name:</p>
+                    <input
+                        type="text"
+                        onChange={(event) => setFirstName(event.target.value)}
+                        required
+                    />
+                </label>
+                <label>
+                    <p>Last Name:</p>
+                    <input
+                        type="text"
+                        onChange={(event) => setLastName(event.target.value)}
+                        required
+                    />
+                </label>
                 <label>
                     <p>Username:</p>
                     <input
@@ -72,7 +103,7 @@ const Register = ({
                 </label>
                 <label>
                     <p>Confirm Password:</p>
-                    <input type="password" name="confirm" minLength="5" required />
+                    <input type="password" name="confirm" minLength="8" required />
                 </label>
                     <div>
                         <button type="submit">Submit</button>
