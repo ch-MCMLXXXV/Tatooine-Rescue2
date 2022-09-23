@@ -19,16 +19,22 @@ import MenuItem from '@mui/material/MenuItem';
 // import Userpage from './Userpage';
 
 const NavBar = ({ token }) => {
-   const pages = ['Home', 'Register', 'Login', 'Cart'];
-   const [anchorElNav, setAnchorElNav] = useState(null);
-
-   const handleOpenNavMenu = (event) => {
-      setAnchorElNav(event.currentTarget);
+   const [anchorEl, setAnchorEl] = useState(null);
+   const open = Boolean(anchorEl);
+   const handleMenu = (e) => {
+      setAnchorEl(e.currentTarget);
+   };
+   const handleClose = () => {
+      setAnchorEl(null);
    };
 
-   const handleCloseNavMenu = () => {
-      setAnchorElNav(null);
-   };
+   //    const handleOpenNavMenu = (event) => {
+   //       setAnchorElNav(event.currentTarget);
+   //    };
+
+   //    const handleCloseNavMenu = () => {
+   //       setAnchorElNav(null);
+   //    };
 
    return (
       <>
@@ -55,10 +61,47 @@ const NavBar = ({ token }) => {
                      </>
                   ) : (
                      <>
-                        <IconButton>
+                        <IconButton
+                           size='large'
+                           aria-controls='menu-appbar'
+                           aria-haspopup='true'
+                           onClick={handleMenu}
+                           edge='start'>
                            <MenuIcon />
                         </IconButton>
                         <Menu
+                           id='menu-appbar'
+                           anchorEl={anchorEl}
+                           anchorOrigin={{
+                              vertical: 'bottom',
+                              horizontal: 'left',
+                           }}
+                           keepMounted
+                           transformOrigin={{
+                              vertical: 'top',
+                              horizontal: 'right',
+                           }}
+                           open={Boolean(anchorEl)}
+                           onClose={handleClose}
+                           MenuListProps={{
+                              'aria-labelledby': 'basic-button',
+                           }}>
+                           <MenuItem onClick={'./Register.js'}>
+                              Home
+                           </MenuItem>
+                           <MenuItem onClick={handleClose}>
+                              Cart
+                           </MenuItem>
+                           <MenuItem
+                              href='/Home'
+                              onClick={() => {
+                                 localStorage.removeItem('token');
+                              }}>
+                              Logout
+                           </MenuItem>
+                        </Menu>
+
+                        {/* <Menu
                            id='menu-appbar'
                            anchorEl={anchorElNav}
                            anchorOrigin={{
@@ -84,7 +127,7 @@ const NavBar = ({ token }) => {
                                  </Typography>
                               </MenuItem>
                            ))}
-                        </Menu>
+                        </Menu> */}
                         {/* <Button href='/Home' color='inherit'>
                            Home
                         </Button>

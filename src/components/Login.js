@@ -39,9 +39,9 @@ function Login({ setToken }) {
       e.preventDefault();
       const token = await userLogin(username, password);
       console.log(token);
-      sessionStorage.setItem('token', token);
+      localStorage.setItem('token', token);
       setToken(token);
-      navigate('/Homepage');
+      navigate.push('/Home');
    };
 
    return (
