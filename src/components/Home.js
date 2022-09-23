@@ -32,6 +32,7 @@ const Home = ({ products, setproducts }) => {
                            component='img'
                            height='140'
                            src={product.image}
+                           onClick={'./Products.js'}
                            alt='Dog image'
                         />
                         <CardContent
