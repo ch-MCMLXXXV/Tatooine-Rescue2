@@ -29,10 +29,10 @@ async function createTables() {
         CREATE TABLE users(
             id SERIAL PRIMARY KEY,
             username VARCHAR(255) NOT NULL,
-            first_name VARCHAR(255) NOT NULL,
-            last_name VARCHAR(255) NOT NULL,
+            firstName VARCHAR(255) NOT NULL,
+            lastName VARCHAR(255) NOT NULL,
             email VARCHAR(255) NOT NULL,
-            password VARCHAR(255) NOT NULL,
+            password VARCHAR(500) NOT NULL,
             UNIQUE (username, email)
             );
 
@@ -80,31 +80,31 @@ async function createInitialUsers() {
 		const usersToCreate = [
 			{
 				username: 'eguilder0',
-				first_name: 'Eleonora',
-				last_name: 'Guilder',
+				firstName: 'Eleonora',
+				lastName: 'Guilder',
 				email: 'eguilder0@vinaora.com',
 				password: 'xefxbiZ',
 			},
 			{
 				username: 'sflea1',
-				first_name: 'Shaylyn',
-				last_name: 'Flea',
+				firstName: 'Shaylyn',
+				lastName: 'Flea',
 				email: 'sflea1@mlb.com',
 				password: 'YaUH8Nte',
 			},
 
 			{
 				username: 'acolam2',
-				first_name: 'Arda',
-				last_name: 'Colam',
+				firstName: 'Arda',
+				lastName: 'Colam',
 				email: 'acolam2@washingtonpost.com',
 				password: 'VxV1CAQoHjA',
 			},
 
 			{
 				username: 'fspurnier3',
-				first_name: 'Farrell',
-				last_name: 'Spurnier',
+				firstName: 'Farrell',
+				lastName: 'Spurnier',
 				email: 'fspurnier3@cnet.com',
 				password: 'Lt5CfVgtOBI',
 			},

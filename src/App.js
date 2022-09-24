@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import { Navbar, Home, Login, Register, Products } from './components';
 import SingleProduct from './components/SingleProduct';
-import { getUser, fetchAllProducts, getUsersCart } from './frontend-api';
+import { getUser, fetchAllProducts } from './frontend-api/index';
 // import { getAPIHealth } from './frontend-api/index';
 
 const App = () => {
-	const [APIHealth, setAPIHealth] = useState('');
 	const [token, setToken] = useState(
 		localStorage.getItem('token') ? localStorage.getItem('token') : ''
 	);
@@ -23,18 +22,10 @@ const App = () => {
 	const [lastName, setLastName] = useState('');
 	const [isLoggedin, setIsLoggedIn] = useState(false);
 
-	//    useEffect(() => {
-	//       const getAPIStatus = async () => {
-	//          const { healthy } = await getAPIHealth();
-	//          setAPIHealth(healthy ? 'api is up! :D' : 'api is down :/');
-	//       };
-
-	//       getAPIStatus();
-	//    }, []);
 
 	useEffect(async () => {
 		if (!token) {
-			setToken(localStorage.getItem('capstone-token'));
+			setToken(localStorage.getItem('token'));
 			return;
 		}
 		const data = await getUser(token);
@@ -60,11 +51,11 @@ const App = () => {
 	// 			setCart(usersCart);
 	// 		}
 	// 	} else {
-	// 		let localCart = JSON.parse(localStorage.getItem('capstone-cart'));
+	// 		let localCart = JSON.parse(localStorage.getItem('cart'));
 	// 		if (!localCart) {
 	// 			localCart = [];
 	// 			localStorage.setItem(
-	// 				'capstone-cart',
+	// 				'cart',
 	// 				JSON.stringify(localCart)
 	// 			);
 	// 		}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchProductById } from '../index';
+import { fetchProductById } from '../frontend-api/index';
 
 const SingleProduct = ({ _productsId, inCart, cartDetails }) => {
 	const [singleProduct, setSingleProduct] = useState({});

@@ -2,13 +2,7 @@ const client = require('./client');
 const bcrypt = require('bcrypt');
 
 // used to add a new user with hashed password to database
-async function createUser({
-	username,
-	firstName,
-	lastName,
-	email,
-	password,
-}) {
+async function createUser({ username, firstName, lastName, email, password }) {
 	//hash password before storing to DB
 
 	try {
@@ -19,7 +13,7 @@ async function createUser({
 			rows: [user],
 		} = await client.query(
 			`
-            INSERT INTO users (username, first_name, last_name, email, password)
+            INSERT INTO users (username, firstName, lastName, email, password)
             VALUES ($1, $2, $3, $4, $5)
 			ON CONFLICT (username, email) DO NOTHING 
             RETURNING id, username, email;
@@ -121,7 +115,7 @@ async function getUserByUsername(username) {
 	  `,
 			[username]
 		);
-		console.log({user, line:124})
+		console.log({ user, line: 124 });
 		if (!user) return null;
 		return user;
 	} catch (error) {
