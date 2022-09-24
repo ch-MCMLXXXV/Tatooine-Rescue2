@@ -19,7 +19,7 @@ import MenuItem from '@mui/material/MenuItem';
 // import Search from "./Search";
 // import Userpage from './Userpage';
 
-const NavBar = ({ token }) => {
+const NavBar = ({ token, isLoggedIn, setIsLoggedIn, setToken }) => {
    const navigate = useHistory();
    const [anchorEl, setAnchorEl] = useState(null);
 
@@ -39,7 +39,11 @@ const NavBar = ({ token }) => {
 
    const handleLogout = () => {
       localStorage.removeItem('token');
+      localStorage.removeItem('username');
+      setToken('')
       navigate.push('/Home');
+      alert("You have been successfully logged out.")
+      
    };
 
    //    const handleOpenNavMenu = (event) => {

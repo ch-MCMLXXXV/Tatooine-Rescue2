@@ -6,22 +6,26 @@ import { getUser, fetchAllProducts, getUsersCart } from './frontend-api';
 // import { getAPIHealth } from './frontend-api/index';
 
 const App = () => {
-	const [APIHealth, setAPIHealth] = useState('');
-	const [token, setToken] = useState(
-		localStorage.getItem('token') ? localStorage.getItem('token') : ''
-	);
-	const [username, setUsername] = useState(
-		localStorage.getItem('username') ? localStorage.getItem('username') : ''
-	);
-	const [userData, setUserData] = useState({});
-	const [password, setPassword] = useState('');
-	const [order, setOrder] = useState();
-	const [products, setproducts] = useState([]);
-	const [cart, setCart] = useState([]);
-	const [email, setEmail] = useState('');
-	const [firstName, setFirstName] = useState('');
-	const [lastName, setLastName] = useState('');
-	const [isLoggedin, setIsLoggedIn] = useState(false);
+   const [APIHealth, setAPIHealth] = useState('');
+   const [token, setToken] = useState(
+      localStorage.getItem('token')
+         ? localStorage.getItem('token')
+         : ''
+   );
+   const [username, setUsername] = useState(
+      localStorage.getItem('username')
+         ? localStorage.getItem('username')
+         : ''
+   );
+   const [userData, setUserData] = useState({});
+   const [password, setPassword] = useState('');
+   const [order, setOrder] = useState();
+   const [products, setproducts] = useState([]);
+   const [cart, setCart] = useState([]);
+   const [email, setEmail] = useState('');
+   const [firstName, setFirstName] = useState('');
+   const [lastName, setLastName] = useState('');
+   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 	//    useEffect(() => {
 	//       const getAPIStatus = async () => {
@@ -72,10 +76,10 @@ const App = () => {
 	// 	}
 	// }, [userData]);
 
-	return (
-		<>
-			<Navbar token={token} />
-			{/* <nav>
+   return (
+      <>
+         <Navbar token={token} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setToken={setToken} />
+         {/* <nav>
                <Link className='tab' to='/home'>
                   Home
                </Link>
@@ -103,50 +107,53 @@ const App = () => {
                      />
                   }
                /> */}
-				<Route exact path="/">
-					<Home
-						token={token}
-						setproducts={setproducts}
-						products={products}
-					/>
-				</Route>
-				<Route path="/home">
-					<Home
-						token={token}
-						setproducts={setproducts}
-						products={products}
-					/>
-				</Route>
-				<Route path="/login">
-					<Login
-						token={token}
-						setToken={setToken}
-						username={username}
-						setUsername={setUsername}
-						password={password}
-						setPassword={setPassword}
-						isLoggedin={isLoggedin}
-						setIsLoggedIn={setIsLoggedIn}
-					/>
-				</Route>
-				<Route path="/register">
-					<Register
-						token={token}
-						setToken={setToken}
-						username={username}
-						setUsername={setUsername}
-						password={password}
-						setPassword={setPassword}
-						email={email}
-						setEmail={setEmail}
-						firstName={firstName}
-						setFirstName={setFirstName}
-						lastName={lastName}
-						setLastName={setLastName}
-					/>
-				</Route>
-				<Route path="/singleProduct" element={<SingleProduct />} />
-				{/* <Route path="/cart/:user" element={<Cart />} />
+            <Route exact path='/'>
+               <Home
+                  token={token}
+                  setproducts={setproducts}
+                  products={products}
+                  isLoggedIn={isLoggedIn}
+                  setIsLoggedIn={setIsLoggedIn}
+                  setToken={setToken}
+               />
+            </Route>
+            <Route path='/home'>
+               <Home
+                  token={token}
+                  setproducts={setproducts}
+                  products={products}
+               />
+            </Route>
+            <Route path='/login'>
+               <Login
+                  token={token}
+                  setToken={setToken}
+                  username={username}
+                  setUsername={setUsername}
+                  password={password}
+                  setPassword={setPassword}
+                  isLoggedIn={isLoggedIn}
+                  setIsLoggedIn={setIsLoggedIn}
+               />
+            </Route>
+            <Route path='/register'>
+               <Register
+                  token={token}
+                  setToken={setToken}
+                  username={username}
+                  setUsername={setUsername}
+                  password={password}
+                  setPassword={setPassword}
+                  email={email}
+                  setEmail={setEmail}
+                  firstName={firstName}
+                  setFirstName={setFirstName}
+                  lastName={lastName}
+                  setLastName={setLastName}
+               />
+            </Route>
+            <Route path="/singleProduct" element={<SingleProduct />} />
+            {/* <Route path="/cart/:user" element={<Cart />} />
 					<Route path="/cart/:userId" element={<Cart />} /> */}
 			</Switch>
 		</>
