@@ -13,40 +13,38 @@ import {
 const Home = ({ products, setproducts }) => {
    return (
       <>
-         <h1>Test</h1>
          <Grid
             container
-            spacing={{ xs: 2, md: 3 }}
-            columns={{ xs: 4, sm: 8, md: 12 }}>
+            spacing={{ xs: 6 }}
+            columns={{ xs: 4, sm: 12 }}>
             {products.map((product) => (
-               <Grid key={product.id} item xs={12} md={6} sm={4}>
+               <Grid key={product.id} item xs='auto' md={6} sm={4}>
                   <Card
                      variant='outlined'
                      sx={{
-                        display: 'flex',
                         backgroundColor: 'aliceblue',
                         boxShadow: '5px 5px grey',
                      }}>
                      <CardActionArea>
                         <CardMedia
                            component='img'
-                           height='140'
+                           height='auto'
                            src={product.image}
                            onClick={'./Products.js'}
                            alt='Dog image'
                         />
-                        <CardContent
-                           sx={{ flex: 1 }}
-                           key={product.id}>
+                        <CardContent key={product.id}>
                            <Typography component='h2' variant='h5'>
                               {product.name}
                            </Typography>
                            <Typography variant='subtitle1'>
-                              {product.breed}
+                              Breed: {product.breed}
                            </Typography>
                            <Typography variant='subtitle2'>
-                              {product.description},
-                              {product.adoption_fee}
+                              Des:{product.description}
+                           </Typography>
+                           <Typography variant='subtitle1'>
+                              Adoption fee: ${product.adoption_fee}
                            </Typography>
                         </CardContent>
                      </CardActionArea>
