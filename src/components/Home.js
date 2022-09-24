@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -11,8 +12,17 @@ import {
 } from '@mui/material';
 
 const Home = ({ products, setproducts }) => {
+   const navigate = useHistory();
+   const handleClick = async (e) => {
+      e.preventDefault();
+      navigate.push('/Products');
+   };
+
    return (
       <>
+         <Typography variant='h2' component='div'>
+            Tatooine products For Adoption
+         </Typography>
          <Grid
             container
             spacing={{ xs: 6 }}
@@ -30,7 +40,7 @@ const Home = ({ products, setproducts }) => {
                            component='img'
                            height='auto'
                            src={product.image}
-                           onClick={'./Products.js'}
+                           onClick={handleClick}
                            alt='Dog image'
                         />
                         <CardContent key={product.id}>
@@ -40,7 +50,7 @@ const Home = ({ products, setproducts }) => {
                            <Typography variant='subtitle1'>
                               Breed: {product.breed}
                            </Typography>
-                           <Typography variant='subtitle2'>
+                           <Typography variant='subtitle1'>
                               Des:{product.description}
                            </Typography>
                            <Typography variant='subtitle1'>
@@ -48,16 +58,6 @@ const Home = ({ products, setproducts }) => {
                            </Typography>
                         </CardContent>
                      </CardActionArea>
-                     <CardActions>
-                        {/* {token ? (
-                           <IconButton
-                              aria-label='message'
-                              size='small'
-                              href='/Message'>
-                              <MessageIcon />
-                           </IconButton>
-                        ) : null} */}
-                     </CardActions>
                   </Card>
                </Grid>
             ))}
