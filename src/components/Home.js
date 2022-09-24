@@ -15,7 +15,7 @@ const Home = ({ products, setproducts }) => {
    const navigate = useHistory();
    const handleClick = async (e) => {
       e.preventDefault();
-      navigate.push('/Products');
+      navigate.push('/SingleProduct');
    };
 
    return (
