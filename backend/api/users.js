@@ -4,8 +4,7 @@ const jwt = require('jsonwebtoken');
 const { requireUser } = require('./utils');
 const { createUser, getUser, getUserByUsername } = require('../db');
 const bcrypt = require('bcrypt');
-// require bcrypt
-// In login, await bcrypt.compare(password, user.password)
+const { JWT_SECRET } = process.env;
 
 usersRouter.use((req, res, next) => {
    console.log('A request is being made to /users');
@@ -30,7 +29,7 @@ usersRouter.post('/login', async (req, res, next) => {
       });
    }
    try {
-      const user = await getUserByUsername(username);
+      const user = await getUser({username, password});
       if (user) {
          const token = jwt.sign(user, process.env.JWT_SECRET);
          res.send({ message: "You're logged in!", token });
