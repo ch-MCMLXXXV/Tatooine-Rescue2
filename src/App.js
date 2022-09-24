@@ -1,17 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
-import {
-   Navbar,
-   Home,
-   Login,
-   Register,
-   Products,
-} from './components';
-import {
-   getUser,
-   fetchAllproducts,
-   getUsersCart,
-} from './frontend-api';
+import { Navbar, Home, Login, Register, Products } from './components';
+import SingleProduct from './components/SingleProduct';
+import { getUser, fetchAllProducts, getUsersCart } from './frontend-api';
 // import { getAPIHealth } from './frontend-api/index';
 
 const App = () => {
@@ -36,54 +27,54 @@ const App = () => {
    const [lastName, setLastName] = useState('');
    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-   //    useEffect(() => {
-   //       const getAPIStatus = async () => {
-   //          const { healthy } = await getAPIHealth();
-   //          setAPIHealth(healthy ? 'api is up! :D' : 'api is down :/');
-   //       };
+	//    useEffect(() => {
+	//       const getAPIStatus = async () => {
+	//          const { healthy } = await getAPIHealth();
+	//          setAPIHealth(healthy ? 'api is up! :D' : 'api is down :/');
+	//       };
 
-   //       getAPIStatus();
-   //    }, []);
+	//       getAPIStatus();
+	//    }, []);
 
-   useEffect(async () => {
-      if (!token) {
-         setToken(localStorage.getItem('capstone-token'));
-         return;
-      }
-      const data = await getUser(token);
-      setUserData(data);
-   }, [token]);
+	useEffect(async () => {
+		if (!token) {
+			setToken(localStorage.getItem('capstone-token'));
+			return;
+		}
+		const data = await getUser(token);
+		setUserData(data);
+	}, [token]);
 
-   // products
-   useEffect(() => {
-      const getAllproducts = async () => {
-         const result = await fetchAllproducts();
-         console.log(result);
-         setproducts(result);
-         // setproductsToDisplay(result.data.products);
-      };
-      getAllproducts().catch(console.error);
-   }, [setproducts]);
+	// products
+	useEffect(() => {
+		const getAllProducts = async () => {
+			const result = await fetchAllProducts();
+			console.log(result);
+			setproducts(result);
+			// setproductsToDisplay(result.data.products);
+		};
+		getAllProducts().catch(console.error);
+	}, [setproducts]);
 
-   // useEffect(async () => {
-   // 	setOrder([]);
-   // 	if (userData.id !== undefined) {
-   // 		const usersCart = await getUsersCart(userData.id, token);
-   // 		if (typeof usersCart === 'object') {
-   // 			setCart(usersCart);
-   // 		}
-   // 	} else {
-   // 		let localCart = JSON.parse(localStorage.getItem('capstone-cart'));
-   // 		if (!localCart) {
-   // 			localCart = [];
-   // 			localStorage.setItem(
-   // 				'capstone-cart',
-   // 				JSON.stringify(localCart)
-   // 			);
-   // 		}
-   // 		setCart(localCart);
-   // 	}
-   // }, [userData]);
+	// useEffect(async () => {
+	// 	setOrder([]);
+	// 	if (userData.id !== undefined) {
+	// 		const usersCart = await getUsersCart(userData.id, token);
+	// 		if (typeof usersCart === 'object') {
+	// 			setCart(usersCart);
+	// 		}
+	// 	} else {
+	// 		let localCart = JSON.parse(localStorage.getItem('capstone-cart'));
+	// 		if (!localCart) {
+	// 			localCart = [];
+	// 			localStorage.setItem(
+	// 				'capstone-cart',
+	// 				JSON.stringify(localCart)
+	// 			);
+	// 		}
+	// 		setCart(localCart);
+	// 	}
+	// }, [userData]);
 
    return (
       <>
@@ -104,8 +95,8 @@ const App = () => {
 
             </nav> */}
 
-         <Switch>
-            {/* <Route
+			<Switch>
+				{/* <Route
                   exact
                   path='/'
                   element={
@@ -161,12 +152,12 @@ const App = () => {
                   setLastName={setLastName}
                />
             </Route>
-            <Route path='/products' element={<Products />} />
+            <Route path="/singleProduct" element={<SingleProduct />} />
             {/* <Route path="/cart/:user" element={<Cart />} />
 					<Route path="/cart/:userId" element={<Cart />} /> */}
-         </Switch>
-      </>
-   );
+			</Switch>
+		</>
+	);
 };
 
 export default App;
