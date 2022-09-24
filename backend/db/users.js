@@ -4,8 +4,8 @@ const bcrypt = require('bcrypt');
 // used to add a new user with hashed password to database
 async function createUser({
 	username,
-	firstName,
-	lastName,
+	first_name,
+	last_name,
 	email,
 	password,
 }) {
@@ -24,7 +24,7 @@ async function createUser({
 			ON CONFLICT (username, email) DO NOTHING 
             RETURNING id, username, email;
         `,
-			[username, firstName, lastName, email, hashedPassword]
+			[username, first_name, last_name, email, hashedPassword]
 		);
 		delete user.password;
 		return user;
@@ -121,7 +121,7 @@ async function getUserByUsername(username) {
 	  `,
 			[username]
 		);
-		console.log({user, line:124})
+		console.log({ user, line: 124 });
 		if (!user) return null;
 		return user;
 	} catch (error) {
