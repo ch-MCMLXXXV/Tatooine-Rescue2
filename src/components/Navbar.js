@@ -23,8 +23,6 @@ const NavBar = ({ token }) => {
    const navigate = useHistory();
    const [anchorEl, setAnchorEl] = useState(null);
 
-   const open = Boolean(anchorEl);
-
    const handleMenu = (e) => {
       setAnchorEl(e.currentTarget);
    };
@@ -79,8 +77,10 @@ const NavBar = ({ token }) => {
                      <>
                         <IconButton
                            size='large'
-                           edge='start'
-                           onMouseEnter={handleMenu}>
+                           aria-controls='menu-appbar'
+                           aria-haspopup='true'
+                           onClick={handleMenu}
+                           edge='start'>
                            <MenuIcon />
                         </IconButton>
                         <Menu
@@ -95,7 +95,8 @@ const NavBar = ({ token }) => {
                               vertical: 'top',
                               horizontal: 'right',
                            }}
-                           // open={Boolean(anchorEl)}
+                           open={Boolean(anchorEl)}
+                           onClose={handleClose}
                            MenuListProps={{
                               'aria-labelledby': 'basic-button',
                            }}>
