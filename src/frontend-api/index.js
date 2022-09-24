@@ -66,7 +66,6 @@ export async function loginUser({ username, password }) {
       })
          .then((response) => response.json())
          .then((result) => {
-            localStorage.setItem('token', result.token);
             return result;
          });
    } catch (error) {
@@ -74,13 +73,33 @@ export async function loginUser({ username, password }) {
    }
 }
 
-export const getUsersCart = async (userId, token) => {
-   const data = await {
-      url: `orders/cart/${userId}`,
-      token,
-   };
-   return data;
-};
+// export async function loginUser({ username, password }) {
+//    return fetch(`${BASE_URL}/users/login`, {
+//      method: 'POST',
+//      headers: {
+//        'Content-Type': 'application/json'
+//      },
+//      body: JSON.stringify({
+//          user: {
+//              username: username,
+//              password: password,
+//          }
+//      })
+//    }).then(response => response.json())
+//        .then(result => {
+//            console.log(result);
+//            return result.data.token;
+//        })
+//        .catch(console.error);
+//   }
+
+// export const getUsersCart = async (userId, token) => {
+//    const data = await {
+//       url: `orders/cart/${userId}`,
+//       token,
+//    };
+//    return data;
+// };
 
 export async function createDog({
    token,

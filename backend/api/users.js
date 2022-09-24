@@ -3,6 +3,9 @@ const usersRouter = express.Router();
 const jwt = require('jsonwebtoken');
 const { requireUser } = require('./utils');
 const { createUser, getUser, getUserByUsername } = require('../db');
+const bcrypt = require('bcrypt');
+// require bcrypt
+// In login, await bcrypt.compare(password, user.password)
 
 usersRouter.use((req, res, next) => {
    console.log('A request is being made to /users');
@@ -19,28 +22,27 @@ usersRouter.get('/', requireUser, async (req, res) => {
 
 usersRouter.post('/login', async (req, res, next) => {
    const { username, password } = req.body;
-
+   console.log({username, password, line:22})
    if (!username || !password) {
-      next({
+      res.status(401).send({
          name: 'MissingCredentialsError',
          message: 'Please enter both username and password',
       });
    }
    try {
       const user = await getUserByUsername(username);
-
-      if (user && user.password === password) {
+      if (user) {
          const token = jwt.sign(user, process.env.JWT_SECRET);
          res.send({ message: "You're logged in!", token });
       } else {
-         next({
+         res.status(401).send({
             name: 'IncorrectCredentialsError',
             message: 'Username or password incorrect',
          });
       }
    } catch (error) {
       console.log(error);
-      next(error);
+      res.status(401).send(error);
    }
 });
 
