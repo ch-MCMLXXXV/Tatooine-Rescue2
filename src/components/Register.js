@@ -20,7 +20,6 @@ const Register = ({
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (confirmPassword()) {
-            console.log(email)
             const data = await registerUser({
                 username,
                 password,

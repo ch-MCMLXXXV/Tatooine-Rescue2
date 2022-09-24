@@ -1,47 +1,45 @@
-import * as React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { loginUser } from '../frontend-api';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container } from '@mui/system';
 import { CssBaseline, Typography } from '@mui/material';
-import { BASE_URL } from '../frontend-api/index';
-// import { loginUser } from '../frontend-api';
 
-async function userLogin(username, password) {
-   console.log(username, password);
-   return fetch(`${BASE_URL}/users/login`, {
-      method: 'POST',
-      headers: {
-         'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-         user: {
-            username: username,
-            password: password,
-         },
-      }),
-   })
-      .then((response) => response.json())
-      .then((result) => {
-         console.log(result);
-         return result.data.token;
-      })
-      .catch(console.error);
-}
-
-function Login({ setToken }) {
+const Login = ({
+   username,
+   setUsername,
+   password,
+   setPassword,
+   setToken,
+   setIsLoggedIn
+    }) => {
+   const [loginError, setLoginError] = useState('')
    const navigate = useHistory();
-   const [username, setUsername] = useState('');
-   const [password, setPassword] = useState('');
    const handleSubmit = async (e) => {
       e.preventDefault();
-      const token = await userLogin(username, password);
-      console.log(token);
-      localStorage.setItem('token', token);
+      if (!username || !password) {
+         return
+      }
+      const data = await loginUser({
+         username,
+         password
+      });
+      console.log({data, line:50})
+      const token = data.token;
+      if (!token) {
+         setLoginError(data.message);
+         return
+      }
+      localStorage.setItem('token', JSON.stringify(token));
       setToken(token);
-      navigate.push('/Home');
+      localStorage.setItem('token', token);
+      localStorage.setItem('username', username);
+      
+      if (token) {
+         navigate.push('/Home');
+      }
    };
 
    return (
@@ -87,6 +85,7 @@ function Login({ setToken }) {
                   Login
                </Button>
             </Box>
+            {loginError && <p>{loginError}</p>}
          </Box>
       </Container>
    );

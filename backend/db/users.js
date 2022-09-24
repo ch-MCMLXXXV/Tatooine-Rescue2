@@ -109,7 +109,7 @@ async function getUserById(userId) {
 }
 
 // used as helper function when user object needed
-async function getUserByUsername(userName) {
+async function getUserByUsername(username) {
 	try {
 		const {
 			rows: [user],
@@ -119,9 +119,9 @@ async function getUserByUsername(userName) {
 	  FROM users
 	  WHERE username = $1;
 	  `,
-			[userName]
+			[username]
 		);
-
+		console.log({user, line:124})
 		if (!user) return null;
 		return user;
 	} catch (error) {

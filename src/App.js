@@ -34,6 +34,7 @@ const App = () => {
    const [email, setEmail] = useState('');
    const [firstName, setFirstName] = useState('');
    const [lastName, setLastName] = useState('');
+   const [isLoggedin, setIsLoggedIn] = useState(false)
 
    //    useEffect(() => {
    //       const getAPIStatus = async () => {
@@ -135,6 +136,10 @@ const App = () => {
                   setToken={setToken}
                   username={username}
                   setUsername={setUsername}
+                  password={password}
+                  setPassword={setPassword}
+                  isLoggedin={isLoggedin}
+                  setIsLoggedIn={setIsLoggedIn}
                />
             </Route>
             <Route path='/register'>
