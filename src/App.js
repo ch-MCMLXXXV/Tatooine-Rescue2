@@ -34,7 +34,7 @@ const App = () => {
    const [email, setEmail] = useState('');
    const [firstName, setFirstName] = useState('');
    const [lastName, setLastName] = useState('');
-   const [isLoggedin, setIsLoggedIn] = useState(false)
+   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
    //    useEffect(() => {
    //       const getAPIStatus = async () => {
@@ -87,7 +87,7 @@ const App = () => {
 
    return (
       <>
-         <Navbar token={token} />
+         <Navbar token={token} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setToken={setToken} />
          {/* <nav>
                <Link className='tab' to='/home'>
                   Home
@@ -121,6 +121,9 @@ const App = () => {
                   token={token}
                   setproducts={setproducts}
                   products={products}
+                  isLoggedIn={isLoggedIn}
+                  setIsLoggedIn={setIsLoggedIn}
+                  setToken={setToken}
                />
             </Route>
             <Route path='/home'>
@@ -138,7 +141,7 @@ const App = () => {
                   setUsername={setUsername}
                   password={password}
                   setPassword={setPassword}
-                  isLoggedin={isLoggedin}
+                  isLoggedIn={isLoggedIn}
                   setIsLoggedIn={setIsLoggedIn}
                />
             </Route>
