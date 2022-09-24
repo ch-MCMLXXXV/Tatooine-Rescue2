@@ -5,7 +5,9 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container } from '@mui/system';
-import { CssBaseline, Typography } from '@mui/material';
+import { CssBaseline, Typography, Grid, Link } from '@mui/material';
+import { BASE_URL } from '../frontend-api/index';
+// import { loginUser } from '../frontend-api';
 
 const Login = ({
    username,
@@ -13,30 +15,30 @@ const Login = ({
    password,
    setPassword,
    setToken,
-   setIsLoggedIn
-    }) => {
-   const [loginError, setLoginError] = useState('')
+   setIsLoggedIn,
+}) => {
+   const [loginError, setLoginError] = useState('');
    const navigate = useHistory();
    const handleSubmit = async (e) => {
       e.preventDefault();
       if (!username || !password) {
-         return
+         return;
       }
       const data = await loginUser({
          username,
-         password
+         password,
       });
-      console.log({data, line:50})
+      console.log({ data, line: 50 });
       const token = data.token;
       if (!token) {
          setLoginError(data.message);
-         return
+         return;
       }
       localStorage.setItem('token', JSON.stringify(token));
       setToken(token);
       localStorage.setItem('token', token);
       localStorage.setItem('username', username);
-      
+
       if (token) {
          navigate.push('/Home');
       }
@@ -84,12 +86,19 @@ const Login = ({
                   sx={{ mt: 3, mb: 2 }}>
                   Login
                </Button>
+               <Grid container>
+                  <Grid>
+                     <Link href='/Register' variant='body2'>
+                        {"Don't have an account? Sign Up"}
+                     </Link>
+                  </Grid>
+               </Grid>
             </Box>
             {loginError && <p>{loginError}</p>}
          </Box>
       </Container>
    );
-}
+};
 
 export default Login;
 

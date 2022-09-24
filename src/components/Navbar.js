@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
    Typography,
    AppBar,
@@ -19,13 +20,28 @@ import MenuItem from '@mui/material/MenuItem';
 // import Userpage from './Userpage';
 
 const NavBar = ({ token }) => {
+   const navigate = useHistory();
    const [anchorEl, setAnchorEl] = useState(null);
+
    const open = Boolean(anchorEl);
+
    const handleMenu = (e) => {
       setAnchorEl(e.currentTarget);
    };
    const handleClose = () => {
       setAnchorEl(null);
+   };
+   const goHome = () => {
+      navigate.push('/Home');
+   };
+
+   const goCart = () => {
+      navigate.push('/Cart');
+   };
+
+   const handleLogout = () => {
+      localStorage.removeItem('token');
+      navigate.push('/Home');
    };
 
    //    const handleOpenNavMenu = (event) => {
@@ -63,14 +79,12 @@ const NavBar = ({ token }) => {
                      <>
                         <IconButton
                            size='large'
-                           aria-controls='menu-appbar'
-                           aria-haspopup='true'
-                           onClick={handleMenu}
-                           edge='start'>
+                           edge='start'
+                           onMouseEnter={handleMenu}>
                            <MenuIcon />
                         </IconButton>
                         <Menu
-                           id='menu-appbar'
+                           id='mouse-over-popover'
                            anchorEl={anchorEl}
                            anchorOrigin={{
                               vertical: 'bottom',
@@ -81,22 +95,13 @@ const NavBar = ({ token }) => {
                               vertical: 'top',
                               horizontal: 'right',
                            }}
-                           open={Boolean(anchorEl)}
-                           onClose={handleClose}
+                           // open={Boolean(anchorEl)}
                            MenuListProps={{
                               'aria-labelledby': 'basic-button',
                            }}>
-                           <MenuItem onClick={'./Register.js'}>
-                              Home
-                           </MenuItem>
-                           <MenuItem onClick={handleClose}>
-                              Cart
-                           </MenuItem>
-                           <MenuItem
-                              href='/Home'
-                              onClick={() => {
-                                 localStorage.removeItem('token');
-                              }}>
+                           <MenuItem onClick={goHome}>Home</MenuItem>
+                           <MenuItem onClick={goCart}>Cart</MenuItem>
+                           <MenuItem onClick={handleLogout}>
                               Logout
                            </MenuItem>
                         </Menu>
@@ -145,9 +150,6 @@ const NavBar = ({ token }) => {
                </Toolbar>
             </AppBar>
          </Box>
-         <Typography variant='h2' component='div'>
-            Tatooine products For Adoption
-         </Typography>
       </>
    );
 };
