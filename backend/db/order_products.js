@@ -1,8 +1,6 @@
 const client = require('../client');
 const { getProductsById } = require('./productsDb');
 const {
-	getOrderByUser,
-	getOrderByUserAndStatus,
 	getOrderById,
 } = require('./orders');
 
