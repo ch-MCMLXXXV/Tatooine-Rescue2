@@ -12,22 +12,27 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
-// import AppBar from "@mui/material/AppBar";
-// import Box from "@mui/material/Box";
-// import Toolbar from "@mui/material/Toolbar";
-// import Button from "@mui/material/Button";
-// import Search from "./Search";
-// import Userpage from './Userpage';
 
 const NavBar = ({ token, isLoggedIn, setIsLoggedIn, setToken }) => {
    const navigate = useHistory();
    const [anchorEl, setAnchorEl] = useState(null);
+   const [open, setOpen] = useState(false);
+
+   const openSnk = (e) => {
+      if (handleLogout(e.target)) {
+         setOpen(true);
+      } else {
+         setOpen(false);
+      }
+   };
 
    const handleMenu = (e) => {
       setAnchorEl(e.currentTarget);
+      setOpen(true);
    };
    const handleClose = () => {
       setAnchorEl(null);
+      setOpen(false);
    };
    const goHome = () => {
       navigate.push('/Home');
@@ -40,19 +45,10 @@ const NavBar = ({ token, isLoggedIn, setIsLoggedIn, setToken }) => {
    const handleLogout = () => {
       localStorage.removeItem('token');
       localStorage.removeItem('username');
-      setToken('')
+      setToken('');
       navigate.push('/Home');
-      alert("You have been successfully logged out.")
-      
+      alert('You have been successfully logged out.');
    };
-
-   //    const handleOpenNavMenu = (event) => {
-   //       setAnchorElNav(event.currentTarget);
-   //    };
-
-   //    const handleCloseNavMenu = () => {
-   //       setAnchorElNav(null);
-   //    };
 
    return (
       <>
@@ -60,7 +56,7 @@ const NavBar = ({ token, isLoggedIn, setIsLoggedIn, setToken }) => {
             <AppBar position='static'>
                <Toolbar>
                   <Typography
-                     variant='h6'
+                     variant='h4'
                      component='div'
                      sx={{ flexGrow: 1 }}>
                      Tatooine Puppy Rescue!
@@ -70,9 +66,9 @@ const NavBar = ({ token, isLoggedIn, setIsLoggedIn, setToken }) => {
                         <Button href='/Home' color='inherit'>
                            Home
                         </Button>
-                        <Button href='/Register' color='inherit'>
+                        {/* <Button href='/Register' color='inherit'>
                            Register
-                        </Button>
+                        </Button> */}
                         <Button href='/Login' color='inherit'>
                            Login
                         </Button>
@@ -80,13 +76,13 @@ const NavBar = ({ token, isLoggedIn, setIsLoggedIn, setToken }) => {
                   ) : (
                      <>
                         <IconButton
-                           size='large'
-                           aria-controls='menu-appbar'
+                           size='small'
                            aria-haspopup='true'
-                           onClick={handleMenu}
+                           onMouseEnter={handleMenu}
                            edge='start'>
-                           <MenuIcon />
+                           <MenuIcon style={{ color: '#FFE820' }} />
                         </IconButton>
+
                         <Menu
                            id='mouse-over-popover'
                            anchorEl={anchorEl}
@@ -99,7 +95,8 @@ const NavBar = ({ token, isLoggedIn, setIsLoggedIn, setToken }) => {
                               vertical: 'top',
                               horizontal: 'right',
                            }}
-                           open={Boolean(anchorEl)}
+                           open={open}
+                           onMouseLeave={handleClose}
                            onClose={handleClose}
                            MenuListProps={{
                               'aria-labelledby': 'basic-button',
@@ -110,46 +107,6 @@ const NavBar = ({ token, isLoggedIn, setIsLoggedIn, setToken }) => {
                               Logout
                            </MenuItem>
                         </Menu>
-
-                        {/* <Menu
-                           id='menu-appbar'
-                           anchorEl={anchorElNav}
-                           anchorOrigin={{
-                              vertical: 'bottom',
-                              horizontal: 'left',
-                           }}
-                           keepMounted
-                           transformOrigin={{
-                              vertical: 'top',
-                              horizontal: 'left',
-                           }}
-                           open={Boolean(anchorElNav)}
-                           onClose={handleCloseNavMenu}
-                           sx={{
-                              display: { xs: 'block', md: 'none' },
-                           }}>
-                           {pages.map((page) => (
-                              <MenuItem
-                                 key={page}
-                                 onClick={handleCloseNavMenu}>
-                                 <Typography textAlign='center'>
-                                    {page}
-                                 </Typography>
-                              </MenuItem>
-                           ))}
-                        </Menu> */}
-                        {/* <Button href='/Home' color='inherit'>
-                           Home
-                        </Button>
-                        <Button href='/Register' color='inherit'>
-                           Register
-                        </Button>
-                        <Button href='/Login' color='inherit'>
-                           Login
-                        </Button>
-                        <Button href='/Logout' color='inherit'>
-                           Logout
-                        </Button> */}
                      </>
                   )}
                </Toolbar>

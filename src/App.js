@@ -1,67 +1,116 @@
 import React, { useState, useEffect } from 'react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Route, Switch, Link } from 'react-router-dom';
-import { Navbar, Home, Login, Register, Products } from './components';
+import {
+   Navbar,
+   Home,
+   Login,
+   Register,
+   Products,
+} from './components';
 import SingleProduct from './components/SingleProduct';
-import { getUser, fetchAllProducts, getUsersCart } from './frontend-api';
+import {
+   getUser,
+   fetchAllProducts,
+   getUsersCart,
+} from './frontend-api';
 // import { getAPIHealth } from './frontend-api/index';
 
 const App = () => {
-	const [APIHealth, setAPIHealth] = useState('');
-	const [token, setToken] = useState(
-		localStorage.getItem('token') ? localStorage.getItem('token') : ''
-	);
-	const [username, setUsername] = useState(
-		localStorage.getItem('username') ? localStorage.getItem('username') : ''
-	);
-	const [userData, setUserData] = useState({});
-	const [password, setPassword] = useState('');
-	const [order, setOrder] = useState();
-	const [products, setProducts] = useState([]);
-	const [cart, setCart] = useState([]);
-	const [email, setEmail] = useState('');
-	const [firstName, setFirstName] = useState('');
-	const [lastName, setLastName] = useState('');
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+   const [APIHealth, setAPIHealth] = useState('');
+   const [token, setToken] = useState(
+      localStorage.getItem('token')
+         ? localStorage.getItem('token')
+         : ''
+   );
+   const [username, setUsername] = useState(
+      localStorage.getItem('username')
+         ? localStorage.getItem('username')
+         : ''
+   );
+   const [userData, setUserData] = useState({});
+   const [password, setPassword] = useState('');
+   const [order, setOrder] = useState();
+   const [products, setProducts] = useState([]);
+   const [cart, setCart] = useState([]);
+   const [email, setEmail] = useState('');
+   const [firstName, setFirstName] = useState('');
+   const [lastName, setLastName] = useState('');
+   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-	useEffect(async () => {
-		if (!token) {
-			setToken(localStorage.getItem('capstone-token'));
-			return;
-		}
-		const data = await getUser(token);
-		setUserData(data);
-	}, [token]);
+   const theme = createTheme({
+      palette: {
+         type: 'light',
+         primary: {
+            main: '#000000',
+            contrastText: '#ffe820',
+         },
+         secondary: {
+            main: '#fafafa',
+         },
+      },
+      typography: {
+         fontFamily: 'Orbitron',
+      },
+      components: {
+         MuiMenu: {
+            styleOverrides: {
+               primary: {
+                  main: '#FFE820',
+               },
+            },
+         },
+      },
+   });
 
-	// products
-	useEffect(() => {
-		const getAllProducts = async () => {
-			const result = await fetchAllProducts();
-			console.log(result);
-			setProducts(result);
-			// setProductsToDisplay(result.data.products);
-		};
-		getAllProducts().catch(console.error);
-	}, [setProducts]);
+   //    useEffect(() => {
+   //       const getAPIStatus = async () => {
+   //          const { healthy } = await getAPIHealth();
+   //          setAPIHealth(healthy ? 'api is up! :D' : 'api is down :/');
+   //       };
 
-	// useEffect(async () => {
-	// 	setOrder([]);
-	// 	if (userData.id !== undefined) {
-	// 		const usersCart = await getUsersCart(userData.id, token);
-	// 		if (typeof usersCart === 'object') {
-	// 			setCart(usersCart);
-	// 		}
-	// 	} else {
-	// 		let localCart = JSON.parse(localStorage.getItem('capstone-cart'));
-	// 		if (!localCart) {
-	// 			localCart = [];
-	// 			localStorage.setItem(
-	// 				'capstone-cart',
-	// 				JSON.stringify(localCart)
-	// 			);
-	// 		}
-	// 		setCart(localCart);
-	// 	}
-	// }, [userData]);
+   //       getAPIStatus();
+   //    }, []);
+
+   useEffect(async () => {
+      if (!token) {
+         setToken(localStorage.getItem('capstone-token'));
+         return;
+      }
+      const data = await getUser(token);
+      setUserData(data);
+   }, [token]);
+
+   // products
+   useEffect(() => {
+      const getAllProducts = async () => {
+         const result = await fetchAllProducts();
+         console.log(result);
+         setProducts(result);
+         // setproductsToDisplay(result.data.products);
+      };
+      getAllProducts().catch(console.error);
+   }, [setProducts]);
+
+   // useEffect(async () => {
+   // 	setOrder([]);
+   // 	if (userData.id !== undefined) {
+   // 		const usersCart = await getUsersCart(userData.id, token);
+   // 		if (typeof usersCart === 'object') {
+   // 			setCart(usersCart);
+   // 		}
+   // 	} else {
+   // 		let localCart = JSON.parse(localStorage.getItem('capstone-cart'));
+   // 		if (!localCart) {
+   // 			localCart = [];
+   // 			localStorage.setItem(
+   // 				'capstone-cart',
+   // 				JSON.stringify(localCart)
+   // 			);
+   // 		}
+   // 		setCart(localCart);
+   // 	}
+   // }, [userData]);
 
 	return (
 		<>
@@ -124,9 +173,10 @@ const App = () => {
 				/>
 				{/* <Route path="/cart/:user" element={<Cart />} />
 					<Route path="/cart/:userId" element={<Cart />} /> */}
-			</Switch>
-		</>
-	);
+            </Switch>
+         </ThemeProvider>
+      </>
+   );
 };
 
 export default App;
