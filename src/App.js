@@ -7,8 +7,9 @@ import {
    Login,
    Register,
    Products,
+   SingleProduct,
 } from './components';
-import SingleProduct from './components/SingleProduct';
+// import SingleProduct from './components/SingleProduct';
 import {
    getUser,
    fetchAllProducts,
@@ -31,6 +32,7 @@ const App = () => {
    const [userData, setUserData] = useState({});
    const [password, setPassword] = useState('');
    const [order, setOrder] = useState();
+   const [product, setProduct] = useState('') 
    const [products, setProducts] = useState([]);
    const [cart, setCart] = useState([]);
    const [email, setEmail] = useState('');
@@ -167,14 +169,15 @@ const App = () => {
 						setLastName={setLastName}
 					/>
 				</Route>
-				<Route exact path="/products:productId">
-					<SingleProduct products={products} />
+				<Route exact path={`/products/${products.id}`}>
+					<SingleProduct
+                  products={products} />
 				</Route>
 				/>
 				{/* <Route path="/cart/:user" element={<Cart />} />
 					<Route path="/cart/:userId" element={<Cart />} /> */}
             </Switch>
-         </ThemeProvider>
+         {/* </ThemeProvider> */}
       </>
    );
 };
