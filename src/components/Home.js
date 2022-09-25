@@ -11,11 +11,12 @@ import {
 	CardActionArea,
 } from '@mui/material';
 
-const Home = ({ products, setProducts }) => {
+const Home = ({ products, setProducts, productId }) => {
 	const navigate = useHistory();
 	const handleClick = async (e) => {
 		e.preventDefault();
-		navigate.push('/products:productId');
+		// navigate.push('/products:productId');
+      navigate.push(`/products/${productId}`);
 	};
 
 

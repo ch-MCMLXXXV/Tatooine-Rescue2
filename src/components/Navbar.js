@@ -66,9 +66,9 @@ const NavBar = ({ token, isLoggedIn, setIsLoggedIn, setToken }) => {
                         <Button href='/Home' color='inherit'>
                            Home
                         </Button>
-                        {/* <Button href='/Register' color='inherit'>
+                        <Button href='/Register' color='inherit'>
                            Register
-                        </Button> */}
+                        </Button>
                         <Button href='/Login' color='inherit'>
                            Login
                         </Button>
