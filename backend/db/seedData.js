@@ -126,8 +126,7 @@ async function createInitialproductsTable() {
 		const productsToCreate = [
 			{
 				name: 'Yoda',
-				description:
-					'Tan Frenchy with the cutest side eye ever. Get your own little yoda to carry around.',
+				description: 'Get your own little yoda to carry around.',
 				adoption_fee: 100,
 				quantity: 5,
 				breed: 'French Bull Dog',

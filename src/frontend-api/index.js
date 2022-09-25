@@ -1,4 +1,3 @@
-// import axios from 'axios';
 export const BASE_URL = '/api';
 
 export async function getUser({ token }) {
@@ -17,16 +16,6 @@ export async function getUser({ token }) {
 		console.error(error);
 	}
 }
-
-// export async function getAPIHealth() {
-//    try {
-//       const { data } = await axios.get('/api/health');
-//       return data;
-//    } catch (err) {
-//       console.error(err);
-//       return { healthy: false };
-//    }
-// }
 
 export async function registerUser({
 	username,
@@ -79,33 +68,28 @@ export async function loginUser({ username, password }) {
 	}
 }
 
-// export async function loginUser({ username, password }) {
-//    return fetch(`${BASE_URL}/users/login`, {
-//      method: 'POST',
-//      headers: {
-//        'Content-Type': 'application/json'
-//      },
-//      body: JSON.stringify({
-//          user: {
-//              username: username,
-//              password: password,
-//          }
-//      })
-//    }).then(response => response.json())
-//        .then(result => {
-//            console.log(result);
-//            return result.data.token;
-//        })
-//        .catch(console.error);
-//   }
-
-// export const getUsersCart = async (userId, token) => {
-//    const data = await {
-//       url: `orders/cart/${userId}`,
-//       token,
-//    };
-//    return data;
-// };
+export async function createOrder({ userId, productsId, quantity, token }) {
+	try {
+		return fetch(`${BASE_URL}/orders`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
+			body: JSON.stringify({
+				userId: userId,
+				productId: productsId,
+				quantity: quantity,
+			}),
+		})
+			.then((response) => response.json())
+			.then((result) => {
+				return result;
+			});
+	} catch (error) {
+		console.error(error);
+	}
+}
 
 export async function createProduct({
 	token,
@@ -166,6 +150,51 @@ export async function fetchProductById(id) {
 			.then((response) => response.json())
 			.then((result) => {
 				console.log(result);
+				return result;
+			});
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function getUsersCart({ userId, token }) {
+	try {
+		return fetch(`${BASE_URL}/orders/cart/${userId}`, {
+			headers: { 'Content-Type': 'application/json' },
+		})
+			.then((response) => response.json())
+			.then((result) => {
+				console.log(result);
+				return result;
+			});
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function addProduct(
+	name,
+	description,
+	breed,
+	image,
+	adoption_fee
+) {
+	try {
+		return fetch(`${BASE_URL}/orderId/products`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				name: name,
+				description: description,
+				breed: breed,
+				image: image,
+				adoption_fee: adoption_fee,
+			}),
+		})
+			.then((response) => response.json())
+			.then((result) => {
 				return result;
 			});
 	} catch (error) {
