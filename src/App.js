@@ -1,8 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Route, Switch, Link } from 'react-router-dom';
-import { Navbar, Home, Login, Register, Products } from './components';
+import {
+   Navbar,
+   Home,
+   Login,
+   Register,
+   Products,
+} from './components';
 import SingleProduct from './components/SingleProduct';
-import { getUser, fetchAllProducts, getUsersCart } from './frontend-api';
+import {
+   getUser,
+   fetchAllProducts,
+   getUsersCart,
+} from './frontend-api';
 // import { getAPIHealth } from './frontend-api/index';
 
 const App = () => {
@@ -27,59 +38,90 @@ const App = () => {
    const [lastName, setLastName] = useState('');
    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-	//    useEffect(() => {
-	//       const getAPIStatus = async () => {
-	//          const { healthy } = await getAPIHealth();
-	//          setAPIHealth(healthy ? 'api is up! :D' : 'api is down :/');
-	//       };
+   const theme = createTheme({
+      palette: {
+         type: 'light',
+         primary: {
+            main: '#000000',
+            contrastText: '#ffe820',
+         },
+         secondary: {
+            main: '#fafafa',
+         },
+      },
+      typography: {
+         fontFamily: 'Orbitron',
+      },
+      components: {
+         MuiMenu: {
+            styleOverrides: {
+               primary: {
+                  main: '#FFE820',
+               },
+            },
+         },
+      },
+   });
 
-	//       getAPIStatus();
-	//    }, []);
+   //    useEffect(() => {
+   //       const getAPIStatus = async () => {
+   //          const { healthy } = await getAPIHealth();
+   //          setAPIHealth(healthy ? 'api is up! :D' : 'api is down :/');
+   //       };
 
-	useEffect(async () => {
-		if (!token) {
-			setToken(localStorage.getItem('capstone-token'));
-			return;
-		}
-		const data = await getUser(token);
-		setUserData(data);
-	}, [token]);
+   //       getAPIStatus();
+   //    }, []);
 
-	// products
-	useEffect(() => {
-		const getAllProducts = async () => {
-			const result = await fetchAllProducts();
-			console.log(result);
-			setproducts(result);
-			// setproductsToDisplay(result.data.products);
-		};
-		getAllProducts().catch(console.error);
-	}, [setproducts]);
+   useEffect(async () => {
+      if (!token) {
+         setToken(localStorage.getItem('capstone-token'));
+         return;
+      }
+      const data = await getUser(token);
+      setUserData(data);
+   }, [token]);
 
-	// useEffect(async () => {
-	// 	setOrder([]);
-	// 	if (userData.id !== undefined) {
-	// 		const usersCart = await getUsersCart(userData.id, token);
-	// 		if (typeof usersCart === 'object') {
-	// 			setCart(usersCart);
-	// 		}
-	// 	} else {
-	// 		let localCart = JSON.parse(localStorage.getItem('capstone-cart'));
-	// 		if (!localCart) {
-	// 			localCart = [];
-	// 			localStorage.setItem(
-	// 				'capstone-cart',
-	// 				JSON.stringify(localCart)
-	// 			);
-	// 		}
-	// 		setCart(localCart);
-	// 	}
-	// }, [userData]);
+   // products
+   useEffect(() => {
+      const getAllProducts = async () => {
+         const result = await fetchAllProducts();
+         console.log(result);
+         setproducts(result);
+         // setproductsToDisplay(result.data.products);
+      };
+      getAllProducts().catch(console.error);
+   }, [setproducts]);
+
+   // useEffect(async () => {
+   // 	setOrder([]);
+   // 	if (userData.id !== undefined) {
+   // 		const usersCart = await getUsersCart(userData.id, token);
+   // 		if (typeof usersCart === 'object') {
+   // 			setCart(usersCart);
+   // 		}
+   // 	} else {
+   // 		let localCart = JSON.parse(localStorage.getItem('capstone-cart'));
+   // 		if (!localCart) {
+   // 			localCart = [];
+   // 			localStorage.setItem(
+   // 				'capstone-cart',
+   // 				JSON.stringify(localCart)
+   // 			);
+   // 		}
+   // 		setCart(localCart);
+   // 	}
+   // }, [userData]);
 
    return (
       <>
-         <Navbar token={token} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setToken={setToken} />
-         {/* <nav>
+         <ThemeProvider theme={theme}>
+            <Navbar
+               token={token}
+               isLoggedIn={isLoggedIn}
+               setIsLoggedIn={setIsLoggedIn}
+               setToken={setToken}
+            />
+            {/* <nav>
                <Link className='tab' to='/home'>
                   Home
                </Link>
@@ -95,8 +137,8 @@ const App = () => {
 
             </nav> */}
 
-			<Switch>
-				{/* <Route
+            <Switch>
+               {/* <Route
                   exact
                   path='/'
                   element={
@@ -107,57 +149,61 @@ const App = () => {
                      />
                   }
                /> */}
-            <Route exact path='/'>
-               <Home
-                  token={token}
-                  setproducts={setproducts}
-                  products={products}
-                  isLoggedIn={isLoggedIn}
-                  setIsLoggedIn={setIsLoggedIn}
-                  setToken={setToken}
+               <Route exact path='/'>
+                  <Home
+                     token={token}
+                     setproducts={setproducts}
+                     products={products}
+                     isLoggedIn={isLoggedIn}
+                     setIsLoggedIn={setIsLoggedIn}
+                     setToken={setToken}
+                  />
+               </Route>
+               <Route path='/home'>
+                  <Home
+                     token={token}
+                     setproducts={setproducts}
+                     products={products}
+                  />
+               </Route>
+               <Route path='/login'>
+                  <Login
+                     token={token}
+                     setToken={setToken}
+                     username={username}
+                     setUsername={setUsername}
+                     password={password}
+                     setPassword={setPassword}
+                     isLoggedIn={isLoggedIn}
+                     setIsLoggedIn={setIsLoggedIn}
+                  />
+               </Route>
+               <Route path='/register'>
+                  <Register
+                     token={token}
+                     setToken={setToken}
+                     username={username}
+                     setUsername={setUsername}
+                     password={password}
+                     setPassword={setPassword}
+                     email={email}
+                     setEmail={setEmail}
+                     firstName={firstName}
+                     setFirstName={setFirstName}
+                     lastName={lastName}
+                     setLastName={setLastName}
+                  />
+               </Route>
+               <Route
+                  path='/singleProduct'
+                  element={<SingleProduct />}
                />
-            </Route>
-            <Route path='/home'>
-               <Home
-                  token={token}
-                  setproducts={setproducts}
-                  products={products}
-               />
-            </Route>
-            <Route path='/login'>
-               <Login
-                  token={token}
-                  setToken={setToken}
-                  username={username}
-                  setUsername={setUsername}
-                  password={password}
-                  setPassword={setPassword}
-                  isLoggedIn={isLoggedIn}
-                  setIsLoggedIn={setIsLoggedIn}
-               />
-            </Route>
-            <Route path='/register'>
-               <Register
-                  token={token}
-                  setToken={setToken}
-                  username={username}
-                  setUsername={setUsername}
-                  password={password}
-                  setPassword={setPassword}
-                  email={email}
-                  setEmail={setEmail}
-                  firstName={firstName}
-                  setFirstName={setFirstName}
-                  lastName={lastName}
-                  setLastName={setLastName}
-               />
-            </Route>
-            <Route path="/singleProduct" element={<SingleProduct />} />
-            {/* <Route path="/cart/:user" element={<Cart />} />
+               {/* <Route path="/cart/:user" element={<Cart />} />
 					<Route path="/cart/:userId" element={<Cart />} /> */}
-			</Switch>
-		</>
-	);
+            </Switch>
+         </ThemeProvider>
+      </>
+   );
 };
 
 export default App;

@@ -21,7 +21,7 @@ const Home = ({ products, setproducts }) => {
    return (
       <>
          <Typography variant='h2' component='div'>
-            Tatooine products For Adoption
+            Puppies For Adoption
          </Typography>
          <Grid
             container
@@ -32,6 +32,7 @@ const Home = ({ products, setproducts }) => {
                   <Card
                      variant='outlined'
                      sx={{
+                        borderRadius: '16px',
                         backgroundColor: 'aliceblue',
                         boxShadow: '5px 5px grey',
                      }}>
