@@ -162,7 +162,7 @@ const App = () => {
 							setLastName={setLastName}
 						/>
 					</Route>
-					<Route path={`/products/${products.id}`}>
+					<Route path="/products/:id">
 						<SingleProduct products={products} />
 					</Route>
 
