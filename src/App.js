@@ -32,7 +32,7 @@ const App = () => {
    const [userData, setUserData] = useState({});
    const [password, setPassword] = useState('');
    const [order, setOrder] = useState();
-   const [product, setProduct] = useState('') 
+   const [product, setProduct] = useState('');
    const [products, setProducts] = useState([]);
    const [cart, setCart] = useState([]);
    const [email, setEmail] = useState('');
@@ -114,70 +114,70 @@ const App = () => {
    // 	}
    // }, [userData]);
 
-	return (
-		<>
-			<Navbar
-				token={token}
-				isLoggedIn={isLoggedIn}
-				setIsLoggedIn={setIsLoggedIn}
-				setToken={setToken}
-			/>
+   return (
+      <>
+         <ThemeProvider theme={theme}>
+            <Navbar
+               token={token}
+               isLoggedIn={isLoggedIn}
+               setIsLoggedIn={setIsLoggedIn}
+               setToken={setToken}
+            />
 
-			<Switch>
-				<Route exact path="/home">
-					<Home
-						token={token}
-						setProducts={setProducts}
-						products={products}
-						isLoggedIn={isLoggedIn}
-						setIsLoggedIn={setIsLoggedIn}
-						setToken={setToken}
-					/>
-				</Route>
-				<Route exact path="/products">
-					<Products
-						token={token}
-						setProducts={setProducts}
-						products={products}
-					/>
-				</Route>
-				<Route exact path="/login">
-					<Login
-						token={token}
-						setToken={setToken}
-						username={username}
-						setUsername={setUsername}
-						password={password}
-						setPassword={setPassword}
-						isLoggedIn={isLoggedIn}
-						setIsLoggedIn={setIsLoggedIn}
-					/>
-				</Route>
-				<Route exact path="/register">
-					<Register
-						token={token}
-						setToken={setToken}
-						username={username}
-						setUsername={setUsername}
-						password={password}
-						setPassword={setPassword}
-						email={email}
-						setEmail={setEmail}
-						firstName={firstName}
-						setFirstName={setFirstName}
-						lastName={lastName}
-						setLastName={setLastName}
-					/>
-				</Route>
-				<Route exact path={`/products/${products.id}`}>
-					<SingleProduct
-                  products={products} />
-				</Route>
-				/>
-				{/* <Route path="/cart/:user" element={<Cart />} />
+            <Switch>
+               <Route exact path='/home'>
+                  <Home
+                     token={token}
+                     setProducts={setProducts}
+                     products={products}
+                     isLoggedIn={isLoggedIn}
+                     setIsLoggedIn={setIsLoggedIn}
+                     setToken={setToken}
+                  />
+               </Route>
+               <Route exact path='/products'>
+                  <Products
+                     token={token}
+                     setProducts={setProducts}
+                     products={products}
+                  />
+               </Route>
+               <Route exact path='/login'>
+                  <Login
+                     token={token}
+                     setToken={setToken}
+                     username={username}
+                     setUsername={setUsername}
+                     password={password}
+                     setPassword={setPassword}
+                     isLoggedIn={isLoggedIn}
+                     setIsLoggedIn={setIsLoggedIn}
+                  />
+               </Route>
+               <Route exact path='/register'>
+                  <Register
+                     token={token}
+                     setToken={setToken}
+                     username={username}
+                     setUsername={setUsername}
+                     password={password}
+                     setPassword={setPassword}
+                     email={email}
+                     setEmail={setEmail}
+                     firstName={firstName}
+                     setFirstName={setFirstName}
+                     lastName={lastName}
+                     setLastName={setLastName}
+                  />
+               </Route>
+               <Route exact path={`/products/${products.id}`}>
+                  <SingleProduct products={products} />
+               </Route>
+
+               {/* <Route path="/cart/:user" element={<Cart />} />
 					<Route path="/cart/:userId" element={<Cart />} /> */}
             </Switch>
-         {/* </ThemeProvider> */}
+         </ThemeProvider>
       </>
    );
 };
