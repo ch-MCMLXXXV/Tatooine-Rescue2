@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
+import Search from './Search';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -14,56 +15,62 @@ import {
 	TextField,
 } from '@mui/material';
 
-const Products = ({ products }) => {
+const Products = ({ products, setProducts, setProductsToDisplay }) => {
 	const [searchQuery, updateSearchQuery] = useState('');
 	const [category, setCategory] = useState('');
+	// const [searchTerm, setSearchTerm] = useState('');
 	let productsToDisplay = products;
 
-	const Search = ({ products, setProductsToDisplay }) => {
-		const [searchTerm, setSearchTerm] = useState('');
+	// const Search = ({ products, setProductsToDisplay }) => {
+	// 	const [searchTerm, setSearchTerm] = useState('');
 
-		useEffect(() => {
-			const filteredProducts =
-				products.length &&
-				products.filter((product) => postMatches(product, searchTerm));
-			const productsToDisplay = searchTerm.length
-				? filteredProducts
-				: products;
-			setProductsToDisplay(productsToDisplay);
-		}, [searchTerm]);
+	// 	useEffect(() => {
+	// 		const filteredProducts =
+	// 			products.length &&
+	// 			products.filter((product) => productMatches(product, searchTerm));
+	// 		const productsToDisplay = searchTerm.length
+	// 			? filteredProducts
+	// 			: products;
+	// 		setProductsToDisplay(productsToDisplay);
+	// 	}, [searchTerm]);
 
-		function postMatches(product, text) {
-			if (product.name.includes(searchTerm)) {
-				return true;
-			}
-			if (product.description.includes(searchTerm)) {
-				return true;
-			}
-			if (product.breed.includes(searchTerm)) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-	};
+	// 	function productMatches(product, text) {
+	// 		if (product.name.includes(searchTerm)) {
+	// 			return true;
+	// 		}
+	// 		if (product.description.includes(searchTerm)) {
+	// 			return true;
+	// 		}
+	// 		if (product.breed.includes(searchTerm)) {
+	// 			return true;
+	// 		} else {
+	// 			return false;
+	// 		}
+	// 	}
+	// };
 
 	return (
 		<>
 			<Typography variant='h2' component='div'>
             	Puppies For Adoption
          	</Typography>
+			<Search
+				products={products}
+				setProducts={setProducts}
+				setProductsToDisplay={setProductsToDisplay}
+			/>
 
-			<Typography variant='h5' component='div'>
+			{/* <Typography variant='h5' component='div'>
 				Search
 			</Typography>
 			<TextField
 				type="text"
 				placeholder="search for a dog"
-				value={searchQuery}
-				onChange={(event) => {
-					updateSearchQuery(event.target.value);
-				}}
-			/>
+				value={searchTerm}
+				onChange={(event) =>
+					setSearchTerm(event.target.value)
+				}
+			></TextField> */}
 			<Grid
 				container
 				spacing={{ xs: 6}}
