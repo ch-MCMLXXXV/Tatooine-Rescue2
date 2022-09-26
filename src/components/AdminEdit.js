@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { editProduct } from '../frontend-api/index';
 
 
-const AdminEditPost = ({products, token}) => {
+const AdminEditProduct = ({products, token}) => {
     const history = useHistory();
     const [id, setId] = useState(products.id);
     const [name, setName] = useState(products.name);
@@ -15,7 +15,7 @@ const AdminEditPost = ({products, token}) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const data = await editItem({productsId, adoption_fee, image, quantity, breed, name}, token);
+        const data = await editProduct({productsId, adoption_fee, image, quantity, breed, name}, token);
         history.push('/products');
     }
 
@@ -29,39 +29,34 @@ const AdminEditPost = ({products, token}) => {
                     placeholder="Dog Name"
                     value={name}
                     onChange={(event) => setName(event.target.value)}
-
-                ></input>
+                />
                 <input
                     type="text"
                     placeholder="Adoption Fee"
-                    value={adoption_fee}}
+                    value={adoption_fee}
                     onChange={(event) => setFee(event.target.value)}
-
-                ></input>
+                />
                 <input
                     type="number"
                     placeholder="Quantity"
                     value={quantity}
                     onChange={(event) => setQuantity(event.target.value)}
-
-                ></input>
+                />
                 <input
                     type="text"
                     placeholder="Breed"
                     value={breed}
                     onChange={(event) => setBreed(event.target.value)}
-
-                ></input>
-            </div>
+                />
                 <input
                     type="text"
                     value={image}
                     onChange={(event) => setImage(event.target.value)}
-                ></input>
-                </div>
+                />
                 <button type="submit">Submit Changes</button>
+                </div>
             </form>
         </>
-        );
-        }
-        export default AdminEditPost;
+    );
+};
+export default AdminEditProduct;
