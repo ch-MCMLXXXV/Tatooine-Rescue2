@@ -8,7 +8,7 @@ import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 import CardMedia from '@mui/material/CardMedia';
 import { Button } from '@material-ui/core';
-import { CardActionArea } from '@mui/material';
+import { CardActions, CardActionArea } from '@mui/material';
 
 const SingleProduct = ({ products }) => {
 	const { id } = useParams();
@@ -21,8 +21,48 @@ const SingleProduct = ({ products }) => {
 
 	return (
 		<>
-			<Typography variant="h2" component="div">
-				Tatooine Dogs For Adoption
+			<Typography component='h2' variant='h2' style={{textAlign: 'center'}}>
+				{product.name}
+			</Typography>
+			<Card
+				variant='outlined'
+				sx={{
+					borderRadius: '16px',
+					backgroundColor: 'aliceblue',
+					boxShadow: '5px 5px grey',
+				}}>
+				<CardActionArea>
+					<CardMedia
+						component='img'
+						height='auto'
+						src={product.image}
+						alt='Dog image'
+					/>
+					<CardContent key={product.id}>
+						
+						<Typography variant='subtitle1'>
+							<strong>Breed: </strong> {product.breed}
+						</Typography>
+						<Typography variant='subtitle1'>
+							Des:{product.description}
+						</Typography>
+						<Typography variant='subtitle1'>
+							<strong>Adoption fee:</strong> $
+							{product.adoption_fee}
+						</Typography>
+					</CardContent>
+					<CardActions>
+						<Button
+							size='small'
+							color='primary'
+							href={`/products/${product.id}`}>
+							Adopt a Dog
+						</Button>
+					</CardActions>
+				</CardActionArea>
+			</Card>
+			{/* <Typography variant="h2" component="div">
+				{product.name}
 			</Typography>
 			<br></br>
 			<img

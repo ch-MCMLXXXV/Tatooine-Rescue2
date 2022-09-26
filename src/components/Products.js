@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
@@ -11,6 +10,8 @@ import {
 	CardActions,
 	// IconButton,
 	CardActionArea,
+	Button,
+	TextField,
 } from '@mui/material';
 
 const Products = ({ products }) => {
@@ -48,10 +49,14 @@ const Products = ({ products }) => {
 
 	return (
 		<>
-			<h2 id="title">Dogs for Adoption</h2>
+			<Typography variant='h2' component='div'>
+            	Puppies For Adoption
+         	</Typography>
 
-			<h2>Search</h2>
-			<input
+			<Typography variant='h5' component='div'>
+				Search
+			</Typography>
+			<TextField
 				type="text"
 				placeholder="search for a dog"
 				value={searchQuery}
@@ -59,7 +64,56 @@ const Products = ({ products }) => {
 					updateSearchQuery(event.target.value);
 				}}
 			/>
-			{productsToDisplay?.map((product) => (
+			<Grid
+				container
+				spacing={{ xs: 6}}
+				columns={{ xs: 4, sm: 12 }}>
+				{productsToDisplay?.map((product) => (
+					<Grid key={product.id} item xs='auto' md={6} sm={4}>
+						<Card
+						variant='outlined'
+						sx={{
+							borderRadius: '16px',
+							backgroundColor: 'aliceblue',
+							boxShadow: '5px 5px grey',
+						}}>
+						<CardActionArea>
+							<CardMedia
+								component='img'
+								height='auto'
+								src={product.image}
+								alt='Dog image'
+							/>
+							<CardContent key={product.id}>
+								<Typography component='h2' variant='h5'>
+									{product.name}
+								</Typography>
+								<Typography variant='subtitle1'>
+									<strong>Breed: </strong> {product.breed}
+								</Typography>
+								<Typography variant='subtitle1'>
+									Des:{product.description}
+								</Typography>
+								<Typography variant='subtitle1'>
+									<strong>Adoption fee:</strong> $
+									{product.adoption_fee}
+								</Typography>
+							</CardContent>
+							<CardActions>
+								<Button
+									size='small'
+									color='primary'
+									href={`/products/${product.id}`}>
+									Adopt a Dog
+								</Button>
+							</CardActions>
+						</CardActionArea>
+						</Card>
+					</Grid>
+		  		))}
+	   		</Grid>
+
+			{/* {productsToDisplay?.map((product) => (
 				<div key={product.id} style={{ border: '1px solid black' }}>
 					<img
 						style={{ maxWidth: '150px', height: 'auto' }}
@@ -73,9 +127,9 @@ const Products = ({ products }) => {
 						<Link to={`/products/${product.id}`}>
 							View more details
 						</Link>
-					</Button>
-				</div>
-			))}
+					</Button> */}
+				{/* // </div> */}
+			{/* // ))} */}
 		</>
 	);
 };
