@@ -11,9 +11,9 @@ import { Button } from '@material-ui/core';
 import { CardActionArea } from '@mui/material';
 
 const SingleProduct = ({ products }) => {
-	const { productId } = useParams();
+	const { id } = useParams();
 
-	const product = products.find((product) => product.id == productId );
+	const product = products.find((product) => product.id == id );
 	if (product === undefined) {
 		return null;
 	}
