@@ -13,7 +13,7 @@ import { CardActionArea } from '@mui/material';
 const SingleProduct = ({ products }) => {
 	const { productId } = useParams();
 
-	const product = products.find((product) => product.id === productId );
+	const product = products.find((product) => product.id == productId );
 	if (product === undefined) {
 		return null;
 	}

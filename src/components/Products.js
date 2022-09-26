@@ -14,37 +14,41 @@ import {
 } from '@mui/material';
 
 const Products = ({ products }) => {
-
 	const [searchQuery, updateSearchQuery] = useState('');
 	const [category, setCategory] = useState('');
 	let productsToDisplay = products;
 
-	function productMatches(product, text) {
-		const searchTerm = text.toLowerCase();
+	const Search = ({ products, setProductsToDisplay }) => {
+		const [searchTerm, setSearchTerm] = useState('');
 
-		const { title, price, category } = product;
+		useEffect(() => {
+			const filteredProducts =
+				products.length &&
+				products.filter((product) => postMatches(product, searchTerm));
+			const productsToDisplay = searchTerm.length
+				? filteredProducts
+				: products;
+			setProductsToDisplay(productsToDisplay);
+		}, [searchTerm]);
 
-		const toMatch = [title, price, category];
-
-		for (const field of toMatch) {
-			if (field.toString().toLowerCase().includes(searchTerm)) {
+		function postMatches(product, text) {
+			if (product.name.includes(searchTerm)) {
 				return true;
 			}
+			if (product.description.includes(searchTerm)) {
+				return true;
+			}
+			if (product.breed.includes(searchTerm)) {
+				return true;
+			} else {
+				return false;
+			}
 		}
-		return false;
-	}
-
-	if (searchQuery.length > 0) {
-		productsToDisplay = products.filter((product) =>
-			productMatches(product, searchQuery)
-		);
-	} else {
-		productsToDisplay = products;
-	}
+	};
 
 	return (
 		<>
-			<h2 id="productstitle">Dogs for Adoption</h2>
+			<h2 id="title">Dogs for Adoption</h2>
 
 			<h2>Search</h2>
 			<input
@@ -75,5 +79,4 @@ const Products = ({ products }) => {
 		</>
 	);
 };
-
 export default Products;
