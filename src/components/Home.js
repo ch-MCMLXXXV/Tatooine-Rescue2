@@ -6,19 +6,19 @@ import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 import CardMedia from '@mui/material/CardMedia';
 import {
-	CardActions,
-	// IconButton,
-	CardActionArea,
+   CardActions,
+   // IconButton,
+   CardActionArea,
+   Button,
 } from '@mui/material';
 
 const Home = ({ products, setProducts, productId }) => {
-	const navigate = useHistory();
-	const handleClick = async (e) => {
-		e.preventDefault();
-		// navigate.push('/products:productId');
+   const navigate = useHistory();
+   const handleClick = async (e) => {
+      e.preventDefault();
+      // navigate.push('/products:productId');
       navigate.push(`/products/${productId}`);
-	};
-
+   };
 
    return (
       <>
@@ -43,7 +43,6 @@ const Home = ({ products, setProducts, productId }) => {
                            component='img'
                            height='auto'
                            src={product.image}
-                           onClick={handleClick}
                            alt='Dog image'
                         />
                         <CardContent key={product.id}>
@@ -51,15 +50,24 @@ const Home = ({ products, setProducts, productId }) => {
                               {product.name}
                            </Typography>
                            <Typography variant='subtitle1'>
-                              Breed: {product.breed}
+                              <strong>Breed: </strong> {product.breed}
                            </Typography>
                            <Typography variant='subtitle1'>
                               Des:{product.description}
                            </Typography>
                            <Typography variant='subtitle1'>
-                              Adoption fee: ${product.adoption_fee}
+                              <strong>Adoption fee:</strong> $
+                              {product.adoption_fee}
                            </Typography>
                         </CardContent>
+                        <CardActions>
+                           <Button
+                              size='small'
+                              color='primary'
+                              href='/Products'>
+                              Adopt a Dog
+                           </Button>
+                        </CardActions>
                      </CardActionArea>
                   </Card>
                </Grid>
@@ -67,22 +75,22 @@ const Home = ({ products, setProducts, productId }) => {
          </Grid>
       </>
 
-		// <div>
-		// 	<header>
-		// 		<h1>Home Page</h1>
-		// 	</header>
-		// 	<h2>products For Adoptions</h2>
-		// 	{products.map((dog) => (
-		// 		<div key={dog._id}>
-		// 			<h3>{dog.name}</h3>
-		// 			<div>{dog.description}</div>
-		// 			<div>{dog.breed}</div>
-		// 			<div>{dog.image}</div>
-		// 			<div>{dog.adoption_fee}</div>
-		// 		</div>
-		// 	))}
-		// </div>
-	);
+      // <div>
+      // 	<header>
+      // 		<h1>Home Page</h1>
+      // 	</header>
+      // 	<h2>products For Adoptions</h2>
+      // 	{products.map((dog) => (
+      // 		<div key={dog._id}>
+      // 			<h3>{dog.name}</h3>
+      // 			<div>{dog.description}</div>
+      // 			<div>{dog.breed}</div>
+      // 			<div>{dog.image}</div>
+      // 			<div>{dog.adoption_fee}</div>
+      // 		</div>
+      // 	))}
+      // </div>
+   );
 };
 
 export default Home;
