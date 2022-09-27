@@ -10,7 +10,7 @@ import CardMedia from '@mui/material/CardMedia';
 import { Button } from '@material-ui/core';
 import { CardActions, CardActionArea } from '@mui/material';
 
-const SingleProduct = ({ products }) => {
+const SingleProduct = ({ products, orders }) => {
 	const { id } = useParams();
 
 	const product = products.find((product) => product.id == id );
@@ -34,7 +34,7 @@ const SingleProduct = ({ products }) => {
 				<CardActionArea>
 					<CardMedia
 						component='img'
-						height='auto'
+						height='200px'
 						src={product.image}
 						alt='Dog image'
 					/>
@@ -55,7 +55,7 @@ const SingleProduct = ({ products }) => {
 						<Button
 							size='small'
 							color='primary'
-							href={`/products/${product.id}`}>
+							onClick={() => {addProduct(product)}}>
 							Adopt a Dog
 						</Button>
 					</CardActions>
