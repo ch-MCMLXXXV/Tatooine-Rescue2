@@ -64,7 +64,9 @@ const SingleProduct = ({ products, orders }) => {
                      Fee: ${adoption_fee}
                   </Typography>
                   <Tooltip title='Add to Cart'>
-                     <IconButton aria-label='Add to Cart' href='#'>
+                     <IconButton
+                        aria-label='Add to Cart'
+                        href='/Cart'>
                         <AddShoppingCartSharpIcon fontSize='large' />
                      </IconButton>
                   </Tooltip>

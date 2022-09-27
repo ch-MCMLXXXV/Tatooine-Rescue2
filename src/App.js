@@ -95,27 +95,27 @@ const App = () => {
       getAllProducts().catch(console.error);
    }, [setProducts]);
 
-   useEffect(async () => {
-      setOrder([]);
-      if (userData.id !== undefined) {
-         const usersCart = await getUsersCart(userData.id, token);
-         if (typeof usersCart === 'object') {
-            setCart(usersCart);
-         }
-      } else {
-         let localCart = JSON.parse(
-            localStorage.getItem('capstone-cart')
-         );
-         if (!localCart) {
-            localCart = [];
-            localStorage.setItem(
-               'capstone-cart',
-               JSON.stringify(localCart)
-            );
-         }
-         setCart(localCart);
-      }
-   }, [userData]);
+   // useEffect(async () => {
+   //    setOrder([]);
+   //    if (userData.id !== undefined) {
+   //       const usersCart = await getUsersCart(userData.id, token);
+   //       if (typeof usersCart === 'object') {
+   //          setCart(usersCart);
+   //       }
+   //    } else {
+   //       let localCart = JSON.parse(
+   //          localStorage.getItem('capstone-cart')
+   //       );
+   //       if (!localCart) {
+   //          localCart = [];
+   //          localStorage.setItem(
+   //             'capstone-cart',
+   //             JSON.stringify(localCart)
+   //          );
+   //       }
+   //       setCart(localCart);
+   //    }
+   // }, [userData]);
 
    return (
       <>
