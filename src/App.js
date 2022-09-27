@@ -8,6 +8,7 @@ import {
 	Register,
 	Products,
 	SingleProduct,
+   Cart,
 } from './components';
 // import SingleProduct from './components/SingleProduct';
 import { getUser, fetchAllProducts, getUsersCart } from './frontend-api';
@@ -86,25 +87,25 @@ const App = () => {
 		getAllProducts().catch(console.error);
 	}, [setProducts]);
 
-	// useEffect(async () => {
-	// 	setOrder([]);
-	// 	if (userData.id !== undefined) {
-	// 		const usersCart = await getUsersCart(userData.id, token);
-	// 		if (typeof usersCart === 'object') {
-	// 			setCart(usersCart);
-	// 		}
-	// 	} else {
-	// 		let localCart = JSON.parse(localStorage.getItem('capstone-cart'));
-	// 		if (!localCart) {
-	// 			localCart = [];
-	// 			localStorage.setItem(
-	// 				'capstone-cart',
-	// 				JSON.stringify(localCart)
-	// 			);
-	// 		}
-	// 		setCart(localCart);
-	// 	}
-	// }, [userData]);
+	useEffect(async () => {
+		setOrder([]);
+		if (userData.id !== undefined) {
+			const usersCart = await getUsersCart(userData.id, token);
+			if (typeof usersCart === 'object') {
+				setCart(usersCart);
+			}
+		} else {
+			let localCart = JSON.parse(localStorage.getItem('capstone-cart'));
+			if (!localCart) {
+				localCart = [];
+				localStorage.setItem(
+					'capstone-cart',
+					JSON.stringify(localCart)
+				);
+			}
+			setCart(localCart);
+		}
+	}, [userData]);
 
 	return (
 		<>
@@ -166,8 +167,10 @@ const App = () => {
 						<SingleProduct products={products} />
 					</Route>
 
-					{/* <Route path="/cart/:user" element={<Cart />} />
-					<Route path="/cart/:userId" element={<Cart />} /> */}
+					<Route path="/cart">
+                  <Cart />
+               </Route>
+					{/* <Route path="/cart/:userId" element={<Cart />} /> */}
 				</Switch>
 			</ThemeProvider>
 		</>
