@@ -46,7 +46,7 @@ const NavBar = ({ token, isLoggedIn, setIsLoggedIn, setToken }) => {
       localStorage.removeItem('token');
       localStorage.removeItem('username');
       setToken('');
-      navigate.push('/Home');
+      navigate.push('/Products');
       alert('You have been successfully logged out.');
    };
 
@@ -63,7 +63,7 @@ const NavBar = ({ token, isLoggedIn, setIsLoggedIn, setToken }) => {
                   </Typography>
                   {!token ? (
                      <>
-                        <Button href='/Home' color='inherit'>
+                        <Button href='/Products' color='inherit'>
                            Home
                         </Button>
                         <Button href='/Register' color='inherit'>
