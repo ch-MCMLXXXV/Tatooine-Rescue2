@@ -40,7 +40,7 @@ const Login = ({
       localStorage.setItem('username', username);
 
       if (token) {
-         navigate.push('/Home');
+         navigate.push('/Products');
       }
    };
 
