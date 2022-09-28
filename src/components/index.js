@@ -7,5 +7,5 @@ export { default as Register } from './Register';
 export { default as Products } from './Products';
 export { default as SingleProduct } from './SingleProduct';
 export { default as Cart } from './Cart';
-// export { default as Cart } from "./Cart";
+export { default as AdminCreate } from './AdminCreate';
 export { default as Home } from './Home';
