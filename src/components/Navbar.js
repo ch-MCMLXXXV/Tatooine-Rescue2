@@ -35,7 +35,7 @@ const NavBar = ({ token, isLoggedIn, setIsLoggedIn, setToken }) => {
       setOpen(false);
    };
    const goHome = () => {
-      navigate.push('/Home');
+      navigate.push('/Products');
    };
 
    const goCart = () => {
