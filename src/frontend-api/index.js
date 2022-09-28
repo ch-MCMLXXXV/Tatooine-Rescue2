@@ -172,18 +172,21 @@ export async function getUsersCart({ userId, token }) {
 	}
 }
 
-export async function addProduct(
+export async function addProduct({
 	name,
 	description,
 	breed,
 	image,
-	adoption_fee
-) {
+	adoption_fee,
+   token
+}) {
 	try {
 		return fetch(`${BASE_URL}/orderId/products`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+
 			},
 			body: JSON.stringify({
 				name: name,

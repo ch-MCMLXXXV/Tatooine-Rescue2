@@ -9,6 +9,7 @@ import {
    Products,
    SingleProduct,
    Cart,
+   AdminCreate,
 } from './components';
 // import SingleProduct from './components/SingleProduct';
 import {
@@ -179,6 +180,13 @@ const App = () => {
 
                <Route path='/cart'>
                   <Cart />
+               </Route>
+               <Route path='/create'>
+                  <AdminCreate 
+                     products={products}
+                     setProducts={setProducts}
+                     token={token}
+                     />
                </Route>
                {/* <Route path="/cart/:userId" element={<Cart />} /> */}
             </Switch>

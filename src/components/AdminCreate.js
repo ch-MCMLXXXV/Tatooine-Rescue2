@@ -1,5 +1,6 @@
 import { Checkbox, CssBaseline } from '@mui/material';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { addProduct } from '../frontend-api/index';
 import Button from '@mui/material/Button'
 import { Container } from '@mui/system'
@@ -9,23 +10,24 @@ import FormGroup from '@mui/material/FormGroup'
 import TextField from '@mui/material/TextField'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import { APIURL } from '..';
-import { addProduct } from '../frontend-api';
 import { HistoryToggleOff } from '@mui/icons-material';
 
 const AdminCreateProduct = ({products, setProducts, token}) => {
     const history = useHistory();
-    const [name, setName] = useState('');
-    const [fee, setFee] = useState('');
-    const [breed, setBreed] = useState('');
-    const [quantity, setQuantity] = useState('');
-    const [image, setImage] = useState(false)
+    const [name, setName] = useState(products.name);
+    const [adoption_fee, setAdoptionFee] = useState(products.adoption_fee);
+    const [breed, setBreed] = useState(products.breed);
+    const [quantity, setQuantity] = useState(products.quantity);
+    const [image, setImage] = useState(products.image)
+    const [description, setDescription] = useState(products.description)
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const data = await addProduct({name, fee, breed, quantity, image}, token);
-        setProducts([result.data.products, ...products]);
+        const data = await addProduct({name, adoption_fee, breed, quantity, image, description}, token);
+        setProducts([data.data.products, ...products]);
+        console.log(data)
         setName('');
-        setFee('');
+        setAdoptionFee('');
         setBreed('');
         setQuantity('');
         setImage('');
@@ -48,9 +50,15 @@ const AdminCreateProduct = ({products, setProducts, token}) => {
             <Box component='form' onSubmit={handleSubmit}>
                 <TextField
                     type="text"
-                    placeholder="Title"
-                    value={title}
-                    onChange={(event) => setTitle(event.target.value)}>
+                    placeholder="Name"
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}>
+                </TextField>
+                <TextField
+                    type="text"
+                    placeholder="Breed"
+                    value={breed}
+                    onChange={(event) => setBreed(event.target.value)}>
                 </TextField>
                 <TextField
                     type="text"
@@ -60,19 +68,22 @@ const AdminCreateProduct = ({products, setProducts, token}) => {
                 </TextField>
                 <TextField
                     type="text"
-                    placeholder="Price"
-                    value={price}
-                    onChange={(event) => setPrice(event.target.value)}>
+                    placeholder="Fee"
+                    value={adoption_fee}
+                    onChange={(event) => setAdoptionFee(event.target.value)}>
                 </TextField>
                 <TextField
                     type="text"
-                    placeholder="Location"
-                    value={location}
-                    onChange={(event) => setLocation(event.target.value)}>
+                    placeholder="Quantity"
+                    value={quantity}
+                    onChange={(event) => setQuantity(event.target.value)}>
                 </TextField>
-                <FormGroup>
-                    <FormControlLabel control={<Checkbox defaultChecked />} label="Will Deliver?" onChange={(event) => setLocation(event.target.value)} />
-                </FormGroup>
+                <TextField
+                    type="text"
+                    placeholder="Image"
+                    value={image}
+                    onChange={(event) => setImage(event.target.value)}>
+                </TextField>
                 <Button sx={{
                     m: 2
                 }} type="submit" variant='outlined' >Create</Button>
