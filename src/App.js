@@ -128,7 +128,7 @@ const App = () => {
             />
 
             <Switch>
-               <Route exact path='/home'>
+               <Route exact path='/'>
                   <Home
                      token={token}
                      setProducts={setProducts}
