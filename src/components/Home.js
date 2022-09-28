@@ -103,7 +103,14 @@ const Home = ({ products, setProducts, productId }) => {
             component='img'
             src="https://i.etsystatic.com/6511037/r/il/2dab7a/3059740452/il_1140xN.3059740452_7oda.jpg"
             alt='Dog image'
-            style={{ marginLeft: 'auto', marginRight: 'auto', marginBottom: '40px', marginTop: '40px', width: 400, height: 400 }}
+            style={{ marginLeft: 'auto',
+                     marginRight: 'auto',
+                     marginBottom: '40px',
+                     marginTop: '40px',
+                     width: 400,
+                     height: 400,
+                     borderRadius: '20%'}}
+            border='2px solid black'
             />
          <Button
                   type='submit'
