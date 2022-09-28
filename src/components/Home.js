@@ -109,8 +109,9 @@ const Home = ({ products, setProducts, productId }) => {
                      marginTop: '40px',
                      width: 400,
                      height: 400,
-                     borderRadius: '20%'}}
-            border='2px solid black'
+                     borderRadius: '16px',
+                     boxShadow: '5px 5px grey' }}
+            // border='2px solid black'
             />
          <Button
                   type='submit'
