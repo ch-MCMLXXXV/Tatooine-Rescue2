@@ -34,29 +34,22 @@ apiRouter.use(async (req, res, next) => {
 });
 
 apiRouter.use((req, res, next) => {
-   if (req.user) {
-      console.log('User is set', req.user);
-   }
+	if (req.user) {
+		console.log('User is set', req.user);
+	}
 
-   next();
+	next();
 });
 
 const usersRouter = require('./users');
 apiRouter.use('/users', usersRouter);
 
 const productsRouter = require('./products');
-console.log(productsRouter, 'This is productsRouter');
+
 apiRouter.use('/products', productsRouter);
 
 const ordersRouter = require('./orders');
-console.log(ordersRouter, 'This is ordersRouter');
-apiRouter.use('/orders', ordersRouter);
 
-apiRouter.use((error, req, res, next) => {
-   res.send({
-      name: error.name,
-      message: error.message,
-   });
-});
+apiRouter.use('/orders', ordersRouter);
 
 module.exports = apiRouter;

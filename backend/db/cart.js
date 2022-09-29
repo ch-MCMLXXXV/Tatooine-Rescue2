@@ -1,4 +1,4 @@
-const client = require('../client');
+const client = require('./client');
 const { getProductsById } = require('./productsDb');
 const { getOrderById } = require('./orders');
 
@@ -20,16 +20,16 @@ async function getCartById({ id }) {
 	}
 }
 
-async function getCartByOrderAndProduct(orderID, productsId) {
+async function getCartByOrderAndProduct(orderID, productId) {
 	try {
 		const orderProduct = await client.query(
 			`
             SELECT *
             FROM cart
             WHERE "orderID" = $1,
-            AND "productsId" = $2;
+            AND "productId" = $2;
         `,
-			[orderID, productsId]
+			[orderID, productId]
 		);
 
 		return orderProduct;
@@ -38,46 +38,51 @@ async function getCartByOrderAndProduct(orderID, productsId) {
 	}
 }
 
-async function addProductToCart({ orderId, productsId, price, quantity }) {
+async function addProductToCart({
+	orderId,
+	productId,
+	adoption_fee,
+	quantity,
+}) {
 	try {
 		const { rows: cart } = await client.query(
 			`
-        SELECT id, "productsId", "orderId"
+        SELECT id, "productId", "orderId"
         FROM cart
         WHERE "orderId" = $1;
     `,
 			[orderId]
 		);
 		console.log('add to order', cart);
-		const inCart = cart.filter((cart) => cart.productsId === productsId);
+		const inCart = cart.filter((cart) => cart.productId === productId);
 
 		if (inCart.length === 0) {
 			const {
 				rows: [cart],
 			} = await client.query(
 				`
-            INSERT INTO cart("orderId", "productsId", price, quantity)
+            INSERT INTO cart("orderId", "productId", adoption_fee, quantity)
             VALUES($1, $2, $3, $4)
             RETURNING *;
         `,
-				[orderId, productsId, price, quantity]
+				[orderId, productId, adoption_fee, quantity]
 			);
 			return cart;
 		} else {
-			updateCart({ id: inCart[0].id, price, quantity });
+			updateCart({ id: inCart[0].id, adoption_fee, quantity });
 		}
 	} catch (error) {
 		console.error(error);
 	}
 }
 
-async function updateCart({ orderId, productsId, price, quantity }) {
+async function updateCart({ orderId, productId, price, quantity }) {
 	try {
 		const {
 			rows: [productsInOrder],
 		} = await getProductsByOrder({ orderId });
 		const isInOrder = productsInOrder.map((productInOrder) => {
-			if (productInOrder.id !== productsId) {
+			if (productInOrder.id !== productId) {
 				return false;
 			} else {
 				return true;
@@ -87,7 +92,7 @@ async function updateCart({ orderId, productsId, price, quantity }) {
 		if (isInOrder) {
 			const orderProduct = await getCartByOrderAndProduct(
 				orderId,
-				productsId
+				productId
 			);
 
 			const newPrice = orderProduct.price + price * quantity;
@@ -110,7 +115,7 @@ async function updateCart({ orderId, productsId, price, quantity }) {
 		} else {
 			return await addProductToOrder({
 				orderId,
-				productsId,
+				productId,
 				price,
 				quantity,
 			});
@@ -143,7 +148,7 @@ async function getProductsByOrder({ id }) {
 	try {
 		const { rows: products } = await client.query(
 			`
-            SELECT "productsId", quantity, price
+            SELECT "productId", quantity, price
             FROM cart
             WHERE "orderId" = $1;
         `,
@@ -153,7 +158,7 @@ async function getProductsByOrder({ id }) {
 		const allProducts = Promise.all(
 			products.map(async (product) => {
 				const newProduct = await getProductById({
-					productsId: product.productsId,
+					productId: product.productId,
 				});
 				newProduct.price =
 					Math.round(
@@ -181,7 +186,7 @@ async function getOrdersByProduct({ id }) {
 			`
         SELECT "orderId"
         FROM cart
-        WHERE "productsId" = $1;
+        WHERE "productId" = $1;
         `,
 			[id]
 		);

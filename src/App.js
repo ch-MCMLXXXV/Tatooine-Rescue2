@@ -33,10 +33,10 @@ const App = () => {
    );
    const [userData, setUserData] = useState({});
    const [password, setPassword] = useState('');
-   const [order, setOrder] = useState();
+   
    const [product, setProduct] = useState('');
    const [products, setProducts] = useState([]);
-   const [cart, setCart] = useState([]);
+   
    const [email, setEmail] = useState('');
    const [firstName, setFirstName] = useState('');
    const [lastName, setLastName] = useState('');
@@ -78,10 +78,10 @@ const App = () => {
 
    useEffect(async () => {
       if (!token) {
-         setToken(localStorage.getItem('capstone-token'));
+         setToken(localStorage.getItem('token'));
          return;
       }
-      const data = await getUser(token);
+      const data = await getUser({token});
       setUserData(data);
    }, [token]);
 
@@ -96,27 +96,7 @@ const App = () => {
       getAllProducts().catch(console.error);
    }, [setProducts]);
 
-   // useEffect(async () => {
-   //    setOrder([]);
-   //    if (userData.id !== undefined) {
-   //       const usersCart = await getUsersCart(userData.id, token);
-   //       if (typeof usersCart === 'object') {
-   //          setCart(usersCart);
-   //       }
-   //    } else {
-   //       let localCart = JSON.parse(
-   //          localStorage.getItem('capstone-cart')
-   //       );
-   //       if (!localCart) {
-   //          localCart = [];
-   //          localStorage.setItem(
-   //             'capstone-cart',
-   //             JSON.stringify(localCart)
-   //          );
-   //       }
-   //       setCart(localCart);
-   //    }
-   // }, [userData]);
+
 
    return (
       <>
@@ -179,7 +159,10 @@ const App = () => {
                </Route>
 
                <Route path='/cart'>
-                  <Cart />
+                  <Cart 
+                  token={token}
+                  userData={userData}
+                  />
                </Route>
                <Route path='/create'>
                   <AdminCreate 

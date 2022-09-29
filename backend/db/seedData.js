@@ -8,6 +8,7 @@ async function dropTables() {
 		console.log('Starting to drop tables...');
 
 		await client.query(`
+		DROP TABLE IF EXISTS order_products;
 		DROP TABLE IF EXISTS cart;
         DROP TABLE IF EXISTS orders;
         DROP TABLE IF EXISTS products;
@@ -51,18 +52,16 @@ async function createTables() {
             id SERIAL PRIMARY KEY,
             "userId" INTEGER REFERENCES users(id),
             "purchaseComplete" BOOLEAN DEFAULT false,
-            "adoption_fee" INTEGER,
-            "productsId" INTEGER REFERENCES products(id),
-            quantity INTEGER NOT NULL
+            "adoption_fee" INTEGER
             );
 
 		CREATE TABLE cart(
 			id SERIAL PRIMARY KEY,
-			"productsId" INTEGER REFERENCES products(id),
-			"ordersId" INTEGER REFERENCES orders(id),
+			"productId" INTEGER REFERENCES products(id),
+			"orderId" INTEGER REFERENCES orders(id),
 			"quantity" INTEGER NOT NULL DEFAULT 0,
 			"adoption_fee" FLOAT NOT NULL,
-			UNIQUE ("ordersId" , "productsId")
+			UNIQUE ("orderId" , "productId")
 			);
 
     `);
@@ -225,74 +224,78 @@ async function createInitialOrdersTable() {
 				userId: 3,
 				purchaseComplete: false,
 				adoption_fee: 100,
-				productsId: 1,
+				productId: 1,
 				quantity: 2,
 			},
 			{
 				userId: 1,
 				purchaseComplete: false,
 				adoption_fee: 100,
-				productsId: 1,
+				productId: 1,
 				quantity: 3,
 			},
 			{
 				userId: 1,
 				purchaseComplete: false,
 				adoption_fee: 100,
-				productsId: 3,
+				productId: 3,
 				quantity: 1,
 			},
 			{
 				userId: 2,
 				purchaseComplete: false,
 				adoption_fee: 100,
-				productsId: 7,
+				productId: 7,
 				quantity: 5,
 			},
 			{
 				userId: 1,
 				purchaseComplete: false,
 				adoption_fee: 100,
-				productsId: 2,
+				productId: 2,
 				quantity: 1,
 			},
 			{
 				userId: 2,
 				purchaseComplete: false,
 				adoption_fee: 100,
-				productsId: 6,
+				productId: 6,
 				quantity: 3,
 			},
 			{
 				userId: 2,
 				purchaseComplete: false,
 				adoption_fee: 100,
-				productsId: 5,
+				productId: 5,
 				quantity: 1,
 			},
 			{
 				userId: 4,
 				purchaseComplete: false,
 				adoption_fee: 100,
-				productsId: 3,
+				productId: 3,
 				quantity: 4,
 			},
 			{
 				userId: 4,
 				purchaseComplete: false,
 				adoption_fee: 100,
-				productsId: 2,
+				productId: 2,
 				quantity: 1,
 			},
 			{
 				userId: 4,
 				purchaseComplete: false,
 				adoption_fee: 100,
-				productsId: 4,
+				productId: 4,
 				quantity: 1,
 			},
 		];
-		const orders = await Promise.all(ordersToCreate.map(createOrders));
+		const orders = [];
+		for await (const order of ordersToCreate) {
+			const newOrder = await createOrders(order)
+			orders.push(newOrder);
+		}
 
 		console.log('Orders created:');
 		console.log(orders);

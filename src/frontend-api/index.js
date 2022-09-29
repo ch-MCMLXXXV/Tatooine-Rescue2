@@ -68,7 +68,7 @@ export async function loginUser({ username, password }) {
 	}
 }
 
-export async function createOrder({ userId, productsId, quantity, token }) {
+export async function createOrder({ userId, productId, quantity, token }) {
 	try {
 		return fetch(`${BASE_URL}/orders`, {
 			method: 'POST',
@@ -78,7 +78,7 @@ export async function createOrder({ userId, productsId, quantity, token }) {
 			},
 			body: JSON.stringify({
 				userId: userId,
-				productId: productsId,
+				productId: productId,
 				quantity: quantity,
 			}),
 		})
@@ -157,7 +157,7 @@ export async function fetchProductById(id) {
 	}
 }
 
-export async function getUsersCart({ userId, token }) {
+export async function getUsersCart( userId, token ) {
 	try {
 		return fetch(`${BASE_URL}/orders/cart/${userId}`, {
 			headers: { 'Content-Type': 'application/json' },
@@ -210,7 +210,7 @@ export async function addProduct({
 
 export async function editProduct({
 	token,
-	productsId,
+	productId,
 	name,
 	description,
 	breed,
@@ -220,7 +220,7 @@ export async function editProduct({
    isActive
 }) {
 	try {
-		return fetch(`${BASE_URL}/products/${productsId}`, {
+		return fetch(`${BASE_URL}/products/${productId}`, {
 			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json',
@@ -245,9 +245,9 @@ export async function editProduct({
 	}
 }
 
-export async function deleteProduct({ token, productsId }) {
+export async function deleteProduct({ token, productId }) {
 	try {
-		return fetch(`${BASE_URL}/products/${productsId}`, {
+		return fetch(`${BASE_URL}/products/${productId}`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
