@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { editProduct } from '../frontend-api/index';
@@ -11,7 +11,6 @@ import TextField from '@mui/material/TextField'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import { APIURL } from '..';
 import { HistoryToggleOff, SettingsBackupRestoreRounded, SettingsInputCompositeSharp } from '@mui/icons-material';
-
 
 const AdminEditProduct = ({products, token}) => {
     const history = useHistory();

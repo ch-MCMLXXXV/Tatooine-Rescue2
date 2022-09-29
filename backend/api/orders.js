@@ -69,4 +69,12 @@ ordersRouter.get('/', requireUser, async (req, res, next) => {
    }
 });
 
+ordersRouter.get('/', async (req, res, next) => {
+   try {
+      const userOrder = getOrderById();
+      res.send({ userOrder });
+   } catch (error) {
+      next(error);
+   }
+});
 module.exports = ordersRouter;

@@ -8,7 +8,7 @@ async function dropTables() {
 		console.log('Starting to drop tables...');
 
 		await client.query(`
-		DROP TABLE IF EXISTS order_products;
+		DROP TABLE IF EXISTS cart;
         DROP TABLE IF EXISTS orders;
         DROP TABLE IF EXISTS products;
         DROP TABLE IF EXISTS users;
@@ -56,7 +56,7 @@ async function createTables() {
             quantity INTEGER NOT NULL
             );
 
-		CREATE TABLE order_products(
+		CREATE TABLE cart(
 			id SERIAL PRIMARY KEY,
 			"productsId" INTEGER REFERENCES products(id),
 			"ordersId" INTEGER REFERENCES orders(id),
