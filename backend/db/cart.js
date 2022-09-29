@@ -1,8 +1,6 @@
 const client = require('../client');
 const { getProductsById } = require('./productsDb');
-const {
-	getOrderById,
-} = require('./orders');
+const { getOrderById } = require('./orders');
 
 async function getOrderProductById({ id }) {
 	try {
@@ -11,7 +9,7 @@ async function getOrderProductById({ id }) {
 		} = await client.query(
 			`
             SELECT *
-            FROM order_products
+            FROM cart
             WHERE id = $1;
         `,
 			[id]
@@ -27,7 +25,7 @@ async function getOrderProductByOrderAndProduct(orderID, productsId) {
 		const orderProduct = await client.query(
 			`
             SELECT *
-            FROM order_products
+            FROM cart
             WHERE "orderID" = $1,
             AND "productsId" = $2;
         `,
@@ -42,16 +40,16 @@ async function getOrderProductByOrderAndProduct(orderID, productsId) {
 
 async function addProductToOrder({ orderId, productsId, price, quantity }) {
 	try {
-		const { rows: order_products } = await client.query(
+		const { rows: cart } = await client.query(
 			`
         SELECT id, "productsId", "orderId"
-        FROM order_products
+        FROM cart
         WHERE "orderId" = $1;
     `,
 			[orderId]
 		);
-		console.log('add to order', order_products);
-		const inCart = order_products.filter(
+		console.log('add to order', cart);
+		const inCart = cart.filter(
 			(order_product) => order_product.productsId === productsId
 		);
 
@@ -60,7 +58,7 @@ async function addProductToOrder({ orderId, productsId, price, quantity }) {
 				rows: [order_product],
 			} = await client.query(
 				`
-            INSERT INTO order_products("orderId", "productsId", price, quantity)
+            INSERT INTO cart("orderId", "productsId", price, quantity)
             VALUES($1, $2, $3, $4)
             RETURNING *;
         `,
@@ -102,7 +100,7 @@ async function updateOrderProduct({ orderId, productsId, price, quantity }) {
 				rows: [updatedProduct],
 			} = await client.query(
 				`
-                UPDATE order_products
+                UPDATE cart
                 SET ${values}
                 WHERE id = $1
                 RETURNING *;
@@ -130,7 +128,7 @@ async function destroyOrderProduct({ id }) {
 			rows: [destroyedProduct],
 		} = await client.query(
 			`
-            DELETE FROM order_products
+            DELETE FROM cart
             WHERE id = $1
             RETURNING *;
         `,
@@ -148,7 +146,7 @@ async function getProductsByOrder({ id }) {
 		const { rows: products } = await client.query(
 			`
             SELECT "productsId", quantity, price
-            FROM order_products
+            FROM cart
             WHERE "orderId" = $1;
         `,
 			[id]
@@ -184,7 +182,7 @@ async function getOrdersByProduct({ id }) {
 		} = await client.query(
 			`
         SELECT "orderId"
-        FROM order_products
+        FROM cart
         WHERE "productsId" = $1;
         `,
 			[id]

@@ -16,7 +16,7 @@ const AdminEditProduct = ({ products, token }) => {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		const data = await editProduct(
-			{ productsId, adoption_fee, image, quantity, breed, name },
+			{ productsId, adoption_fee, image, quantity, breed, name, description},
 			token
 		);
 		history.push('/products');
