@@ -7,8 +7,8 @@ const Cart = ({ token, userData }) => {
 
      useEffect(async () => {
       console.log('userData', userData);
-      if (userData.id !== undefined) {
-         const usersCart = await getUsersCart(userData.id, token);
+      if (userData.user?.id !== undefined) {
+         const usersCart = await getUsersCart(userData.user.id, token);
          console.log(usersCart);
          if (typeof usersCart === 'object') {
             setOrder(usersCart);
@@ -17,13 +17,13 @@ const Cart = ({ token, userData }) => {
     //      let localCart = JSON.parse(
     //         localStorage.getItem('capstone-cart')
     //      );
-        //  if (!localCart) {
-        //     localCart = [];
-        //     localStorage.setItem(
-        //        'capstone-cart',
-        //        JSON.stringify(localCart)
-        //     );
-        //  }
+    //      if (!localCart) {
+    //         localCart = [];
+    //         localStorage.setItem(
+    //            'capstone-cart',
+    //            JSON.stringify(localCart)
+    //         );
+    //      }
     //      setOrder(localCart);
       }
    }, [userData]);

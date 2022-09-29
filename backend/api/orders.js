@@ -67,7 +67,8 @@ ordersRouter.get('/cart/:userId', async (req, res, next) => {
 	try {
 		const { userId } = req.params;
 		const existingOrder = await getUsersCart(userId);
-		const userOrder = await getOrderById(existingOrder.id);
+		console.log(existingOrder);
+		const userOrder = await getOrderById(existingOrder[0].id);
 		console.log(userOrder);
 		res.send(userOrder);
 	} catch (error) {

@@ -13,9 +13,9 @@ usersRouter.use((req, res, next) => {
 });
 
 usersRouter.get('/', requireUser, async (req, res) => {
-   const user = await getUser();
+ 
    res.send({
-      user,
+      user:req.user,
    });
 });
 

@@ -157,7 +157,7 @@ export async function fetchProductById(id) {
 	}
 }
 
-export async function getUsersCart({ userId, token }) {
+export async function getUsersCart( userId, token ) {
 	try {
 		return fetch(`${BASE_URL}/orders/cart/${userId}`, {
 			headers: { 'Content-Type': 'application/json' },
