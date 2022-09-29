@@ -2,7 +2,7 @@ const client = require('../client');
 const { getProductsById } = require('./productsDb');
 const { getOrderById } = require('./orders');
 
-async function getOrderProductById({ id }) {
+async function getCartById({ id }) {
 	try {
 		const {
 			rows: [orderProduct],
@@ -20,7 +20,7 @@ async function getOrderProductById({ id }) {
 	}
 }
 
-async function getOrderProductByOrderAndProduct(orderID, productsId) {
+async function getCartByOrderAndProduct(orderID, productsId) {
 	try {
 		const orderProduct = await client.query(
 			`
@@ -38,7 +38,7 @@ async function getOrderProductByOrderAndProduct(orderID, productsId) {
 	}
 }
 
-async function addProductToOrder({ orderId, productsId, price, quantity }) {
+async function addProductToCart({ orderId, productsId, price, quantity }) {
 	try {
 		const { rows: cart } = await client.query(
 			`
@@ -64,14 +64,14 @@ async function addProductToOrder({ orderId, productsId, price, quantity }) {
 			);
 			return cart;
 		} else {
-			updateOrderProduct({ id: inCart[0].id, price, quantity });
+			updateCart({ id: inCart[0].id, price, quantity });
 		}
 	} catch (error) {
 		console.error(error);
 	}
 }
 
-async function updateOrderProduct({ orderId, productsId, price, quantity }) {
+async function updateCart({ orderId, productsId, price, quantity }) {
 	try {
 		const {
 			rows: [productsInOrder],
@@ -85,7 +85,7 @@ async function updateOrderProduct({ orderId, productsId, price, quantity }) {
 		});
 
 		if (isInOrder) {
-			const orderProduct = await getOrderProductByOrderAndProduct(
+			const orderProduct = await getCartByOrderAndProduct(
 				orderId,
 				productsId
 			);
@@ -120,7 +120,7 @@ async function updateOrderProduct({ orderId, productsId, price, quantity }) {
 	}
 }
 
-async function destroyOrderProduct({ id }) {
+async function destroyCart({ id }) {
 	try {
 		const {
 			rows: [destroyedProduct],
@@ -198,7 +198,7 @@ async function getOrdersByProduct({ id }) {
 }
 
 // the "build carts" function
-async function getOrdersAndProducts(orderIds) {
+async function getCart(orderIds) {
 	try {
 		let carts = await Promise.all(
 			orderIds.map(async (orderId) => {
@@ -259,13 +259,13 @@ async function getCartByOrderId({ id }) {
 }
 
 module.exports = {
-	getOrderProductById,
-	updateOrderProduct,
-	destroyOrderProduct,
-	addProductToOrder,
+	getCartById,
+	updateCart,
+	destroyCart,
+	addProductToCart,
 	getProductsByOrder,
 	getOrdersByProduct,
-	getOrdersAndProducts,
+	getCart,
 	getCartByUser,
 	getAllCartsByUser,
 	getCartByOrderId,
