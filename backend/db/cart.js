@@ -49,13 +49,11 @@ async function addProductToOrder({ orderId, productsId, price, quantity }) {
 			[orderId]
 		);
 		console.log('add to order', cart);
-		const inCart = cart.filter(
-			(order_product) => order_product.productsId === productsId
-		);
+		const inCart = cart.filter((cart) => cart.productsId === productsId);
 
 		if (inCart.length === 0) {
 			const {
-				rows: [order_product],
+				rows: [cart],
 			} = await client.query(
 				`
             INSERT INTO cart("orderId", "productsId", price, quantity)
@@ -64,7 +62,7 @@ async function addProductToOrder({ orderId, productsId, price, quantity }) {
         `,
 				[orderId, productsId, price, quantity]
 			);
-			return order_product;
+			return cart;
 		} else {
 			updateOrderProduct({ id: inCart[0].id, price, quantity });
 		}
