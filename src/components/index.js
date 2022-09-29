@@ -9,3 +9,4 @@ export { default as SingleProduct } from './SingleProduct';
 export { default as Cart } from './Cart';
 export { default as AdminCreate } from './AdminCreate';
 export { default as Home } from './Home';
+export { default as AdminEdit } from './AdminEdit';

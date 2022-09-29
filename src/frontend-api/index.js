@@ -173,33 +173,36 @@ export async function getUsersCart({ userId, token }) {
 }
 
 export async function addProduct({
-	name,
+	token,
+   name,
 	description,
 	breed,
 	image,
 	adoption_fee,
-   token
+   quantity,
+   isActive
 }) {
 	try {
-		return fetch(`${BASE_URL}/orderId/products`, {
+		return fetch(`${BASE_URL}/products`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-
+            Authorization:  `Bearer ${token}`,
 			},
 			body: JSON.stringify({
 				name: name,
 				description: description,
 				breed: breed,
+            quantity: quantity,
 				image: image,
 				adoption_fee: adoption_fee,
+            isActive: isActive,
 			}),
-		})
-			.then((response) => response.json())
-			.then((result) => {
-				return result;
-			});
+		});
+			// .then((response) => response.json())
+			// .then((result) => {
+			// 	return result;
+			// });
 	} catch (error) {
 		console.error(error);
 	}
@@ -211,8 +214,10 @@ export async function editProduct({
 	name,
 	description,
 	breed,
+   quantity,
 	image,
 	adoption_fee,
+   isActive
 }) {
 	try {
 		return fetch(`${BASE_URL}/products/${productsId}`, {
@@ -225,14 +230,16 @@ export async function editProduct({
 				name: name,
 				description: description,
 				breed: breed,
+            quantity: quantity,
 				image: image,
 				adoption_fee: adoption_fee,
+            isActive: isActive
 			}),
-		})
-			.then((response) => response.json())
-			.then((result) => {
-				return result;
-			});
+		});
+			// .then((response) => response.json())
+			// .then((result) => {
+			// 	return result;
+			// });
 	} catch (error) {
 		console.error(error);
 	}

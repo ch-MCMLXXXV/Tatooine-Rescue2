@@ -10,28 +10,37 @@ import FormGroup from '@mui/material/FormGroup'
 import TextField from '@mui/material/TextField'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import { APIURL } from '..';
-import { HistoryToggleOff } from '@mui/icons-material';
+import { HistoryToggleOff, SettingsBackupRestoreRounded, SettingsInputCompositeSharp } from '@mui/icons-material';
 
-const AdminCreateProduct = ({products, setProducts, token}) => {
+const AdminCreateProduct = ({ products, setProducts }) => {
     const history = useHistory();
-    const [name, setName] = useState(products.name);
-    const [adoption_fee, setAdoptionFee] = useState(products.adoption_fee);
-    const [breed, setBreed] = useState(products.breed);
-    const [quantity, setQuantity] = useState(products.quantity);
-    const [image, setImage] = useState(products.image)
-    const [description, setDescription] = useState(products.description)
+    const [name, setName] = useState("");
+    const [adoption_fee, setAdoptionFee] = useState("");
+    const [breed, setBreed] = useState("");
+    const [quantity, setQuantity] = useState("");
+    const [image, setImage] = useState("");
+    const [description, setDescription] = useState("");
+    const [isActive, setIsActive] = useState(true)
+    const [token, setToken] = useState(localStorage.getItem("token"));
+    const [message, setMessage] = useState("")
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const data = await addProduct({name, adoption_fee, breed, quantity, image, description}, token);
-        setProducts([data.data.products, ...products]);
-        console.log(data)
-        setName('');
-        setAdoptionFee('');
-        setBreed('');
-        setQuantity('');
-        setImage('');
-        history.push('/products');
+        const response = await addProduct({
+            token,
+            name,
+            description,
+            adoption_fee,
+            quantity,
+            breed,
+            image,
+            isActive
+        });
+        // console.log(response)
+        // products.push(response)
+        // setProducts(products);
+        alert("Your product has been added.")
+        history.push("/products")
     };
 
     return <>
@@ -80,10 +89,14 @@ const AdminCreateProduct = ({products, setProducts, token}) => {
                 </TextField>
                 <TextField
                     type="text"
-                    placeholder="Image"
+                    placeholder="Image URL"
                     value={image}
                     onChange={(event) => setImage(event.target.value)}>
                 </TextField>
+                <FormControlLabel
+                    control={<Checkbox defaultChecked />}
+                    label="Active?"
+                    onChange={(event) => setIsActive(event.target.value)}/>
                 <Button sx={{
                     m: 2
                 }} type="submit" variant='outlined' >Create</Button>

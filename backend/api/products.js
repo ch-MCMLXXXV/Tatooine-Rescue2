@@ -17,6 +17,7 @@ productsRouter.use('*', (req, res, next) => {
 // POST product
 productsRouter.post('/', requireUser, async (req, res, next) => {
    try {
+      console.log("Hello World")
       const product = await createProducts(req.body);
       res.send(product);
    } catch (error) {

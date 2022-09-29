@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetchProductById, addProduct } from '../frontend-api/index';
 import Products from './Products';
+import AdminEditProduct from './AdminEdit';
 import Typography from '@mui/material/Typography';
 import AddShoppingCartSharpIcon from '@mui/icons-material/AddShoppingCartSharp';
 import Paper from '@mui/material/Paper';
@@ -17,6 +18,7 @@ import {
    IconButton,
    Tooltip,
 } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 
 const SingleProduct = ({ products, orders }) => {
    const { id } = useParams();
@@ -70,6 +72,13 @@ const SingleProduct = ({ products, orders }) => {
                         <AddShoppingCartSharpIcon fontSize='large' />
                      </IconButton>
                   </Tooltip>
+					<Tooltip title='Edit'>
+						<IconButton
+							aria-label='Edit'
+							href='/AdminEdit'>
+							<EditIcon fontSize='large' />
+						</IconButton>
+					</Tooltip>
                </Grid>
             </Grid>
          </Grid>

@@ -15,6 +15,7 @@ import {
 	TextField,
 } from '@mui/material';
 
+
 const Products = ({ products, setProducts, setProductsToDisplay }) => {
 	const [searchQuery, updateSearchQuery] = useState('');
 	const [category, setCategory] = useState('');

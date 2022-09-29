@@ -91,34 +91,35 @@ const Search = ({ token, products }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [productsToDisplay, setProductsToDisplay] = useState([]);
 
-    useEffect(() => {
-        const filteredProducts =
-            products.length &&
-            products.filter((product) => productMatches(product, searchTerm));
-        const productsToDisplay = searchTerm.length ? filteredProducts : products;
-        setProductsToDisplay(productsToDisplay);
-    }, [searchTerm]);
+    // useEffect(() => {
+    //     const filteredProducts =
+    //         products.length &&
+    //         products.filter((product) => productMatches(product, searchTerm));
+    //     const productsToDisplay = searchTerm.length ? filteredProducts : products;
+    //     setProductsToDisplay(productsToDisplay);
+    // }, [searchTerm]);
 
-    function productMatches (product, text) {
-        if (product.name.includes(searchTerm)) {
-            return true;
-        }
-        if (product.description.includes(searchTerm)) {
-            return true;
-        }
-        if (product.breed.includes(searchTerm)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    // function productMatches (product, text) {
+    //     if (product.name.includes(searchTerm)) {
+    //         return true;
+    //     }
+    //     if (product.description.includes(searchTerm)) {
+    //         return true;
+    //     }
+    //     if (product.breed.includes(searchTerm)) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
     return (
         <Container sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-        }} component="SearchContainer">
+        // }} component="SearchContainer">
+        }}>
             <Box 
                 sx={{
                     display: 'flex',
@@ -127,7 +128,7 @@ const Search = ({ token, products }) => {
                     }}>
                 <TextField
                     margin='normal'
-                    fullwidth
+                    // fullwidth
                     label='Search'
                     type='text'
                     value={searchTerm}
