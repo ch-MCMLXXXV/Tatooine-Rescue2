@@ -13,15 +13,14 @@ usersRouter.use((req, res, next) => {
 });
 
 usersRouter.get('/', requireUser, async (req, res) => {
- 
    res.send({
-      user:req.user,
+      user: req.user,
    });
 });
 
 usersRouter.post('/login', async (req, res, next) => {
    const { username, password } = req.body;
-   console.log({username, password, line:22})
+   console.log({ username, password, line: 22 });
    if (!username || !password) {
       res.status(401).send({
          name: 'MissingCredentialsError',
@@ -29,10 +28,18 @@ usersRouter.post('/login', async (req, res, next) => {
       });
    }
    try {
-      const user = await getUser({username, password});
+      const user = await getUser({ username, password });
       if (user) {
+         console.log({ user, line: 39 });
          const token = jwt.sign(user, process.env.JWT_SECRET);
-         res.send({ message: "You're logged in!", token });
+         const cart = await createOrders({
+            userId: user.id,
+            purchaseComplete: false,
+            adoption_fee: 100,
+         });
+         console.log('is this working?');
+         console.log(cart);
+         res.send({ message: "You're logged in!", token, cart });
       } else {
          res.status(401).send({
             name: 'IncorrectCredentialsError',
@@ -46,8 +53,9 @@ usersRouter.post('/login', async (req, res, next) => {
 });
 
 usersRouter.post('/register', async (req, res, next) => {
-   const { username, password, email, firstName, lastName } = req.body;
-   console.log(firstName, lastName)
+   const { username, password, email, firstName, lastName } =
+      req.body;
+   console.log(firstName, lastName);
 
    try {
       if (password.length < 8) {
@@ -58,6 +66,7 @@ usersRouter.post('/register', async (req, res, next) => {
          });
       }
       const _user = await getUserByUsername(username);
+      console.log({ _user, line: 71 });
 
       if (_user) {
          next({
@@ -67,10 +76,16 @@ usersRouter.post('/register', async (req, res, next) => {
          });
       }
 
-      console.log(username, password, email)
+      console.log(username, password, email);
 
-      const user = await createUser({ username, password, email, firstName, lastName });
-      console.log(user)
+      const user = await createUser({
+         username,
+         password,
+         email,
+         firstName,
+         lastName,
+      });
+      console.log(user);
 
       const token = jwt.sign(
          {
@@ -83,10 +98,20 @@ usersRouter.post('/register', async (req, res, next) => {
          }
       );
 
+      const cart = await createOrders({
+         userId: user.id,
+         purchaseComplete: false,
+         adoption_fee: 100,
+      });
+
       res.send({
+         cart,
          message: 'Thank you for signing up',
          token,
       });
+
+      console.log('is this working?');
+      console.log(cart);
    } catch (error) {
       next(error);
    }
