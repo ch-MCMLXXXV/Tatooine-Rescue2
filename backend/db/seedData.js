@@ -124,14 +124,14 @@ async function createInitialUsers() {
 	}
 }
 
-async function createInitialproductsTable() {
+async function createInitialProductsTable() {
 	console.log('Starting to create products...');
 	try {
 		const productsToCreate = [
 			{
 				name: 'Yoda',
 				description: 'Get your own little yoda to carry around.',
-				adoption_fee: 100,
+				adoption_fee: 400,
 				quantity: 5,
 				breed: 'French Bull Dog',
 				image: 'https://img.freepik.com/free-photo/french-bulldog-dog-breeds-white-polka-dot-black-marble_1150-25345.jpg?w=1380&t=st=1663888194~exp=1663888794~hmac=4fdfd75a0ec47aa11ec79564e36dee8c1183ad34abc2fe36cfc5af25ba1ff148',
@@ -151,7 +151,7 @@ async function createInitialproductsTable() {
 				name: 'Luke',
 				description:
 					'Do not let this breed type intimidate you as this is the sweetest baby around.',
-				adoption_fee: 100,
+				adoption_fee: 50,
 				quantity: 12,
 				breed: 'Mix breed',
 				image: 'https://images.rawpixel.com/image_1000/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcHgxMDcyMDQxLWltYWdlLWt3dnk1NTRvLmpwZw.jpg',
@@ -161,7 +161,7 @@ async function createInitialproductsTable() {
 				name: 'Chewbacca',
 				description:
 					'Get your own big furry best friend to travel the galaxy with.',
-				adoption_fee: 100,
+				adoption_fee: 80,
 				quantity: 2,
 				breed: 'Tibetan Terrier',
 				image: 'https://images.rawpixel.com/image_1000/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvZnJ0ZXJyaWVyX2JpdGNoX3RpYmV0YW5fdGVycmllci1pbWFnZS1reWNmNXRxdy5qcGc.jpg',
@@ -181,7 +181,7 @@ async function createInitialproductsTable() {
 				name: 'Han',
 				description:
 					'This handsome doggo is a suave partner in crime for all of your galaxy adventuring needs.',
-				adoption_fee: 100,
+				adoption_fee: 150,
 				quantity: 2,
 				breed: 'Lab',
 				image: 'https://images.rawpixel.com/image_1000/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L3B4NzE0NDgyLWltYWdlLWt3dnhqNzZlLmpwZw.jpg',
@@ -201,12 +201,43 @@ async function createInitialproductsTable() {
 				name: 'Jaba',
 				description:
 					'This big guy will steal your stuff and eat all your food.',
-				adoption_fee: 100,
+				adoption_fee: 300,
 				quantity: 1,
 				breed: 'Bulldog',
 				image: 'https://images.rawpixel.com/image_1000/cHJpdmF0ZS9zdGF0aWMvaW1hZ2Uvd2Vic2l0ZS8yMDIyLTA0L2xyL3B4ODcxNzQ3LWltYWdlLWt3eW83MzkzLmpwZw.jpg',
 				isActive: true,
 			},
+			{
+				name: 'Darth Vadar',
+				description:
+					'You do not know the power of the dark side.',
+				adoption_fee: 200,
+				quantity: 1,
+				breed: 'Rottweiler',
+				image: 'https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvc3YyMjI4NTYtaW1hZ2Uta3d2eDZlbmQuanBn.jpg',
+				isActive: true,
+			},
+			{
+				name: 'Greedo',
+				description:
+					'This little guy is a bit overzealous and a bit slow on the up take.',
+				adoption_fee: 50,
+				quantity: 1,
+				breed: 'Pug',
+				image: 'https://images.rawpixel.com/image_1000/cHJpdmF0ZS9zdGF0aWMvaW1hZ2Uvd2Vic2l0ZS8yMDIyLTA0L2xyL2JzOTI5LWltYWdlLWt3dngwZDJuLmpwZw.jpg',
+				isActive: true,
+			},
+			{
+				name: 'Finn',
+				description:
+					'Do you want a best friend to fight along side you to defeat the First Order? Then this little guy is for you.',
+				adoption_fee: 300,
+				quantity: 1,
+				breed: 'Chocolate Lab',
+				image: 'https://images.rawpixel.com/image_1000/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvYTAxNS1oZWxlbmFsLTMuanBn.jpg',
+				isActive: true,
+			},
+
 		];
 		const products = await Promise.all(
 			productsToCreate.map(createProducts)
@@ -236,7 +267,7 @@ async function createInitialOrdersTable() {
 				userId: 1,
 				purchaseComplete: false,
 				adoption_fee: 100,
-				productId: 1,
+				productId: 5,
 				quantity: 3,
 			},
 			{
@@ -271,7 +302,7 @@ async function createInitialOrdersTable() {
 				userId: 2,
 				purchaseComplete: false,
 				adoption_fee: 100,
-				productId: 5,
+				productId: 8,
 				quantity: 1,
 			},
 			{
@@ -285,7 +316,7 @@ async function createInitialOrdersTable() {
 				userId: 4,
 				purchaseComplete: false,
 				adoption_fee: 100,
-				productId: 2,
+				productId: 11,
 				quantity: 1,
 			},
 			{
@@ -316,7 +347,7 @@ async function rebuildDB() {
 		await dropTables();
 		await createTables();
 		await createInitialUsers();
-		await createInitialproductsTable();
+		await createInitialProductsTable();
 		await createInitialOrdersTable();
 	} catch (error) {
 		console.log('Error during rebuildDB');
