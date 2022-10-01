@@ -199,10 +199,6 @@ export async function addProduct({
             isActive: isActive,
 			}),
 		});
-			// .then((response) => response.json())
-			// .then((result) => {
-			// 	return result;
-			// });
 	} catch (error) {
 		console.error(error);
 	}
@@ -217,16 +213,17 @@ export async function editProduct({
    quantity,
 	image,
 	adoption_fee,
-   isActive
+   isActive,
 }) {
 	try {
-		return fetch(`${BASE_URL}/products/${productId}`, {
+		return fetch(`${BASE_URL}/products/adminedit`, {
 			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${token}`,
 			},
 			body: JSON.stringify({
+            id: productId,
 				name: name,
 				description: description,
 				breed: breed,
@@ -236,10 +233,6 @@ export async function editProduct({
             isActive: isActive
 			}),
 		});
-			// .then((response) => response.json())
-			// .then((result) => {
-			// 	return result;
-			// });
 	} catch (error) {
 		console.error(error);
 	}

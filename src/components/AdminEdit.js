@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { editProduct } from '../frontend-api/index';
 import { Checkbox, CssBaseline } from '@mui/material';
 import { Container } from '@mui/system'
@@ -11,27 +11,44 @@ import TextField from '@mui/material/TextField'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import { APIURL } from '..';
 import { HistoryToggleOff, SettingsBackupRestoreRounded, SettingsInputCompositeSharp } from '@mui/icons-material';
+import { useEffect } from 'react';
 
-const AdminEditProduct = ({products, token}) => {
+const AdminEditProduct = ({products, setProducts, token}) => {
     const history = useHistory();
-    const [id, setId] = useState(products.id);
-    const [name, setName] = useState(products.name);
-    const [adoption_fee, setAdoptionFee] = useState(products.adoption_fee);
-    const [breed, setBreed] = useState(products.breed);
-    const [description, setDescription] = useState(products.description);
-    const [quantity, setQuantity] = useState(products.quantity);
-    const [image, setImage] = useState(products.image);
-    const [isActive, setIsActive] = useState(products.isActive);
 
+    const { id } = useParams();
+
+    const product = products.find((product) => product.id == id);
+    console.log(product?.name)
+        
+    const [name, setName] = useState(product?.name);
+    const [adoption_fee, setAdoptionFee] = useState(product?.adoption_fee);
+    const [breed, setBreed] = useState(product?.breed);
+    const [description, setDescription] = useState(product?.description);
+    const [quantity, setQuantity] = useState(product?.quantity);
+    const [image, setImage] = useState(product?.image);
+    const [isActive, setIsActive] = useState(product?.isActive);
+        
+        
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const data = await editProduct({id, adoption_fee, image, quantity, breed, name}, token);
-        history.push('/products');
-    }
+    const response = await editProduct({
+        token,
+        name,
+        description,
+        adoption_fee,
+        quantity,
+        breed,
+        image,
+        isActive,
+        productId:id,
+    });
+    alert("Your product has been updated.")
+    window.location.assign("/products")
+    };
 
-    return (
-        <>
-            <Container component='main' maxWidth='xs'>
+    return <>
+        <Container component='main' maxWidth='xs'>
             <CssBaseline />
             <Box
                 sx={{
@@ -41,7 +58,7 @@ const AdminEditProduct = ({products, token}) => {
                     alignItems: 'center',
                 }}>
             <Typography component='h1' variant='h4'>
-                Create a Post
+                Edit a Post
             </Typography> 
             <Box component='form' onSubmit={handleSubmit}>
                 <TextField
@@ -86,11 +103,11 @@ const AdminEditProduct = ({products, token}) => {
                     onChange={(event) => setIsActive(event.target.value)}/>
                 <Button sx={{
                     m: 2
-                }} type="submit" variant='outlined' >Create</Button>
+                }} type="submit" variant='outlined' >Edit</Button>
             </Box>
         </Box>
         </Container>
-        </>
-    );
+    </>
+    
 };
 export default AdminEditProduct;
