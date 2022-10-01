@@ -34,6 +34,7 @@ async function createTables() {
             lastName VARCHAR(255) NOT NULL,
             email VARCHAR(255) NOT NULL,
             password VARCHAR(255) NOT NULL,
+			"isAdmin" BOOLEAN Default false,
             UNIQUE (username, email)
             );
 
@@ -83,6 +84,7 @@ async function createInitialUsers() {
 				lastName: 'Guilder',
 				email: 'eguilder0@vinaora.com',
 				password: 'xefxbiZ',
+				isAdmin: true,
 			},
 			{
 				username: 'sflea1',
@@ -90,6 +92,7 @@ async function createInitialUsers() {
 				lastName: 'Flea',
 				email: 'sflea1@mlb.com',
 				password: 'YaUH8Nte',
+				isAdmin: true,
 			},
 
 			{
@@ -98,6 +101,7 @@ async function createInitialUsers() {
 				lastName: 'Colam',
 				email: 'acolam2@washingtonpost.com',
 				password: 'VxV1CAQoHjA',
+				isAdmin: false,
 			},
 
 			{
@@ -106,6 +110,7 @@ async function createInitialUsers() {
 				lastName: 'Spurnier',
 				email: 'fspurnier3@cnet.com',
 				password: 'Lt5CfVgtOBI',
+				isAdmin: false,
 			},
 		];
 		const users = await Promise.all(usersToCreate.map(createUser));
@@ -293,7 +298,7 @@ async function createInitialOrdersTable() {
 		];
 		const orders = [];
 		for await (const order of ordersToCreate) {
-			const newOrder = await createOrders(order)
+			const newOrder = await createOrders(order);
 			orders.push(newOrder);
 		}
 
