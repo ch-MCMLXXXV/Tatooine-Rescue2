@@ -88,6 +88,8 @@ async function updateProducts({
    breed,
    image,
    id,
+   description,
+   isActive,
 }) {
    try {
       const { rows: products } = await client.query(
@@ -96,13 +98,16 @@ async function updateProducts({
             SET name = $1,
             adoption_fee= $2,
             quantity = $3,
-            breed = $4, image = $5
+            breed = $4,
+            image = $5,
+            description = $7,
+            "isActive" = $8
             WHERE id = $6;
         `,
-         [name, adoption_fee, quantity, breed, image, id]
+         [name, adoption_fee, quantity, breed, image, id, description, isActive]
       );
       return products;
-   } catch {}
+   } catch (error){console.log(error)}
 }
 
 module.exports = {

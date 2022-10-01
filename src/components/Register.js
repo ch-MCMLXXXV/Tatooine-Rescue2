@@ -117,6 +117,7 @@ const Register = ({
                         margin='normal'
                         required
                         fullWidth
+                        type='password'
                         name="password"
                         id='outlined'
                         label='Enter Password'
@@ -128,6 +129,7 @@ const Register = ({
                         margin='normal'
                         required
                         fullWidth
+                        type='password'
                         name="confirm"
                         id='outlined'
                         label='Re-Type Password'

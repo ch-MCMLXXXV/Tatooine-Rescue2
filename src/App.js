@@ -10,6 +10,7 @@ import {
    SingleProduct,
    Cart,
    AdminCreate,
+   AdminEdit,
 } from './components';
 // import SingleProduct from './components/SingleProduct';
 import {
@@ -170,6 +171,13 @@ const App = () => {
                      setProducts={setProducts}
                      token={token}
                      />
+               </Route>
+               <Route path='/edit/:id'>
+                  {products.length && <AdminEdit
+                     products={products}
+                     setProducts={setProducts}
+                     token={token}
+                  />}
                </Route>
                {/* <Route path="/cart/:userId" element={<Cart />} /> */}
             </Switch>

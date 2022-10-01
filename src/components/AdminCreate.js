@@ -36,11 +36,8 @@ const AdminCreateProduct = ({ products, setProducts }) => {
             image,
             isActive
         });
-        // console.log(response)
-        // products.push(response)
-        // setProducts(products);
         alert("Your product has been added.")
-        history.push("/products")
+        window.location.assign("/products")
     };
 
     return <>
