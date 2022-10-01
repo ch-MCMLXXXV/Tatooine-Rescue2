@@ -75,69 +75,13 @@ const SingleProduct = ({ products, orders }) => {
 					<Tooltip title='Edit'>
 						<IconButton
 							aria-label='Edit'
-							href='/AdminEdit'>
+							href={'/edit/' + id}>
 							<EditIcon fontSize='large' />
 						</IconButton>
 					</Tooltip>
                </Grid>
             </Grid>
          </Grid>
-         {/* <Card
-            variant='outlined'
-            sx={{
-               borderRadius: '16px',
-               backgroundColor: 'aliceblue',
-               boxShadow: '5px 5px grey',
-            }}>
-            <CardActionArea>
-               <CardMedia
-                  component='img'
-                  height='200px'
-                  src={product.image}
-                  alt='Dog image'
-               />
-               <CardContent key={product.id}>
-                  <Typography variant='subtitle1'>
-                     <strong>Breed: </strong> {product.breed}
-                  </Typography>
-                  <Typography variant='subtitle1'>
-                     Des:{product.description}
-                  </Typography>
-                  <Typography variant='subtitle1'>
-                     <strong>Adoption fee:</strong> $
-                     {product.adoption_fee}
-                  </Typography>
-               </CardContent>
-               <CardActions>
-                  <Button
-                     size='small'
-                     color='primary'
-                     onClick={() => {
-                        addProduct(product);
-                     }}>
-                     Adopt a Dog
-                  </Button>
-               </CardActions>
-            </CardActionArea>
-         </Card> */}
-         {/* <Typography variant="h2" component="div">
-				{product.name}
-			</Typography>
-			<br></br>
-			<img
-				style={{ maxWidth: '150px', height: 'auto' }}
-				src={product.image}
-			></img>
-			<h3>Name:{product.name}</h3>
-			<h3>Breed:{product.breed}</h3>
-			<div>Description:{product.description}</div>
-			<div>${product.adoption_fee}</div>
-			<Button>
-				<Link to={'/products'}>Back to home</Link>
-			</Button>
-			{/* <div id="add-to-cart">
-                    <Button className= {classes.button} variant="contained" onClick={() => {addToCart()}}>Adopt!</Button>
-                </div> */}
       </>
    );
 };
