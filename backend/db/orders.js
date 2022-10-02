@@ -5,7 +5,7 @@ async function createOrders({
    userId,
    purchaseComplete,
    adoption_fee,
-   quantity,
+   productId,
 }) {
    try {
       const existingOrder = await getUsersCart(userId);
@@ -24,10 +24,12 @@ async function createOrders({
          );
          order = rows[0];
       }
+
       await addProductToCart({
          orderId: order.id,
          adoption_fee,
-         quantity,
+         productId,
+         quantity: 1,
       });
       return order;
    } catch (error) {

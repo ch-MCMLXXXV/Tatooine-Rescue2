@@ -294,6 +294,7 @@ async function createInitialOrdersTable() {
       ];
       const orders = [];
       for await (const order of ordersToCreate) {
+         console.log({ order, line: 297 });
          const newOrder = await createOrders(order);
          orders.push(newOrder);
       }

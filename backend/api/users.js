@@ -3,7 +3,12 @@ const usersRouter = express.Router();
 const jwt = require('jsonwebtoken');
 const { requireUser } = require('./utils');
 
-const { createUser, getUser, getUserByUsername, createOrders } = require('../db');
+const {
+   createUser,
+   getUser,
+   getUserByUsername,
+   createOrders,
+} = require('../db');
 
 const bcrypt = require('bcrypt');
 const { JWT_SECRET } = process.env;
@@ -38,6 +43,7 @@ usersRouter.post('/login', async (req, res, next) => {
             userId: user.id,
             purchaseComplete: false,
             adoption_fee: 100,
+            quanity: 1,
          });
          console.log('is this working?');
          console.log(cart);
@@ -68,7 +74,7 @@ usersRouter.post('/register', async (req, res, next) => {
          });
       }
       const _user = await getUserByUsername(username);
-      console.log({ _user, line: 71 });
+      console.log({ _user, line: 77 });
 
       if (_user) {
          next({
@@ -104,6 +110,7 @@ usersRouter.post('/register', async (req, res, next) => {
          userId: user.id,
          purchaseComplete: false,
          adoption_fee: 100,
+         quanity: 1,
       });
 
       res.send({
@@ -113,7 +120,7 @@ usersRouter.post('/register', async (req, res, next) => {
       });
 
       console.log('is this working?');
-      console.log(cart);
+      console.log({ cart, line: 123 });
    } catch (error) {
       next(error);
    }
