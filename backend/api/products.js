@@ -6,6 +6,7 @@ const {
 	getProductsById,
 	getProductsByCategory,
 	updateProducts,
+   deleteProducts,
 } = require('../db');
 const { requireUser } = require('./utils');
 
@@ -66,5 +67,14 @@ productsRouter.patch('/adminedit', requireUser, async (req, res, next) => {
 		next(error);
 	}
 });
+
+productsRouter.delete('/:productId', requireUser, async (req, res, next) =>{
+   try {
+      const products = await deleteProducts(req.params.productId);
+      res.send(products);
+   } catch (error) {
+      next(error)
+   }
+})
 
 module.exports = productsRouter;

@@ -121,10 +121,27 @@ async function updateProducts({
    }
 }
 
+async function deleteProducts(id) {
+	try {
+		const { rows: products } = await client.query(
+			`
+        DELETE FROM products
+        WHERE "id" = $1
+        `,
+			[id]
+		);
+      console.log(id, "This is productDb in backend")
+		return products;
+	} catch (error) {
+		throw error;
+	}
+}
+
 module.exports = {
    createProducts,
    getAllProducts,
    getProductsById,
    getProductsByCategory,
    updateProducts,
+   deleteProducts
 };

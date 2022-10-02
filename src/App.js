@@ -154,7 +154,11 @@ const App = () => {
                   />
                </Route>
                <Route path='/products/:id'>
-                  <SingleProduct products={products} />
+                  <SingleProduct 
+                     products={products}
+                     setProducts={setProducts}
+                     token={token}
+                      />
                </Route>
 
                <Route path='/cart'>

@@ -254,19 +254,22 @@ export async function editProduct({
 }
 
 export async function deleteProduct({ token, productId }) {
-   try {
-      return fetch(`${BASE_URL}/products/${productId}`, {
-         method: 'DELETE',
-         headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-         },
-      })
-         .then((response) => response.json())
-         .then((result) => {
-            return result;
-         });
-   } catch (error) {
-      console.error(error);
-   }
+	try {
+		return fetch(`${BASE_URL}/products/${productId}`, {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
+		})
+			.then((response) => response.json())
+			.then((result) => {
+            alert("Dog has been removed.")
+            window.location.assign("/products")
+				return result;
+			});
+	} catch (error) {
+		console.error(error);
+	}
+
 }

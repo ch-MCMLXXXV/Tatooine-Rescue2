@@ -6,11 +6,8 @@ import Button from '@mui/material/Button'
 import { Container } from '@mui/system'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-import FormGroup from '@mui/material/FormGroup'
 import TextField from '@mui/material/TextField'
 import FormControlLabel from '@mui/material/FormControlLabel'
-import { APIURL } from '..';
-import { HistoryToggleOff, SettingsBackupRestoreRounded, SettingsInputCompositeSharp } from '@mui/icons-material';
 
 const AdminCreateProduct = ({ products, setProducts }) => {
     const history = useHistory();
@@ -36,7 +33,7 @@ const AdminCreateProduct = ({ products, setProducts }) => {
             image,
             isActive
         });
-        alert("Your product has been added.")
+        alert("Dog has been added.")
         window.location.assign("/products")
     };
 
