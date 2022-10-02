@@ -5,6 +5,7 @@ async function createOrders({
    userId,
    purchaseComplete,
    adoption_fee,
+   productId,
    quantity,
 }) {
    try {
@@ -27,6 +28,7 @@ async function createOrders({
       await addProductToCart({
          orderId: order.id,
          adoption_fee,
+         productId,
          quantity,
       });
       return order;

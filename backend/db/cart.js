@@ -29,7 +29,7 @@ async function getCartByOrderAndProduct(orderId, productId) {
             WHERE "orderId" = $1,
             AND "productId" = $2;
         `,
-         [orderId, productId]
+         [orderID, productId]
       );
 
       return orderProduct;
@@ -38,7 +38,12 @@ async function getCartByOrderAndProduct(orderId, productId) {
    }
 }
 
-async function addProductToCart({ orderId, productId }) {
+async function addProductToCart({
+   orderId,
+   productId,
+   adoption_fee,
+   quantity,
+}) {
    try {
       const { rows: cart } = await client.query(
          `
