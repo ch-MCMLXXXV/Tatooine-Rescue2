@@ -34,10 +34,10 @@ const App = () => {
    );
    const [userData, setUserData] = useState({});
    const [password, setPassword] = useState('');
-   
+
    const [product, setProduct] = useState('');
    const [products, setProducts] = useState([]);
-   
+
    const [email, setEmail] = useState('');
    const [firstName, setFirstName] = useState('');
    const [lastName, setLastName] = useState('');
@@ -82,7 +82,7 @@ const App = () => {
          setToken(localStorage.getItem('token'));
          return;
       }
-      const data = await getUser({token});
+      const data = await getUser({ token });
       setUserData(data);
    }, [token]);
 
@@ -96,8 +96,6 @@ const App = () => {
       };
       getAllProducts().catch(console.error);
    }, [setProducts]);
-
-
 
    return (
       <>
@@ -164,24 +162,23 @@ const App = () => {
                </Route>
 
                <Route path='/cart'>
-                  <Cart 
-                  token={token}
-                  userData={userData}
-                  />
+                  <Cart token={token} userData={userData} />
                </Route>
                <Route path='/create'>
-                  <AdminCreate 
+                  <AdminCreate
                      products={products}
                      setProducts={setProducts}
                      token={token}
-                     />
+                  />
                </Route>
                <Route path='/edit/:id'>
-                  {products.length && <AdminEdit
-                     products={products}
-                     setProducts={setProducts}
-                     token={token}
-                  />}
+                  {products.length && (
+                     <AdminEdit
+                        products={products}
+                        setProducts={setProducts}
+                        token={token}
+                     />
+                  )}
                </Route>
                {/* <Route path="/cart/:userId" element={<Cart />} /> */}
             </Switch>

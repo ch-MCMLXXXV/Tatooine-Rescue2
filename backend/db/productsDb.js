@@ -104,10 +104,21 @@ async function updateProducts({
             "isActive" = $8
             WHERE id = $6;
         `,
-         [name, adoption_fee, quantity, breed, image, id, description, isActive]
+         [
+            name,
+            adoption_fee,
+            quantity,
+            breed,
+            image,
+            id,
+            description,
+            isActive,
+         ]
       );
       return products;
-   } catch (error){console.log(error)}
+   } catch (error) {
+      console.log(error);
+   }
 }
 
 async function deleteProducts(id) {
