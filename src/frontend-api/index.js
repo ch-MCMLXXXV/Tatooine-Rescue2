@@ -67,6 +67,27 @@ export async function loginUser({ username, password }) {
       console.error(error);
    }
 }
+/*
+Working on add product to cart
+
+id SERIAL PRIMARY KEY,
+			"productId" INTEGER REFERENCES products(id),
+			"orderId" INTEGER REFERENCES orders(id),
+			"quantity" INTEGER NOT NULL DEFAULT 0,
+			"adoption_fee" FLOAT NOT NULL,
+			UNIQUE ("orderId" , "productId")
+*/
+// export async function addToCart({
+// 	id,
+// 	productId,
+//     orderId,
+//     quantity,
+//     adoption_fee,}) {
+// 		try{
+// 			return fetch(`${BASE_URL}/cart/`)
+// 		}
+
+// }
 
 export async function createOrder({
    userId,
@@ -254,22 +275,21 @@ export async function editProduct({
 }
 
 export async function deleteProduct({ token, productId }) {
-	try {
-		return fetch(`${BASE_URL}/products/${productId}`, {
-			method: 'DELETE',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`,
-			},
-		})
-			.then((response) => response.json())
-			.then((result) => {
-            alert("Dog has been removed.")
-            window.location.assign("/products")
-				return result;
-			});
-	} catch (error) {
-		console.error(error);
-	}
-
+   try {
+      return fetch(`${BASE_URL}/products/${productId}`, {
+         method: 'DELETE',
+         headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+         },
+      })
+         .then((response) => response.json())
+         .then((result) => {
+            alert('Dog has been removed.');
+            window.location.assign('/products');
+            return result;
+         });
+   } catch (error) {
+      console.error(error);
+   }
 }

@@ -57,7 +57,7 @@ async function addProductToCart({
       const inCart = cart.filter(
          (cart) => cart.productId === productId
       );
-
+      console.log({ quantity, line: 60 });
       if (inCart.length === 0) {
          const {
             rows: [cart],
