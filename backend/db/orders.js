@@ -1,48 +1,34 @@
+const { addProductToCart } = require('./cart');
 const client = require('./client');
 
 async function createOrders({
    userId,
    purchaseComplete,
    adoption_fee,
-   productsId,
    quantity,
 }) {
    try {
-      const {
-         rows: [order],
-      } = await client.query(
-         `
-        INSERT INTO orders ("userId", "purchaseComplete", adoption_fee, "productsId", quantity)
-        VALUES($1, $2, $3, $4, $5)
-        RETURNING *;
-        `,
-         [
-            userId,
-            purchaseComplete,
-            adoption_fee,
-            productsId,
-            quantity,
-         ]
-      );
-      return order;
-   } catch (error) {
-      throw error;
-   }
-}
-
-async function updateOrderQuantity({ id, quantity }) {
-   try {
-      const {
-         rows: [order],
-      } = await client.query(
-         `
-        UPDATE orders
-        SET quantity=$1
-        WHERE id=$2
-        RETURNING *;
-        `,
-         [quantity, id]
-      );
+      const existingOrder = await getUsersCart(userId);
+      console.log(existingOrder, 'existing order');
+      let order = {};
+      if (existingOrder?.length > 0) {
+         order = existingOrder[0];
+      } else {
+         const { rows } = await client.query(
+            `
+           INSERT INTO orders ("userId", "purchaseComplete", adoption_fee)
+           VALUES($1, $2, $3)
+           RETURNING *;
+           `,
+            [userId, purchaseComplete, adoption_fee]
+         );
+         order = rows[0];
+      }
+      await addProductToCart({
+         orderId: order.id,
+         adoption_fee,
+         quantity,
+      });
       return order;
    } catch (error) {
       throw error;
@@ -84,6 +70,21 @@ async function getAllCompletedOrdersByUserId({ userId }) {
    }
 }
 
+async function attachProductsToOrder(orderId) {
+   try {
+      const { rows } = await client.query(
+         `SELECT products.name, products.id, products.breed, products.adoption_fee, products.image, cart.quantity
+         FROM products
+         Join cart ON products.id = cart."productId"
+         WHERE cart."orderId" = $1
+         `,
+         [orderId]
+      );
+      return rows;
+   } catch (error) {
+      throw error;
+   }
+}
 async function getOrderById(id) {
    try {
       const {
@@ -96,6 +97,7 @@ async function getOrderById(id) {
         `,
          [id]
       );
+      order.products = await attachProductsToOrder(order.id);
       return order;
    } catch (error) {
       throw error;
@@ -103,12 +105,12 @@ async function getOrderById(id) {
 }
 
 async function getUsersCart(userId) {
+   console.log(userId, 'userId');
    try {
       const { rows: cart } = await client.query(
          `
-        SELECT orders.id AS "orderId", orders.quantity AS "orderQuantity", products.name, products.image, products.adoption_fee, products."quantity"
+        SELECT *
         FROM orders
-        JOIN orders ON orders."productsId" = products.id
         WHERE "userId" = $1 AND "purchaseComplete" = false;
         `,
          [userId]
@@ -169,7 +171,6 @@ async function getAllOrdersAsAdmin({ userId }) {
 
 module.exports = {
    createOrders,
-   updateOrderQuantity,
    getAllOrdersByUserId,
    getOrderById,
    getUsersCart,
