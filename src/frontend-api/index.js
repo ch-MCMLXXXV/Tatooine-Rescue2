@@ -249,6 +249,8 @@ export async function deleteProduct({ token, productId }) {
 		})
 			.then((response) => response.json())
 			.then((result) => {
+            alert("Dog has been removed.")
+            window.location.assign("/products")
 				return result;
 			});
 	} catch (error) {

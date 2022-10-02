@@ -6,12 +6,8 @@ import { Checkbox, CssBaseline } from '@mui/material';
 import { Container } from '@mui/system'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-import FormGroup from '@mui/material/FormGroup'
 import TextField from '@mui/material/TextField'
 import FormControlLabel from '@mui/material/FormControlLabel'
-import { APIURL } from '..';
-import { HistoryToggleOff, SettingsBackupRestoreRounded, SettingsInputCompositeSharp } from '@mui/icons-material';
-import { useEffect } from 'react';
 
 const AdminEditProduct = ({products, setProducts, token}) => {
     const history = useHistory();
