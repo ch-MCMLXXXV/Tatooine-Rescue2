@@ -60,6 +60,7 @@ const SingleProduct = ({ products, orders, token }) => {
                   <Typography variant='h6'>
                      Fee: ${adoption_fee}
                   </Typography>
+				  <div style={{display:'flex', alignItems:'center'}}>
                   <Tooltip title='Add to Cart'>
                      <IconButton
                         aria-label='Add to Cart'
@@ -68,7 +69,7 @@ const SingleProduct = ({ products, orders, token }) => {
                      </IconButton>
                   </Tooltip>
 				  {(username === "Admin1") ? (
-					<div>
+					<div style={{display:'flex', alignItems:'center'}}>
 					<Tooltip title='Edit'>
 						<IconButton
 							aria-label='Edit'
@@ -85,6 +86,7 @@ const SingleProduct = ({ products, orders, token }) => {
 						</IconButton>
 					</Tooltip>
 					</div>) : null}
+					</div>
                </Grid>
             </Grid>
          </Grid>

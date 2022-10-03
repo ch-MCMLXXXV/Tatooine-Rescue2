@@ -25,19 +25,19 @@ const AdminEditProduct = ({products, setProducts, token}) => {
         
     const handleSubmit = async (event) => {
         event.preventDefault();
-    const response = await editProduct({
-        token,
-        name,
-        description,
-        adoption_fee,
-        quantity,
-        breed,
-        image,
-        isActive,
-        productId:id,
-    });
-    alert("Your product has been updated.")
-    window.location.assign("/products")
+        const response = await editProduct({
+            token,
+            name,
+            description,
+            adoption_fee,
+            quantity,
+            breed,
+            image,
+            isActive,
+            productId:id,
+        });
+        alert("Your product has been updated.")
+        window.location.assign("/products")
     };
 
     return <>
