@@ -13,13 +13,16 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const SingleProduct = ({ products, orders, token }) => {
-   const { id } = useParams();
+	const username = localStorage.getItem('username');
+	const { id } = useParams();
 	const productId = id;
-   const product = products.find((product) => product.id == id);
-   if (product === undefined) {
-      return null;
-   }
-   const { name, description, breed, image, adoption_fee } = product;
+	const product = products.find((product) => product.id == id);
+	if (product === undefined) {
+		return null;
+	}
+	const { name, description, breed, image, adoption_fee } = product;
+
+	
 
    return (
       <>
@@ -64,6 +67,8 @@ const SingleProduct = ({ products, orders, token }) => {
                         <AddShoppingCartSharpIcon fontSize='large' />
                      </IconButton>
                   </Tooltip>
+				  {(username === "Admin1") ? (
+					<div>
 					<Tooltip title='Edit'>
 						<IconButton
 							aria-label='Edit'
@@ -79,6 +84,7 @@ const SingleProduct = ({ products, orders, token }) => {
 							<DeleteIcon fontSize='large' />
 						</IconButton>
 					</Tooltip>
+					</div>) : null}
                </Grid>
             </Grid>
          </Grid>

@@ -6,8 +6,6 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container } from '@mui/system';
 import { CssBaseline, Typography, Grid, Link } from '@mui/material';
-import { BASE_URL } from '../frontend-api/index';
-// import { loginUser } from '../frontend-api';
 
 const Login = ({
    username,
@@ -15,7 +13,6 @@ const Login = ({
    password,
    setPassword,
    setToken,
-   setIsLoggedIn,
 }) => {
    const [loginError, setLoginError] = useState('');
    const navigate = useHistory();
@@ -28,7 +25,6 @@ const Login = ({
          username,
          password,
       });
-      console.log({ data, line: 50 });
       const token = data.token;
       if (!token) {
          setLoginError(data.message);

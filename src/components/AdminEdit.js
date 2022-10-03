@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '@material-ui/core';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { editProduct } from '../frontend-api/index';
 import { Checkbox, CssBaseline } from '@mui/material';
 import { Container } from '@mui/system'
@@ -10,12 +10,9 @@ import TextField from '@mui/material/TextField'
 import FormControlLabel from '@mui/material/FormControlLabel'
 
 const AdminEditProduct = ({products, setProducts, token}) => {
-    const history = useHistory();
-
     const { id } = useParams();
 
     const product = products.find((product) => product.id == id);
-    console.log(product?.name)
         
     const [name, setName] = useState(product?.name);
     const [adoption_fee, setAdoptionFee] = useState(product?.adoption_fee);

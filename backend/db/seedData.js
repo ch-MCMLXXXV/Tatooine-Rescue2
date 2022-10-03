@@ -108,6 +108,13 @@ async function createInitialUsers() {
             email: 'fspurnier3@cnet.com',
             password: 'Lt5CfVgtOBI',
          },
+		 {
+            username: 'Admin1',
+            firstName: 'Admin1',
+            lastName: 'Admin1',
+            email: 'Admin1@admin.com',
+            password: 'Admin1',
+         },
       ];
       const users = await Promise.all(usersToCreate.map(createUser));
 

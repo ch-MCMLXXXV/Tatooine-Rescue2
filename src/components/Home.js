@@ -1,13 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Grid from '@mui/material/Grid';
 import CardMedia from '@mui/material/CardMedia';
 import {
-   CardActions,
-   CardActionArea,
    Button,
 } from '@mui/material';
 
