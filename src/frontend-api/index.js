@@ -158,7 +158,6 @@ export async function fetchAllProducts() {
       })
          .then((response) => response.json())
          .then((result) => {
-            console.log(result);
             return result;
          });
    } catch (error) {
@@ -256,6 +255,7 @@ export async function editProduct({
             Authorization: `Bearer ${token}`,
          },
          body: JSON.stringify({
+            id: productId,
             name: name,
             description: description,
             breed: breed,

@@ -90,7 +90,6 @@ const App = () => {
    useEffect(() => {
       const getAllProducts = async () => {
          const result = await fetchAllProducts();
-         console.log(result);
          setProducts(result);
          // setproductsToDisplay(result.data.products);
       };
@@ -169,6 +168,7 @@ const App = () => {
                      products={products}
                      setProducts={setProducts}
                      token={token}
+                     username={username}
                   />
                </Route>
                <Route path='/edit/:id'>
@@ -177,6 +177,7 @@ const App = () => {
                         products={products}
                         setProducts={setProducts}
                         token={token}
+                        username={username}
                      />
                   )}
                </Route>

@@ -10,7 +10,6 @@ import TextField from '@mui/material/TextField'
 import FormControlLabel from '@mui/material/FormControlLabel'
 
 const AdminCreateProduct = ({ products, setProducts }) => {
-    const history = useHistory();
     const [name, setName] = useState("");
     const [adoption_fee, setAdoptionFee] = useState("");
     const [breed, setBreed] = useState("");

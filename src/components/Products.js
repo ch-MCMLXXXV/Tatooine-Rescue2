@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
 import Search from './Search';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
@@ -12,7 +10,6 @@ import {
 	// IconButton,
 	CardActionArea,
 	Button,
-	TextField,
 } from '@mui/material';
 
 
@@ -60,18 +57,6 @@ const Products = ({ products, setProducts, setProductsToDisplay }) => {
 				setProducts={setProducts}
 				setProductsToDisplay={setProductsToDisplay}
 			/>
-
-			{/* <Typography variant='h5' component='div'>
-				Search
-			</Typography>
-			<TextField
-				type="text"
-				placeholder="search for a dog"
-				value={searchTerm}
-				onChange={(event) =>
-					setSearchTerm(event.target.value)
-				}
-			></TextField> */}
 			<Grid
 				container
 				spacing={{ xs: 6}}

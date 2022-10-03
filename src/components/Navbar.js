@@ -15,16 +15,9 @@ import MenuItem from '@mui/material/MenuItem';
 
 const NavBar = ({ token, isLoggedIn, setIsLoggedIn, setToken }) => {
    const navigate = useHistory();
+   const username = localStorage.getItem('username');
    const [anchorEl, setAnchorEl] = useState(null);
    const [open, setOpen] = useState(false);
-
-   const openSnk = (e) => {
-      if (handleLogout(e.target)) {
-         setOpen(true);
-      } else {
-         setOpen(false);
-      }
-   };
 
    const handleMenu = (e) => {
       setAnchorEl(e.currentTarget);
@@ -41,6 +34,10 @@ const NavBar = ({ token, isLoggedIn, setIsLoggedIn, setToken }) => {
    const goCart = () => {
       navigate.push('/Cart');
    };
+
+   const goCreate = () => {
+      navigate.push('/Create');
+   }
 
    const handleLogout = () => {
       localStorage.removeItem('token');
@@ -102,6 +99,9 @@ const NavBar = ({ token, isLoggedIn, setIsLoggedIn, setToken }) => {
                               'aria-labelledby': 'basic-button',
                            }}>
                            <MenuItem onClick={goHome}>Home</MenuItem>
+                           {(username === "Admin1") ? (
+                              <MenuItem onClick={goCreate}>Create</MenuItem>
+                           ) : null}
                            <MenuItem onClick={goCart}>Cart</MenuItem>
                            <MenuItem onClick={handleLogout}>
                               Logout

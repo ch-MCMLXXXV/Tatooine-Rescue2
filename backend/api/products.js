@@ -59,7 +59,7 @@ productsRouter.get('/category/:breed', async (req, res, next) => {
 });
 
 // /:productId
-productsRouter.patch('/adminedit', requireUser, async (req, res, next) => {
+productsRouter.patch('/:id', requireUser, async (req, res, next) => {
 	try {
 		const products = await updateProducts(req.body);
 		res.send(products);
