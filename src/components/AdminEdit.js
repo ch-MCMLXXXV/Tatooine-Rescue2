@@ -11,9 +11,7 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 
 const AdminEditProduct = ({products, setProducts, token}) => {
     const { id } = useParams();
-
     const product = products.find((product) => product.id == id);
-        
     const [name, setName] = useState(product?.name);
     const [adoption_fee, setAdoptionFee] = useState(product?.adoption_fee);
     const [breed, setBreed] = useState(product?.breed);
@@ -37,7 +35,7 @@ const AdminEditProduct = ({products, setProducts, token}) => {
             productId:id,
         });
         alert("Your product has been updated.")
-        window.location.assign("/products")
+        window.location.assign("/Products")
     };
 
     return <>
@@ -51,7 +49,7 @@ const AdminEditProduct = ({products, setProducts, token}) => {
                     alignItems: 'center',
                 }}>
             <Typography component='h1' variant='h4'>
-                Edit a Post
+                Edit A Dog
             </Typography> 
             <Box component='form' onSubmit={handleSubmit}>
                 <TextField
