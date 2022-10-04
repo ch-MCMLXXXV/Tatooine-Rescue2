@@ -33,7 +33,7 @@ const AdminCreateProduct = ({ products, setProducts }) => {
             isActive
         });
         alert("Dog has been added.")
-        window.location.assign("/products")
+        window.location.assign("/Products")
     };
 
     return <>
@@ -47,7 +47,7 @@ const AdminCreateProduct = ({ products, setProducts }) => {
                     alignItems: 'center',
                 }}>
             <Typography component='h1' variant='h4'>
-                Create a Post
+                Add A Dog
             </Typography> 
             <Box component='form' onSubmit={handleSubmit}>
                 <TextField

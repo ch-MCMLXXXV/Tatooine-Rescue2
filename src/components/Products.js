@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import Search from './Search';
+import React, { useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -7,56 +6,78 @@ import Grid from '@mui/material/Grid';
 import CardMedia from '@mui/material/CardMedia';
 import {
 	CardActions,
-	// IconButton,
+	Container,
+	Box,
 	CardActionArea,
 	Button,
+	TextField,
 } from '@mui/material';
 
 
-const Products = ({ products, setProducts, setProductsToDisplay }) => {
-	const [searchQuery, updateSearchQuery] = useState('');
-	const [category, setCategory] = useState('');
-	// const [searchTerm, setSearchTerm] = useState('');
-	let productsToDisplay = products;
+const Products = ({ products, setProducts }) => {
+	const [searchTerm, setSearchTerm] = useState('');
 
-	// const Search = ({ products, setProductsToDisplay }) => {
-	// 	const [searchTerm, setSearchTerm] = useState('');
+	useEffect(() => {
+		setProducts(products)
+	}, []);
 
-	// 	useEffect(() => {
-	// 		const filteredProducts =
-	// 			products.length &&
-	// 			products.filter((product) => productMatches(product, searchTerm));
-	// 		const productsToDisplay = searchTerm.length
-	// 			? filteredProducts
-	// 			: products;
-	// 		setProductsToDisplay(productsToDisplay);
-	// 	}, [searchTerm]);
-
-	// 	function productMatches(product, text) {
-	// 		if (product.name.includes(searchTerm)) {
-	// 			return true;
-	// 		}
-	// 		if (product.description.includes(searchTerm)) {
-	// 			return true;
-	// 		}
-	// 		if (product.breed.includes(searchTerm)) {
-	// 			return true;
-	// 		} else {
-	// 			return false;
-	// 		}
-	// 	}
-	// };
+	const filteredProducts =
+		products.length &&
+		products.filter((product) => productMatches(product, searchTerm));
+		
+	const productsToDisplay = searchTerm.length
+		? filteredProducts
+		: products;
+		
+	function productMatches (product) {
+        if (product.name.toLowerCase().includes(searchTerm)) {
+            return true;
+        }
+        if (product.description.toLowerCase().includes(searchTerm)) {
+            return true;
+        }
+        if (product.breed.toLowerCase().includes(searchTerm)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 	return (
 		<>
-			<Typography variant='h2' component='div'>
+		<Typography variant='h2' component='div'>
             	Puppies For Adoption
          	</Typography>
-			<Search
-				products={products}
-				setProducts={setProducts}
-				setProductsToDisplay={setProductsToDisplay}
-			/>
+		 <Container sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+        }} component="SearchContainer">
+            <Box 
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    }}>
+                <TextField
+                    margin='normal'
+                    // fullwidth
+                    label='Search'
+                    type='text'
+                    value={searchTerm}
+                    onChange={(event) => setSearchTerm(event.target.value)}
+                    ></TextField>
+                </Box>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: ''
+                    }}>
+                </Box>
+        </Container>
+			
+			
 			<Grid
 				container
 				spacing={{ xs: 6}}
@@ -105,24 +126,6 @@ const Products = ({ products, setProducts, setProductsToDisplay }) => {
 					</Grid>
 		  		))}
 	   		</Grid>
-
-			{/* {productsToDisplay?.map((product) => (
-				<div key={product.id} style={{ border: '1px solid black' }}>
-					<img
-						style={{ maxWidth: '150px', height: 'auto' }}
-						src={product.image}
-					></img>
-					<h3>Name:{product.name}</h3>
-					<h3>Breed:{product.breed}</h3>
-					<div>Description:{product.description}</div>
-					<div>${product.adoption_fee}</div>
-					<Button>
-						<Link to={`/products/${product.id}`}>
-							View more details
-						</Link>
-					</Button> */}
-				{/* // </div> */}
-			{/* // ))} */}
 		</>
 	);
 };

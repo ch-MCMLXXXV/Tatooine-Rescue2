@@ -34,14 +34,13 @@ const App = () => {
    );
    const [userData, setUserData] = useState({});
    const [password, setPassword] = useState('');
-
    const [product, setProduct] = useState('');
    const [products, setProducts] = useState([]);
-
    const [email, setEmail] = useState('');
    const [firstName, setFirstName] = useState('');
    const [lastName, setLastName] = useState('');
    const [isLoggedIn, setIsLoggedIn] = useState(false);
+   const [productsToDisplay, setProductsToDisplay] = useState([]);
 
    const theme = createTheme({
       palette: {
@@ -91,7 +90,6 @@ const App = () => {
       const getAllProducts = async () => {
          const result = await fetchAllProducts();
          setProducts(result);
-         // setproductsToDisplay(result.data.products);
       };
       getAllProducts().catch(console.error);
    }, [setProducts]);
@@ -122,6 +120,7 @@ const App = () => {
                      token={token}
                      setProducts={setProducts}
                      products={products}
+                     
                   />
                </Route>
                <Route exact path='/login'>
