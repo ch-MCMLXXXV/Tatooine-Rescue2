@@ -43,7 +43,7 @@ const Register = ({
                 ? alert(`${data.message}`)
                 : alert(`${data.error}`);
             if (token) {
-                navigate.push("/home");
+                navigate.push("/Products");
             }
         }
     };

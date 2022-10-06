@@ -94,7 +94,7 @@ const AdminEditProduct = ({products, setProducts, token}) => {
                     onChange={(event) => setIsActive(event.target.value)}/>
                 <Button sx={{
                     m: 2
-                }} type="submit" variant='outlined' >Edit</Button>
+                }} type="submit" variant='outlined' >Submit</Button>
             </Box>
         </Box>
         </Container>
