@@ -67,27 +67,7 @@ export async function loginUser({ username, password }) {
       console.error(error);
    }
 }
-/*
-Working on add product to cart
 
-id SERIAL PRIMARY KEY,
-			"productId" INTEGER REFERENCES products(id),
-			"orderId" INTEGER REFERENCES orders(id),
-			"quantity" INTEGER NOT NULL DEFAULT 0,
-			"adoption_fee" FLOAT NOT NULL,
-			UNIQUE ("orderId" , "productId")
-*/
-// export async function addToCart({
-// 	id,
-// 	productId,
-//     orderId,
-//     quantity,
-//     adoption_fee,}) {
-// 		try{
-// 			return fetch(`${BASE_URL}/cart/`)
-// 		}
-
-// }
 
 export async function createOrder({
    userId,
@@ -227,10 +207,6 @@ export async function addProduct({
             isActive: isActive,
          }),
       });
-      // .then((response) => response.json())
-      // .then((result) => {
-      // 	return result;
-      // });
    } catch (error) {
       console.error(error);
    }
@@ -265,10 +241,6 @@ export async function editProduct({
             isActive: isActive,
          }),
       });
-      // .then((response) => response.json())
-      // .then((result) => {
-      // 	return result;
-      // });
    } catch (error) {
       console.error(error);
    }

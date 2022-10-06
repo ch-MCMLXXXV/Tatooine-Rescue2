@@ -125,20 +125,7 @@ const Cart = ({ token, userData }) => {
             </Grid>
          </>
 
-         //  <div>
-         //     <h1>Your Order #{orders.id}</h1>
-         //     <h2>Items in your cart:</h2>
-         //     {orders.products &&
-         //        orders.products.map((product) => {
-         //           return (
-         //              <div key={product.id}>
-         //                 <h3>{product.name}</h3>
-         //                 <p>{product.description}</p>
-         //                 <p>{product.price}</p>
-         //              </div>
-         //           );
-         //        })}
-         //  </div>
+        
       );
    }
 };

@@ -67,14 +67,6 @@ const App = () => {
       },
    });
 
-   //    useEffect(() => {
-   //       const getAPIStatus = async () => {
-   //          const { healthy } = await getAPIHealth();
-   //          setAPIHealth(healthy ? 'api is up! :D' : 'api is down :/');
-   //       };
-
-   //       getAPIStatus();
-   //    }, []);
 
    useEffect(async () => {
       if (!token) {
@@ -180,7 +172,6 @@ const App = () => {
                      />
                   )}
                </Route>
-               {/* <Route path="/cart/:userId" element={<Cart />} /> */}
             </Switch>
          </ThemeProvider>
       </>

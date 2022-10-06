@@ -82,14 +82,5 @@ ordersRouter.get('/cart/:userId', async (req, res, next) => {
    }
 });
 
-// Working on add product to cart
-// ordersRouter.post('/cart', requireUser, async(req, res, next) => {
-//    try{
-//       const {id, productId, adoption_fee, orderId, quantity} = req.body
-//       const addProduct = await addProductToCart({})
-//    }
-//    }catch(error) {
-//       next(error);
-//    }
-// })
+
 module.exports = ordersRouter;
