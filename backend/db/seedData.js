@@ -89,13 +89,14 @@ async function createInitialUsers() {
 				password: 'YaUH8Nte',
 			},
 
-			{
-				username: 'acolam2',
-				firstName: 'Arda',
-				lastName: 'Colam',
-				email: 'acolam2@washingtonpost.com',
-				password: 'password',
-			},
+
+         {
+            username: 'acolam2',
+            firstName: 'Arda',
+            lastName: 'Colam',
+            email: 'acolam2@washingtonpost.com',
+            password: 'password',
+         },
 
 			{
 				username: 'fspurnier3',

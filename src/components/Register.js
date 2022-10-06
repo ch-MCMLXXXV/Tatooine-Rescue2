@@ -35,16 +35,20 @@ const Register = ({
 
 			const token = data.token;
 
-			localStorage.setItem('token', JSON.stringify(token));
-			setToken(token);
-			localStorage.setItem('token', token);
-			localStorage.setItem('username', username);
-			data ? alert(`${data.message}`) : alert(`${data.error}`);
-			if (token) {
-				navigate.push('/Products');
-			}
-		}
-	};
+
+            localStorage.setItem("token", JSON.stringify(token));
+            setToken(token);
+            localStorage.setItem('token', token);
+            localStorage.setItem("username", username);
+            data
+                ? alert(`${data.message}`)
+                : alert(`${data.error}`);
+            if (token) {
+                navigate.push("/Products");
+            }
+        }
+    };
+
 
 	const confirmPassword = () => {
 		const password = document.querySelector('input[name=password');
